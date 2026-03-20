@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>여행 중 가이드 — 기타 지역</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F8FA;--white:#FFF;--dark:#111827;--g8:#1F2937;--g6:#4B5563;--g4:#9CA3AF;--g2:#E5E7EB;--g1:#F3F4F6;--blue:#2563EB;--b50:#EFF6FF;--orange:#EA580C;--red:#DC2626;--r50:#FEF2F2;--green:#059669;--gr50:#ECFDF5;--amber:#D97706;--a50:#FFFBEB;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--g8);line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{width:100%;max-width:960px;margin:0 auto;background:var(--white);min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.08);display:flex;flex-direction:column}
+.hd{background:linear-gradient(135deg,#0F172A,#1E3A5F);padding:36px 24px 24px;color:#fff;position:relative;overflow:hidden}
+.hd::after{content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(37,99,235,.2),transparent 70%);border-radius:50%}
+.hd-in{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:4px 12px;margin-bottom:10px}
+.bdot{width:7px;height:7px;border-radius:50%;background:#FF3B30;animation:pulse 1.5s infinite;flex-shrink:0}
+.blbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.06em}
+.htitle{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:4px}
+.hsub{font-size:13px;color:rgba(255,255,255,.5)}
+.sbar{padding:10px 16px;background:var(--white);border-bottom:1px solid var(--g2);position:sticky;top:0;z-index:200}
+.sinput{width:100%;padding:9px 14px;border:1.5px solid var(--g2);border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border .2s}
+.sinput:focus{border-color:var(--blue)}
+.rgbox{padding:10px 16px;background:#FAFAFA;border-bottom:1px solid var(--g1)}
+.rglbl{font-size:11px;font-weight:700;color:var(--g4);letter-spacing:.05em;margin-bottom:6px}
+.rgrow{display:flex;flex-wrap:wrap;gap:5px}
+.rgtag{padding:4px 11px;border:1.5px solid var(--g2);border-radius:20px;font-size:12px;font-weight:600;color:var(--g6);background:var(--white);cursor:pointer;font-family:inherit;transition:all .15s}
+.rgtag:hover{border-color:var(--blue);color:var(--blue);background:var(--b50)}
+.rgtag.on{border-color:var(--blue);color:#fff;background:var(--blue)}
+.pills{padding:8px 16px;background:#fff;border-bottom:1px solid var(--g1);display:flex;flex-wrap:wrap;gap:5px}
+.pill{padding:4px 11px;border:1.5px solid var(--g2);border-radius:20px;font-size:12px;font-weight:600;color:var(--g6);background:var(--white);cursor:pointer;transition:all .15s;font-family:inherit}
+.pill:hover{border-color:var(--blue);color:var(--blue);background:var(--b50)}
+.pill.on{border-color:var(--blue);color:#fff;background:var(--blue)}
+.content{flex:1}
+.csec{display:none}
+.csec.on{display:block;animation:fu .22s ease}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.chead{padding:22px 24px 0;margin-bottom:18px}
+.chead h2{font-size:21px;font-weight:900;color:var(--dark);letter-spacing:-.03em}
+.chead .sub{font-size:13px;color:var(--g6);margin-top:2px}
+.sec{padding:0 24px;margin-bottom:22px}
+.stitle{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.card{background:var(--white);border-radius:var(--r);padding:18px;border:1px solid var(--g2)}
+.cl{list-style:none;display:flex;flex-direction:column;gap:1px}
+.cl li{padding:0}
+.clbl{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:9px;cursor:pointer;transition:background .15s}
+.clbl:hover{background:var(--g1)}
+.clbl input{display:none}
+.cbox{flex-shrink:0;width:20px;height:20px;margin-top:1px;border:2px solid var(--g2);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cbox svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none;opacity:0;transform:scale(.5);transition:all .18s}
+.clbl input:checked~.cbox{background:var(--blue);border-color:var(--blue)}
+.clbl input:checked~.cbox svg{opacity:1;transform:scale(1)}
+.clbl input:checked~.ctxt{color:var(--g4);text-decoration:line-through}
+.ctxt{font-size:14px;color:var(--g6);line-height:1.6;transition:color .2s}
+.pgwrap{margin-bottom:12px}
+.pgtop{display:flex;justify-content:space-between;margin-bottom:5px}
+.pglbl{font-size:12px;font-weight:600;color:var(--g6)}
+.pgcnt{font-size:12px;font-weight:700;color:var(--blue)}
+.pgbg{height:5px;background:var(--g1);border-radius:99px;overflow:hidden}
+.pgbar{height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.done-badge{display:none;align-items:center;gap:5px;margin-top:8px;padding:9px 13px;background:var(--gr50);border-radius:9px;font-size:13px;font-weight:600;color:var(--green)}
+.done-badge.show{display:flex}
+.co{padding:12px 15px;border-radius:9px;font-size:13px;line-height:1.7;margin-top:10px}
+.co-w{background:var(--r50);border-left:3px solid var(--red);color:#991B1B}
+.co-t{background:var(--a50);border-left:3px solid var(--amber);color:#92400E}
+.co-i{background:var(--b50);border-left:3px solid var(--blue);color:#1E40AF}
+.utags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.utag{padding:4px 11px;background:var(--b50);color:var(--blue);border-radius:7px;font-size:12px;font-weight:600}
+.udets{margin-top:12px}
+.udets p{font-size:13px;color:var(--g6);margin-bottom:3px}
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+@media(min-width:600px){.sgrid{grid-template-columns:repeat(3,1fr)}}
+.spot{background:var(--g1);border-radius:9px;padding:11px 13px}
+.scat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.scat.lm{color:var(--blue)}.scat.fd{color:var(--orange)}
+.sname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:1px}
+.sdesc{font-size:11px;color:var(--g6)}
+.divider{height:8px;background:var(--g1);margin-bottom:22px}
+.ezone{background:#fff;border-top:1px solid var(--g2);padding-bottom:28px}
+.ehd{padding:18px 24px 0;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.edot{width:8px;height:8px;border-radius:50%;background:#FF3B30;animation:pulse 1.5s infinite}
+.etxt{font-size:13px;font-weight:700;color:#FF3B30;letter-spacing:.05em}
+.etitle{font-size:17px;font-weight:800;color:var(--dark);padding:0 24px;margin-bottom:3px;letter-spacing:-.03em}
+.esub{font-size:13px;color:var(--g6);padding:0 24px;margin-bottom:18px}
+.etabs{display:flex;border-bottom:1px solid var(--g2);overflow-x:auto;scrollbar-width:none;margin-bottom:18px}
+.etabs::-webkit-scrollbar{display:none}
+.etab{flex:1;min-width:80px;padding:9px 4px 11px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;font-family:inherit}
+.etab-ic{font-size:19px}
+.etab-lb{font-size:11px;font-weight:500;color:#999;white-space:nowrap;transition:all .2s}
+.etab-in{position:absolute;bottom:0;left:10%;right:10%;height:2.5px;border-radius:2px 2px 0 0;display:none}
+.econtent{padding:0 24px}
+.ccase{border-radius:13px;padding:15px 17px;margin-bottom:14px;border:1.5px solid var(--g2)}
+.cbadge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 9px;margin-bottom:7px}
+.cdot{width:6px;height:6px;border-radius:50%}
+.cbtxt{font-size:11px;font-weight:700;letter-spacing:.03em}
+.ctitle2{font-size:15px;font-weight:800;color:var(--dark);letter-spacing:-.03em;margin-bottom:2px}
+.csub2{font-size:13px;color:var(--g6)}
+.slbl{font-size:11px;font-weight:700;color:#999;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.ssub{font-size:12px;font-weight:700;border-radius:7px;padding:4px 9px;margin-bottom:10px;display:inline-block}
+.srow{display:flex;gap:13px}
+.sleft{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px}
+.snum{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff}
+.sline{width:2px;flex:1;min-height:16px;border-radius:2px;margin:3px 0}
+.scont{flex:1;padding-bottom:15px}
+.scont.last{padding-bottom:0}
+.stname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;letter-spacing:-.02em}
+.stdesc{font-size:12px;color:#555;line-height:1.6}
+.stnote{margin-top:7px;background:#F0F6FF;border:1px solid #BFD7FF;border-radius:8px;padding:8px 11px;font-size:12px;color:#1D4E9B;font-weight:500;line-height:1.5}
+.stnote.w{background:#FFF8EC;border-color:#FFE0A0;color:#B85C00}
+.stnote.d{background:#FFF1F0;border-color:#FFCCC7;color:#CF1322}
+.sdiv2{height:1px;background:#F0F0F0;margin:3px 0 14px}
+.cta{margin-top:18px;background:#F5F5F7;border-radius:13px;padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cta-t{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:1px}
+.cta-s{font-size:12px;color:#888}
+.cta-b{background:var(--dark);color:#fff;border:none;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.cta-b:hover{background:#333}
+.bpad{height:36px}
+.nores{padding:50px 24px;text-align:center;color:var(--g4);font-size:14px;display:none}
+.tip-box{background:#E8F5E9;border:1px solid #A5D6A7;border-radius:10px;padding:12px 15px;margin-bottom:14px;font-size:13px;color:#1B5E20;line-height:1.7}
+.tip-box strong{color:#145214}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hd"><div class="hd-in">
+  <div class="badge"><div class="bdot"></div><span class="blbl">여행 중 · 파일 4/4</span></div>
+  <div class="htitle">🚗 차량 인수 & 드라이브 가이드</div>
+  <div class="hsub">호주 · 뉴질랜드 · 태국 · 동남아 · 중동 · 아프리카 · 남미 외 | 130개 도시</div>
+</div></div>
+<div class="sbar"><input class="sinput" id="si" placeholder="🔍 도시 검색 (예: 시드니, 방콕, 두바이)..." oninput="doFilter(this.value)"></div>
+<div class="rgbox"><div class="rglbl">🌏 지역별 필터</div><div class="rgrow" id="rgrow"></div></div>
+<div class="pills" id="pills"></div>
+<div class="content" id="content"></div>
+<div class="nores" id="nores">검색 결과가 없습니다.</div>
+</div>
+<script>
+const EC={
+  acc:{tag:"사고",tc:"#FF3B30",tb:"#FFF1F0",title:"차량 사고 발생",sub:"침착하게, 순서대로 행동하세요",ac:"#FF3B30",
+    steps:[{n:"01",t:"현지 영업소로 즉시 연락",d:"사고 발생 즉시 차량을 인수한 현지 영업소에 연락하세요.",note:"🚫 상대방 운전자와 자체 협의하거나 자체 수리할 경우, 보험 적용을 받을 수 없으며 벌금 부과 또는 차량 이용 불가 처리될 수 있습니다.",nt:"d"},
+      {n:"02",t:"사고 현장 전체 사진 촬영 후 대기",d:"사고 현장 전체와 차량 손상 부위를 빠짐없이 촬영한 후 현장에서 대기하세요.",note:null},
+      {n:"03",t:"렌터카 업체 지시에 따르기",d:"렌터카 업체에서 요청하는 지시대로 규정을 따라주세요.",note:null}]},
+  ri:{tag:"대여 이슈",tc:"#FF9500",tb:"#FFF8EC",title:"차량 대여 이슈 발생",sub:"예약 정보 오기재 또는 차량 재고 부족",ac:"#FF9500",
+    subs:[{lb:"예약 정보 오기재일 경우",steps:[
+      {n:"01",t:"현지 영업소에서 현장 재예약 문의",d:"오기재된 내용을 현지 영업소에 설명하고 현장에서 다시 예약을 문의하세요.",note:null},
+      {n:"02",t:"환불 불가 시 마이리얼트립으로 문의",d:"현지에서 환불이 불가할 경우 마이리얼트립으로 문의해 주세요.",note:"⚠️ 상황에 따라 100% 환불처리가 되지 않을 수도 있습니다.",nt:"w"}]},
+    {lb:"차량 재고 부족으로 인수 불가일 경우",steps:[
+      {n:"01",t:"즉시 마이리얼트립 1:1 문의 요청",d:"현장 재고 이슈로 인수가 불가한 경우, 즉시 마이리얼트립 1:1 문의를 접수해 주세요.",note:"⚠️ 한국시간 새벽 3시 ~ 오전 7시는 응답이 지연될 수 있습니다.",nt:"w"},
+      {n:"02",t:"대기 후 인수 또는 재예약 진행",d:"대기 후 차량 인수 또는 재예약을 통해 인수를 진행하세요.",note:"💡 예약처·렌터카 업체와 소통이 어려울 경우 다른 업체 차량으로 예약이 필요할 수 있으며, 이 경우 기존 업체 확인 후 환불 처리가 진행됩니다.",nt:"i"}]}]},
+  dl:{tag:"픽업 지연",tc:"#007AFF",tb:"#EFF6FF",title:"픽업 지연 이슈 발생",sub:"항공 지연 또는 픽업 차량 미탑승",ac:"#007AFF",
+    subs:[{lb:"항공 지연의 경우",steps:[
+      {n:"01",t:"현지 렌터카 업체에 먼저 연락",d:"항공편명과 지연 관련 사진을 첨부하여 현지 렌터카 업체에 연락하세요.",note:"📸 지연 증거 사진(항공 지연 안내판 등) 첨부 필수",nt:"i"},
+      {n:"02",t:"업체 연결 어려울 경우 마이리얼트립 문의",d:"현지 렌터카 업체와 연결이 어려울 경우 마이리얼트립으로 문의해 주세요.",note:"📸 문의 시 지연 관련 사진 첨부 필수",nt:"i"}]},
+    {lb:"픽업 차량을 놓친 경우",steps:[
+      {n:"01",t:"현지 렌터카 업체에 즉시 연락",d:"픽업 차량을 놓쳤다면 즉시 현지 렌터카 업체에 연락하세요.",note:null},
+      {n:"02",t:"연락 어려울 경우 마이리얼트립 문의",d:"현지 업체 연락이 어려울 경우 마이리얼트립으로 문의해 주세요.",note:null}]}]}
+};
+const DATA=[
+/* ===== 호주 ===== */
+{rg:"호주",flag:"🇦🇺",city:"시드니",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 (한국과 반대!) ⚠️","타이어 및 연료 확인","E-TAG 전자톨 확인 (시드니 고속도로 필수)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-TAG 톨패스",i:"시드니 고속도로 필수"},{n:"추가 운전자 등록",i:"블루 마운틴 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행 적응 기간"}],
+ sp:[{c:"lm",n:"블루 마운틴",d:"에코 포인트 절경 (편도 1.5h)"},{c:"lm",n:"헌터 밸리",d:"호주 대표 와인 지역 (편도 2.5h)"},{c:"lm",n:"로얄 국립공원",d:"해안 절벽 & 폭포"},{c:"fd",n:"Quay Restaurant",d:"오페라하우스 뷰 파인 다이닝"},{c:"fd",n:"Bourke Street Bakery",d:"시드니 명물 빵집"}],
+ tip:"좌측 통행 적응에 하루 정도 걸려요. 특히 교차로에서 좌우를 반드시 확인하고, 라운드어바웃(로터리)에서 우선권을 헷갈리지 않도록 주의하세요!"},
+{rg:"호주",flag:"🇦🇺",city:"멜버른",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","E-TAG 전자톨 확인 (멜버른 고속도로)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-TAG",i:"멜버른 고속도로 필수"},{n:"추가 운전자 등록",i:"그레이트 오션 로드 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행"}],
+ sp:[{c:"lm",n:"그레이트 오션 로드",d:"세계 최고 해안 드라이브 (편도 2h)"},{c:"lm",n:"야라 밸리",d:"멜버른 와인 & 온천 (편도 1h)"},{c:"lm",n:"모닝턴 반도",d:"반도 해변 & 와이너리"},{c:"fd",n:"Attica",d:"호주 최고 파인 다이닝"},{c:"fd",n:"Queen Victoria Market",d:"전통 시장"}],
+ tip:"그레이트 오션 로드는 세계 10대 드라이브 코스! 12사도(Twelve Apostles)까지는 멜버른에서 약 4~5시간 드라이브예요."},
+{rg:"호주",flag:"🇦🇺",city:"브리즈번",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","Go Via 전자톨 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"Go Via 톨패스",i:"브리즈번 터널·고속도로"},{n:"추가 운전자 등록",i:"골드코스트 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행 대비"}],
+ sp:[{c:"lm",n:"골드코스트",d:"서퍼스 파라다이스 해변 (편도 1h)"},{c:"lm",n:"선샤인 코스트",d:"노사 해변 (편도 1.5h)"},{c:"lm",n:"래밍턴 국립공원",d:"온대우림 & 폭포"},{c:"fd",n:"Gauge",d:"브리즈번 파인 다이닝"},{c:"fd",n:"Jan Powers Farmers Markets",d:"현지 파머스 마켓"}],
+ tip:"브리즈번에서 골드코스트까지는 약 1시간! 서퍼스 파라다이스 해변 드라이브와 테마파크(씨월드·무비월드)를 함께 즐겨보세요."},
+{rg:"호주",flag:"🇦🇺",city:"애들레이드",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"추가 운전자 등록",i:"바로사 밸리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행 & 와이너리 길"},{n:"로드사이드 어시스턴스",i:"아웃백 구간"}],
+ sp:[{c:"lm",n:"바로사 밸리",d:"호주 최고 와인 지역 (편도 1h)"},{c:"lm",n:"캥거루 아일랜드",d:"야생동물 & 절경 (페리 이용)"},{c:"lm",n:"플루리외 반도",d:"맥라렌 베일 와이너리"},{c:"fd",n:"Orana",d:"애들레이드 파인 다이닝"},{c:"fd",n:"Adelaide Central Market",d:"전통 시장"}],
+ tip:"바로사 밸리 와인 투어 시 반드시 운전 담당자를 정하세요! 호주는 음주운전 단속이 매우 엄격해요."},
+{rg:"호주",flag:"🇦🇺",city:"퍼스",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","장거리 구간 여분 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"추가 운전자 등록",i:"마가렛 리버 장거리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"광활한 서호주 오프라인 필수"},{n:"로드사이드 어시스턴스",i:"오지 구간 필수"}],
+ sp:[{c:"lm",n:"마가렛 리버",d:"와인 & 파도 (편도 3h)"},{c:"lm",n:"피너클스 사막",d:"기묘한 석회암 기둥 (편도 2.5h)"},{c:"lm",n:"로트네스트 아일랜드",d:"쿼카 섬 (페리 이용)"},{c:"fd",n:"Rockpool Bar & Grill",d:"퍼스 파인 다이닝"},{c:"fd",n:"Fremantle Markets",d:"전통 시장"}],
+ tip:"서호주는 넓고 주유소 간격이 길어요. 연료가 절반 이하로 줄면 바로 주유하는 습관을 들이세요!"},
+{rg:"호주",flag:"🇦🇺",city:"케언스",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","우기 도로 침수 주의 (12~4월) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"케이프 요크 비포장 도로"},{n:"추가 운전자 등록",i:"장거리"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"열대 우림 오지"}],
+ sp:[{c:"lm",n:"그레이트 배리어 리프",d:"세계 최대 산호초 (배편)"},{c:"lm",n:"데인트리 우림",d:"세계 최고 열대우림"},{c:"lm",n:"쿠란다",d:"스카이레일 & 우림 마을"},{c:"fd",n:"Ochre Restaurant",d:"케언스 원주민 요리"},{c:"fd",n:"Night Markets",d:"다국적 푸드코트"}],
+ tip:"우기(12~4월) 케언스는 도로 침수가 잦아요. 출발 전 도로 상태(qldtraffic.qld.gov.au)를 꼭 확인하세요!"},
+{rg:"호주",flag:"🇦🇺",city:"골드코스트",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","Go Via 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"Go Via",i:"브리즈번 방면 고속도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행"}],
+ sp:[{c:"lm",n:"서퍼스 파라다이스",d:"골드코스트 대표 해변"},{c:"lm",n:"래밍턴 국립공원",d:"온대우림 & 폭포"},{c:"lm",n:"커럼빈 야생동물 보호구역",d:"코알라 만지기"},{c:"fd",n:"Rick Shores",d:"아시안 씨푸드 퓨전"},{c:"fd",n:"Kurrawa Surf Club",d:"해변 뷰 브런치"}],
+ tip:"골드코스트 테마파크(씨월드·무비월드·드림월드)는 차로 이동이 제일 편해요. 각 파크 주차장 사전 예약을 추천!"},
+{rg:"호주",flag:"🇦🇺",city:"캔버라",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행"},{n:"스노우타이어",i:"겨울 나마지 스키장 방면"}],
+ sp:[{c:"lm",n:"코시우즈코 국립공원",d:"호주 최고봉 & 스키 (편도 2.5h)"},{c:"lm",n:"퀸비얀",d:"캔버라 근교 예술 마을"},{c:"lm",n:"티드빈빌라 자연보호구역",d:"캥거루 & 코알라"},{c:"fd",n:"Temporada",d:"캔버라 파인 다이닝"},{c:"fd",n:"Old Bus Depot Markets",d:"주말 파머스 마켓"}],
+ tip:"캔버라는 호주의 수도지만 관광객이 적어 조용해요. 국립 박물관·미술관·전쟁 기념관이 모두 차로 이동하기 편한 위치에 있어요."},
+{rg:"호주",flag:"🇦🇺",city:"다윈",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","우기 도로 침수 주의 (11~4월) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"카카두·리치필드 비포장 필수"},{n:"로드사이드 어시스턴스",i:"오지 필수"},{n:"추가 운전자 등록",i:"장거리 교대"},{n:"GPS 내비게이션",i:"오프라인 필수"}],
+ sp:[{c:"lm",n:"카카두 국립공원",d:"세계자연유산 (편도 3h)"},{c:"lm",n:"리치필드 국립공원",d:"폭포 & 자기 개미집"},{c:"lm",n:"울루루 (에어즈록)",d:"성스러운 바위 (장거리)"},{c:"fd",n:"Pee Wee's at the Point",d:"다윈 파인 다이닝"},{c:"fd",n:"Mindil Beach Sunset Market",d:"야시장"}],
+ tip:"카카두 국립공원은 우기(11~4월)에는 일부 도로가 차단돼요. 건기(5~10월) 방문이 훨씬 편해요!"},
+{rg:"호주",flag:"🇦🇺",city:"태즈매니아",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","겨울 스노우타이어 확인 (크래들 마운틴)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD",i:"비포장 국립공원 도로"},{n:"스노우타이어",i:"고지대 겨울"},{n:"추가 운전자 등록",i:"섬 일주 교대"},{n:"로드사이드 어시스턴스",i:"오지 필수"}],
+ sp:[{c:"lm",n:"크래들 마운틴",d:"태즈매니아 최고 트레킹"},{c:"lm",n:"포트 아서",d:"영국 식민지 역사 유적"},{c:"lm",n:"프레이시넷 국립공원",d:"와인글라스 베이"},{c:"fd",n:"Franklin",d:"호바트 파인 다이닝"},{c:"fd",n:"Salamanca Market",d:"주말 파머스 마켓"}],
+ tip:"태즈매니아는 렌터카 여행의 천국! 버스 노선이 거의 없어 국립공원을 제대로 즐기려면 렌터카가 필수예요."},
+/* ===== 뉴질랜드 ===== */
+{rg:"뉴질랜드",flag:"🇳🇿",city:"오클랜드",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 (한국과 반대!) ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"추가 운전자 등록",i:"로토루아 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행 적응"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"로토루아",d:"지열 온천 & 마오리 문화 (편도 2.5h)"},{c:"lm",n:"코로만델 반도",d:"카테드럴 코브 (편도 2h)"},{c:"lm",n:"왕아레이",d:"쿠발라 숲 & 폭포"},{c:"fd",n:"The Engine Room",d:"오클랜드 파인 다이닝"},{c:"fd",n:"Otara Flea Market",d:"폴리네시안 음식 시장"}],
+ tip:"뉴질랜드 시골길은 양 떼와 소 떼가 도로를 건너는 경우가 많아요. 여유롭게 기다리는 것도 뉴질랜드 드라이브의 낭만이에요 🐑"},
+{rg:"뉴질랜드",flag:"🇳🇿",city:"퀸즈타운",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","겨울 스노우타이어 필수 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"밀포드 사운드 방면 산악"},{n:"스노우타이어",i:"겨울 필수"},{n:"추가 운전자 등록",i:"밀포드 장거리"},{n:"GPS 내비게이션",i:"오프라인 필수"}],
+ sp:[{c:"lm",n:"밀포드 사운드",d:"세계 8대 불가사의 (편도 4h)"},{c:"lm",n:"더니든",d:"오타고 반도 야생동물"},{c:"lm",n:"아로우타운",d:"골드러시 역사 마을"},{c:"fd",n:"Botswana Butchery",d:"와카티푸 호수 뷰 스테이크"},{c:"fd",n:"Fergburger",d:"퀸즈타운 전설의 버거"}],
+ tip:"밀포드 사운드 드라이브는 왕복 8시간이 걸리지만 절대 후회 없는 코스! 터널 통과 시 일방통행이라 대기 시간이 있어요."},
+{rg:"뉴질랜드",flag:"🇳🇿",city:"크라이스트처치",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","겨울 스노우타이어 확인 (아서스 패스)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"서던 알프스 겨울 필수"},{n:"4WD",i:"산악 드라이브"},{n:"추가 운전자 등록",i:"퀸즈타운 교대"},{n:"GPS 내비게이션",i:"좌측 통행 & 산악"}],
+ sp:[{c:"lm",n:"아서스 패스",d:"서던 알프스 산악 드라이브"},{c:"lm",n:"카이코우라",d:"고래 관찰 & 해변"},{c:"lm",n:"테카포 호수",d:"청록색 빙하 호수 & 별하늘"},{c:"fd",n:"Roots Restaurant",d:"파인 다이닝"},{c:"fd",n:"Little High Eatery",d:"푸드코트형 다이닝"}],
+ tip:"테카포 호수는 세계 최고 별하늘 관측지! 밤에는 차를 세우고 하늘을 꼭 올려다보세요. 은하수가 선명하게 보여요."},
+{rg:"뉴질랜드",flag:"🇳🇿",city:"더니든",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"남섬 겨울"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행"}],
+ sp:[{c:"lm",n:"오타고 반도",d:"알바트로스·펭귄 서식지"},{c:"lm",n:"볼더스 비치",d:"옐로아이드 펭귄"},{c:"lm",n:"밸드위니 대성당",d:"스코티시 고딕 건축"},{c:"fd",n:"Bracken Restaurant",d:"파인 다이닝"},{c:"fd",n:"Otago Farmers Market",d:"주말 파머스 마켓"}],
+ tip:"오타고 반도에서 야생 알바트로스와 펭귄을 볼 수 있어요. 황혼 무렵 펭귄들이 바다에서 돌아오는 시간에 방문하면 최고!"},
+{rg:"뉴질랜드",flag:"🇳🇿",city:"웰링턴",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","강풍 주의 (웰링턴 강풍 도시) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"좌측 통행 & 언덕 도로"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"와이라라파",d:"피노 누아 와인 (편도 1h)"},{c:"lm",n:"카피티 코스트",d:"해변 드라이브"},{c:"lm",n:"마운트 빅토리아",d:"웰링턴 전경 뷰포인트"},{c:"fd",n:"Logan Brown",d:"웰링턴 파인 다이닝"},{c:"fd",n:"Loretta",d:"현지 카페 & 브런치"}],
+ tip:"웰링턴은 '쿨리우드(Wellywood)'라는 별명처럼 반지의 제왕 촬영지! 와이타카 지역 로케이션 투어 드라이브도 인기 코스예요."},
+/* ===== 태국 ===== */
+{rg:"태국",flag:"🇹🇭",city:"방콕",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","교통 혼잡 시간대 숙지 (출퇴근 피하기)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"방콕 교통 극심 — 필수급"},{n:"추가 운전자 등록",i:"교대 운전"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"렌터카 업체 연락망 확보"}],
+ sp:[{c:"lm",n:"아유타야",d:"세계문화유산 고대 왕조 (편도 1.5h)"},{c:"lm",n:"칸차나부리",d:"콰이강 다리 (편도 2.5h)"},{c:"lm",n:"파타야",d:"해변 리조트 (편도 1.5h)"},{c:"fd",n:"Jay Fai",d:"미슐랭 스트리트 푸드"},{c:"fd",n:"Somboon Seafood",d:"방콕 대표 씨푸드"}],
+ tip:"방콕 시내 운전은 동남아 최악의 교통체증! 시내는 BTS·MRT로 이동하고 렌터카는 근교 여행에 활용하는 게 훨씬 효율적이에요."},
+{rg:"태국",flag:"🇹🇭",city:"치앙마이",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","산악 도로 주의 (도이인타논 방면)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"산악 도로 필수"},{n:"추가 운전자 등록",i:"도이인타논 교대"},{n:"카시트",i:"아이 동반 시"},{n:"4WD",i:"비포장 산악 구간"}],
+ sp:[{c:"lm",n:"도이인타논 국립공원",d:"태국 최고봉 (편도 1.5h)"},{c:"lm",n:"치앙라이",d:"화이트 템플 (편도 3h)"},{c:"lm",n:"매홍손",d:"안개 산악 마을 드라이브"},{c:"fd",n:"Blackitch Artisan Kitchen",d:"치앙마이 파인 다이닝"},{c:"fd",n:"Khao Soi Lampang",d:"북부 태국 카레 국수"}],
+ tip:"치앙마이~매홍손 드라이브는 태국 최고의 산악 드라이브! 구불구불한 산길 1864개 커브가 있어요."},
+{rg:"태국",flag:"🇹🇭",city:"푸켓",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","우기 도로 상태 확인 (5~10월)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"섬 내 도로 복잡"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"비포장 구간"}],
+ sp:[{c:"lm",n:"까론 비치",d:"푸켓 남부 조용한 해변"},{c:"lm",n:"프롬텝 곶",d:"일몰 포인트"},{c:"lm",n:"팡아만",d:"제임스본드 섬 (보트 이동)"},{c:"fd",n:"Suay Restaurant",d:"푸켓 파인 다이닝"},{c:"fd",n:"Malin Plaza Patong",d:"야시장 씨푸드"}],
+ tip:"푸켓 오토바이 사고가 많아요. 렌터카 선택이 훨씬 안전해요. 야간 드라이브는 오토바이가 도로를 가득 채우니 특히 주의하세요."},
+{rg:"태국",flag:"🇹🇭",city:"끄라비",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","우기 도로 상태 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"섬 지역 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"아오낭 비치",d:"끄라비 대표 해변"},{c:"lm",n:"타이거 케이브",d:"1237계단 정상 절경"},{c:"lm",n:"라일라이 비치",d:"보트로만 접근 가능"},{c:"fd",n:"Ruen Mai",d:"끄라비 파인 다이닝"},{c:"fd",n:"Nong's Restaurant",d:"현지식 태국 요리"}],
+ tip:"끄라비에서 라일라이 비치는 차로는 갈 수 없어요. 차를 주차하고 보트를 타고 이동하는 것이 이 지역의 매력이에요!"},
+{rg:"태국",flag:"🇹🇭",city:"파타야",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"파타야 복잡한 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"코란 섬",d:"보트 이동, 스노클링"},{c:"lm",n:"농눅 빌리지",d:"열대 정원 & 코끼리 쇼"},{c:"lm",n:"산쿤 뷰포인트",d:"파타야 전경"},{c:"fd",n:"Mantra Restaurant",d:"파타야 파인 다이닝"},{c:"fd",n:"Walking Street",d:"씨푸드 레스토랑 밀집"}],
+ tip:"파타야~방콕 고속도로는 정체가 심해요. 방콕 출발 시 금요일 오후를 피하는 게 좋아요."},
+{rg:"태국",flag:"🇹🇭",city:"후아힌",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"방콕~후아힌 도로"},{n:"추가 운전자 등록",i:"방콕 교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"카엥 크라찬 국립공원",d:"태국 최대 국립공원"},{c:"lm",n:"후아힌 비치",d:"왕실 휴양 해변"},{c:"lm",n:"블랙 마운틴 워터파크",d:"워터파크"},{c:"fd",n:"Hua Hin Night Market",d:"야시장 씨푸드"},{c:"fd",n:"Baan Itsara",d:"후아힌 파인 다이닝"}],
+ tip:"후아힌은 태국 왕실 여름 별장이 있는 도시. 방콕에서 3시간 드라이브로 조용하고 품격 있는 휴양을 즐길 수 있어요."},
+/* ===== 동남아시아 ===== */
+{rg:"동남아시아",flag:"🇸🇬",city:"싱가포르",
+ cl:["차량 외관 360° 사진·영상 촬영","ERP 전자요금 시스템 확인 ⚠️","타이어 및 연료 확인","주차 쿠폰 또는 앱 준비","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"ERP 트랜스폰더",i:"시내 전자 도로 요금"},{n:"GPS 내비게이션",i:"싱가포르 복잡한 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"센토사 섬",d:"리조트 & 유니버설 스튜디오"},{c:"lm",n:"이스트 코스트 파크",d:"해변 사이클 & 씨푸드"},{c:"lm",n:"부킷 티마 자연보호구역",d:"열대우림 하이킹"},{c:"fd",n:"Odette",d:"싱가포르 미슐랭 3스타"},{c:"fd",n:"Newton Food Centre",d:"호커 센터 최고 맛집"}],
+ tip:"싱가포르는 차량 보유 비용이 세계 최고. 렌터카 비용도 비싸지만 센토사 섬·이스트 코스트 파크 이동에는 편해요."},
+{rg:"동남아시아",flag:"🇲🇾",city:"쿠알라룸푸르",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","고속도로 전자톨(Touch n Go) 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"Touch n Go 카드",i:"말레이시아 고속도로 전자톨"},{n:"GPS 내비게이션",i:"KL 복잡한 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"겐팅 하이랜드",d:"고원 리조트 (편도 1h)"},{c:"lm",n:"바투 동굴",d:"힌두 성지 (편도 30min)"},{c:"lm",n:"말라카",d:"포르투갈·네덜란드 역사 도시 (편도 2h)"},{c:"fd",n:"Entier Restaurant",d:"KL 파인 다이닝"},{c:"fd",n:"Jalan Alor Night Market",d:"KL 야시장 최고 맛집"}],
+ tip:"말레이시아는 좌측 통행이에요! 한국과 반대 방향이니 교차로·라운드어바웃에서 특히 주의하세요."},
+{rg:"동남아시아",flag:"🇲🇾",city:"코타키나발루",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","좌측 통행 주의","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"사바 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"4WD",i:"키나발루 산 방면 비포장"},{n:"로드사이드 어시스턴스",i:"오지 구간"}],
+ sp:[{c:"lm",n:"키나발루 국립공원",d:"동남아 최고봉 & 등반"},{c:"lm",n:"툰쿠 압둘 라만 해양공원",d:"스노클링 섬 (보트 이동)"},{c:"lm",n:"락사 탄중 아루",d:"사바 최고 석양 해변"},{c:"fd",n:"Kohinoor",d:"코타키나발루 인도 요리"},{c:"fd",n:"Night Market",d:"씨푸드 야시장"}],
+ tip:"코타키나발루 키나발루 국립공원 진입 시 4WD가 훨씬 편해요. 정상 등반은 2일 일정으로 사전 예약 필수!"},
+{rg:"동남아시아",flag:"🇲🇾",city:"랑카위",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","좌측 통행 주의","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"섬 내 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"오지 구간"}],
+ sp:[{c:"lm",n:"마짱킨차나 연못",d:"랑카위 최고 뷰포인트"},{c:"lm",n:"텔라가 터불",d:"세계지질공원 7개 우물"},{c:"lm",n:"다타이 베이",d:"정글 & 비공개 해변"},{c:"fd",n:"La Sal",d:"비치프론트 파인 다이닝"},{c:"fd",n:"Orkid Ria",d:"현지 씨푸드"}],
+ tip:"랑카위는 면세 지역이에요! 주류와 초콜릿이 매우 저렴해요. 마트에서 쇼핑 후 섬 드라이브를 즐겨보세요."},
+{rg:"동남아시아",flag:"🇵🇭",city:"마닐라",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","홀짝제(번호판 제한) 운행 가능 요일 확인 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"마닐라 극심한 교통체증"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"타가이타이",d:"따알 화산 뷰 드라이브 (편도 2h)"},{c:"lm",n:"인트라무로스",d:"스페인 식민지 성벽 도시"},{c:"lm",n:"팍상한 폭포",d:"보트 투어 (편도 3h)"},{c:"fd",n:"Gallery by Chele",d:"마닐라 파인 다이닝"},{c:"fd",n:"Salcedo Saturday Market",d:"주말 파머스 마켓"}],
+ tip:"마닐라 번호판 홀짝제! 월~금 특정 요일에 마지막 번호에 따라 운행 제한이 있어요. 렌터카 번호판을 확인하고 운행 가능 요일을 파악하세요."},
+{rg:"동남아시아",flag:"🇻🇳",city:"다낭",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"베트남 복잡한 도로"},{n:"추가 운전자 등록",i:"하노이 교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"하이반 패스",d:"베트남 최고 해안 산악 드라이브"},{c:"lm",n:"호이안",d:"유네스코 고대 도시 (편도 30min)"},{c:"lm",n:"바나 힐스",d:"프랑스 테마 산악 리조트"},{c:"fd",n:"Bê Mặn",d:"다낭 해산물 레스토랑"},{c:"fd",n:"Madame Lan",d:"베트남 전통 요리"}],
+ tip:"하이반 패스는 세계 최고 해안 드라이브 중 하나! 다낭에서 후에로 이어지는 고갯길로 구름 위를 달리는 느낌이에요."},
+{rg:"동남아시아",flag:"🇻🇳",city:"하노이",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"하노이 복잡한 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"하롱베이",d:"세계자연유산 석회암 섬 (편도 3.5h)"},{c:"lm",n:"닌빈",d:"육지의 하롱베이 (편도 2h)"},{c:"lm",n:"마이쩌우",d:"타이족 소수민족 마을"},{c:"fd",n:"KOTO",d:"하노이 파인 다이닝"},{c:"fd",n:"Bun Bo Nam Bo",d:"하노이 분보남보"}],
+ tip:"베트남 오토바이 물결은 세계적으로 유명해요. 교차로에서는 천천히 진입하면 오토바이들이 알아서 피해가요."},
+{rg:"동남아시아",flag:"🇻🇳",city:"호찌민",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"호찌민 복잡한 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"무이네",d:"사막 & 해변 드라이브 (편도 4h)"},{c:"lm",n:"달랏",d:"고원 도시 & 폭포 (편도 6h)"},{c:"lm",n:"껀저",d:"맹그로브 국립공원"},{c:"fd",n:"The Deck Saigon",d:"사이공강 뷰 파인 다이닝"},{c:"fd",n:"Bánh Mì Huỳnh Hoa",d:"베트남 최고 반미"}],
+ tip:"호찌민~무이네 해안 드라이브는 붉은 사막과 하얀 사막, 그리고 바다가 공존하는 독특한 코스예요!"},
+{rg:"동남아시아",flag:"🇱🇦",city:"비엔티안",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"라오스 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"방비엥",d:"카르스트 지형 & 드라이브 (편도 3h)"},{c:"lm",n:"루앙 프라방",d:"불교 사원 도시 (편도 10h)"},{c:"lm",n:"탓루앙 사원",d:"라오스 상징 황금 사원"},{c:"fd",n:"Kualao Restaurant",d:"비엔티안 라오 전통 요리"},{c:"fd",n:"Night Market",d:"메콩강변 야시장"}],
+ tip:"라오스는 도로 상태가 다양해요. 포장도로와 비포장도로가 혼재하니 출발 전 경로를 꼼꼼히 확인하세요."},
+{rg:"동남아시아",flag:"🇱🇦",city:"루앙 프라방",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","산악 도로 주의 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"라오스 산악 도로"},{n:"4WD",i:"비포장 산악 구간"},{n:"추가 운전자 등록",i:"교대"},{n:"로드사이드 어시스턴스",i:"오지 필수"}],
+ sp:[{c:"lm",n:"꽝씨 폭포",d:"에메랄드 폭포 & 반달곰"},{c:"lm",n:"팍우 동굴",d:"메콩강 불상 동굴 (보트 이동)"},{c:"lm",n:"왓씨엥통 사원",d:"루앙프라방 가장 아름다운 사원"},{c:"fd",n:"Manda de Laos",d:"루앙프라방 파인 다이닝"},{c:"fd",n:"Hmong Night Market",d:"소수민족 공예 야시장"}],
+ tip:"루앙프라방 새벽 탁발(승려 공양 행렬)은 4~5시에 시작해요. 차를 주차하고 걸어서 골목을 따라가면 경이로운 광경을 볼 수 있어요."},
+/* ===== 대만 ===== */
+{rg:"대만",flag:"🇹🇼",city:"타이베이",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","eTag(전자톨) 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"eTag 전자톨",i:"대만 고속도로 필수"},{n:"GPS 내비게이션",i:"대만 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"지우펀",d:"노천 찻집 & 야경 (편도 1h)"},{c:"lm",n:"예류 지질공원",d:"기묘한 바위 해안"},{c:"lm",n:"스펀",d:"천등 날리기 & 폭포"},{c:"fd",n:"RAW",d:"타이베이 파인 다이닝"},{c:"fd",n:"Ningxia Night Market",d:"타이베이 야시장"}],
+ tip:"지우펀은 미야자키 하야오 '센과 치히로' 배경 모델 지역! 비 오는 날 야경이 특히 환상적이에요."},
+{rg:"대만",flag:"🇹🇼",city:"타오위안",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","eTag 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"eTag 전자톨",i:"대만 고속도로"},{n:"GPS 내비게이션",i:"대만 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"라라산 자연보호구역",d:"고산 과수원 드라이브"},{c:"lm",n:"복흥향 (싱흥촌)",d:"대만 원주민 아타얄족 마을"},{c:"lm",n:"용담호",d:"타오위안 최고 공원 & 호수"},{c:"fd",n:"桃園魚酥",d:"타오위안 생선과자"},{c:"fd",n:"中壢夜市",d:"中壢 야시장"}],
+ tip:"타오위안은 타이베이 공항 인근 도시. 공항 픽업 후 바로 드라이브 여행 시작하기에 좋은 출발점이에요!"},
+{rg:"대만",flag:"🇹🇼",city:"가오슝",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","eTag 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"eTag 전자톨",i:"대만 고속도로"},{n:"GPS 내비게이션",i:"남부 대만 도로"},{n:"추가 운전자 등록",i:"컨딩 교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"컨딩 국립공원",d:"대만 최남단 해변 드라이브 (편도 1.5h)"},{c:"lm",n:"알리산 국립풍경구",d:"고산 일출 & 삼나무 (편도 3h)"},{c:"lm",n:"좌영 연지담",d:"가오슝 연꽃 연못"},{c:"fd",n:"上引水產",d:"가오슝 씨푸드"},{c:"fd",n:"六合夜市",d:"가오슝 야시장"}],
+ tip:"컨딩 해안 드라이브는 대만 최고 해안 코스! 가오슝에서 출발해 태평양과 남중국해가 만나는 최남단까지 가보세요."},
+{rg:"대만",flag:"🇹🇼",city:"화롄",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","타이루거 협곡 낙석 주의 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"타이루거 협곡 산악"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"헬멧",i:"타이루거 협곡 낙석 대비 (무료 대여)"}],
+ sp:[{c:"lm",n:"타이루거 협곡",d:"대만 최고 드라이브 절경"},{c:"lm",n:"치싱탄 해변",d:"자갈 해변 & 파도"},{c:"lm",n:"서우풍",d:"아미족 원주민 부락"},{c:"fd",n:"自強夜市",d:"화롄 야시장"},{c:"fd",n:"公正包子",d:"화롄 만두 명소"}],
+ tip:"타이루거 협곡은 대만 최고 드라이브 명소! 일부 구간은 헬멧 착용 의무. 낙석 주의 표지판을 꼭 따라주세요."},
+/* ===== 중동 ===== */
+{rg:"중동",flag:"🇦🇪",city:"두바이",
+ cl:["차량 외관 360° 사진·영상 촬영","사랄(Salik) 전자톨 확인 ⚠️","타이어 및 연료 확인","에어컨 필수 점검 (여름 50°C 이상) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"사랄(Salik) 톨패스",i:"두바이 전자 도로 요금 시스템"},{n:"GPS 내비게이션",i:"두바이 복잡한 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"아부다비",d:"그랜드 모스크 (편도 1.5h)"},{c:"lm",n:"알 아인",d:"사막 오아시스 도시 (편도 1.5h)"},{c:"lm",n:"지벨 알-자이스",d:"UAE 최고봉 드라이브"},{c:"fd",n:"Nobu Dubai",d:"두바이 파인 다이닝"},{c:"fd",n:"Global Village",d:"세계 음식 테마파크 (겨울만)"}],
+ tip:"두바이 여름(6~9월)은 차 밖 온도가 50°C 이상! 주차 후 차 내부가 70°C까지 올라갈 수 있으니 어린이나 반려동물을 절대 차에 두지 마세요."},
+{rg:"중동",flag:"🇦🇪",city:"아부다비",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","에어컨 필수 점검 (여름 고온) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"아부다비 복잡한 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"셰이크 자이드 그랜드 모스크",d:"세계 최대 모스크 중 하나"},{c:"lm",n:"야스 아일랜드",d:"페라리 월드 & F1 서킷"},{c:"lm",n:"루브르 아부다비",d:"세계적 박물관"},{c:"fd",n:"Zuma Abu Dhabi",d:"아부다비 파인 다이닝"},{c:"fd",n:"Souk Qaryat Al Beri",d:"전통 수크"}],
+ tip:"아부다비 야스 아일랜드에는 페라리 월드, 워너브라더스 테마파크, F1 야스 마리나 서킷이 모두 있어요. 하루 종일 즐길 수 있는 드라이브+체험 코스!"},
+{rg:"중동",flag:"🇶🇦",city:"도하",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","에어컨 필수 점검 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"도하 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"4WD",i:"사막 드라이브"}],
+ sp:[{c:"lm",n:"메사이드 사막",d:"카타르 사막 드라이브"},{c:"lm",n:"칼루앗 알-바히야",d:"거대 모래 언덕 드라이브"},{c:"lm",n:"주발 알-자심",d:"카타르 최대 산 드라이브"},{c:"fd",n:"Nobu Doha",d:"도하 파인 다이닝"},{c:"fd",n:"Souq Waqif",d:"전통 수크 맛집"}],
+ tip:"카타르 사막 드라이브(Inland Sea)는 반드시 4WD 차량으로! 사막 진입 전 공기압을 낮추고 일행과 함께 이동하세요."},
+{rg:"중동",flag:"🇯🇴",city:"암만",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"요르단 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"페트라 장거리 교대"},{n:"4WD",i:"와디럼 사막"}],
+ sp:[{c:"lm",n:"페트라",d:"나바테아 장밋빛 도시 (편도 3h)"},{c:"lm",n:"와디럼",d:"붉은 사막 캠핑 (편도 4h)"},{c:"lm",n:"사해",d:"세계 최저 지점 부유 수영"},{c:"fd",n:"Sufra",d:"암만 전통 요르단 요리"},{c:"fd",n:"Wild Jordan Café",d:"자연 뷰 카페"}],
+ tip:"암만~페트라~와디럼 드라이브는 요르단 여행의 핵심 루트! 2박 3일 드라이브 일정을 추천해요."},
+{rg:"중동",flag:"🇮🇱",city:"텔아비브",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","안보 상황 확인 ⚠️","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"이스라엘 복잡한 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"예루살렘",d:"성지 순례 (편도 1h)"},{c:"lm",n:"마사다",d:"고대 요새 일출 (편도 2h)"},{c:"lm",n:"사해",d:"세계 최저 지점 (편도 1.5h)"},{c:"fd",n:"Taizu",d:"텔아비브 파인 다이닝"},{c:"fd",n:"Carmel Market",d:"텔아비브 전통 시장"}],
+ tip:"이스라엘 방문 전 반드시 최신 안보 상황을 외교부 해외안전여행 사이트에서 확인하세요."},
+/* ===== 아프리카 ===== */
+{rg:"아프리카",flag:"🇿🇦",city:"케이프타운",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","야간 운전 주의 (치안) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"케이프타운 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"가든 루트 교대"},{n:"차량 보안 가방",i:"차 안 귀중품 보이지 않게"}],
+ sp:[{c:"lm",n:"가든 루트",d:"세계 최고 해안 드라이브"},{c:"lm",n:"케이프 포인트",d:"아프리카 최남서단"},{c:"lm",n:"채프먼스 피크",d:"세계 최고 해안 도로 중 하나"},{c:"fd",n:"The Test Kitchen",d:"케이프타운 파인 다이닝"},{c:"fd",n:"Boulders Beach Café",d:"펭귄 해변 카페"}],
+ tip:"케이프타운은 아프리카에서 가장 운전하기 좋은 도시! 단, 차 안에 귀중품을 절대 두지 마세요. 깨진 창문을 통한 차량 절도가 많아요."},
+{rg:"아프리카",flag:"🇲🇺",city:"포트루이스",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"모리셔스 섬 도로"},{n:"추가 운전자 등록",i:"섬 일주 교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"샤마렐 7색 대지",d:"세계 유일 7가지 색 흙"},{c:"lm",n:"블랙 리버 협곡",d:"모리셔스 최고 자연"},{c:"lm",n:"그랑 베이",d:"북부 리조트 해변"},{c:"fd",n:"Le Château de Bel Ombre",d:"모리셔스 파인 다이닝"},{c:"fd",n:"Port Louis Caudan Market",d:"전통 시장"}],
+ tip:"모리셔스는 아프리카 인도양의 낙원! 섬 일주 드라이브로 하루 만에 전체를 돌아볼 수 있어요."},
+/* ===== 남미·카리브 ===== */
+{rg:"남미·카리브",flag:"🇦🇷",city:"부에노스아이레스",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"아르헨티나 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"파타고니아 교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"이과수 폭포",d:"세계 최대 폭포 (편도 18h or 비행기)"},{c:"lm",n:"루하네스 국립공원",d:"팜파스 야생동물"},{c:"lm",n:"티그레",d:"파라나 강 삼각주 (편도 1h)"},{c:"fd",n:"Don Julio",d:"부에노스아이레스 파릴라"},{c:"fd",n:"Mercado de San Telmo",d:"전통 시장"}],
+ tip:"아르헨티나에서 주유할 때는 YPF 공식 주유소를 이용하세요. 비공식 주유소는 연료 품질을 보장하기 어려워요."},
+{rg:"남미·카리브",flag:"🇩🇴",city:"푼타 카나",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"도미니카 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"살토데 리몬 폭포",d:"사마나 정글 폭포 (편도 2h)"},{c:"lm",n:"라스 갈레라스",d:"사마나 반도 해변"},{c:"lm",n:"알토스 데 차본",d:"레플리카 식민지 마을"},{c:"fd",n:"La Yola",d:"해변 씨푸드"},{c:"fd",n:"El Conuco",d:"도미니카 전통 요리"}],
+ tip:"도미니카 도로는 상태가 다양해요. 비포장 구간도 있으니 4WD 또는 SUV를 선택하는 게 편해요."},
+{rg:"남미·카리브",flag:"🇯🇲",city:"몬테고 베이",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"자메이카 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"더빌",d:"이안 플레밍 007 별장"},{c:"lm",n:"블루 마운틴",d:"세계 최고 커피 산지 드라이브"},{c:"lm",n:"더빙힐 폭포",d:"유명 폭포 하이킹"},{c:"fd",n:"Scotchies",d:"자메이카 저크치킨 원조"},{c:"fd",n:"Pelican Grill",d:"몬테고 베이 씨푸드"}],
+ tip:"자메이카 블루 마운틴 커피 농장 드라이브는 꼭 해보세요! 안개 낀 산길을 달리며 커피 향을 느끼는 코스예요."},
+{rg:"남미·카리브",flag:"🇨🇱",city:"산티아고",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","안데스산맥 방면 스노우타이어 확인 (겨울)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"칠레 안데스 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"발파라이소 교대"},{n:"4WD",i:"안데스 산악 도로"}],
+ sp:[{c:"lm",n:"발파라이소",d:"알록달록 항구 도시 (편도 1.5h)"},{c:"lm",n:"포르티요 스키장",d:"안데스 스키 리조트 (편도 2h)"},{c:"lm",n:"카사블랑카 밸리",d:"칠레 와인 지역 (편도 1h)"},{c:"fd",n:"Boragó",d:"산티아고 파인 다이닝"},{c:"fd",n:"Mercado Central",d:"칠레 전통 시장"}],
+ tip:"발파라이소 오르막길(세로)은 케이블카(아센소르)가 있지만 렌터카로 올라가도 돼요. 단, 경사가 매우 가파르니 수동 기어보다 자동 기어차 추천!"},
+{rg:"남미·카리브",flag:"🇵🇦",city:"파나마시티",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"파나마 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"파나마 운하 (미라플로레스)",d:"갑문 통과 선박 관람"},{c:"lm",n:"아르코 차토 (엘 카미노 레알)",d:"스페인 식민지 역사 도로"},{c:"lm",n:"보카스 델 토로",d:"카리브해 섬 리조트"},{c:"fd",n:"Maito",d:"파나마 파인 다이닝"},{c:"fd",n:"Mercado de Mariscos",d:"파나마 씨푸드 시장"}],
+ tip:"파나마 운하 드라이브는 꼭 해보세요! 미라플로레스 갑문 방문자 센터 주차장에서 차를 세우고 운하를 관람할 수 있어요."},
+/* ===== 피지·기타 ===== */
+{rg:"피지·기타",flag:"🇫🇯",city:"비치레부",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 ⚠️","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD",i:"피지 비포장 도로"},{n:"GPS 내비게이션",i:"피지 오지 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"나우솔리 계곡",d:"피지 내륙 드라이브"},{c:"lm",n:"코로바우 요새",d:"피지 역사 유적"},{c:"lm",n:"수바",d:"피지 수도 중심가"},{c:"fd",n:"Nadina Authentic Fijian",d:"피지 전통 요리"},{c:"fd",n:"Suva Municipal Market",d:"수바 전통 시장"}],
+ tip:"피지 비포장 도로는 생각보다 상태가 좋지 않아요. 지방 지역 이동은 반드시 4WD를 선택하세요!"},
+{rg:"피지·기타",flag:"🇺🇸",city:"티니안",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 (미국령)","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"오프라인 지도 권장"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"섬 내 제한적"},{n:"추가 운전자",i:"교대"}],
+ sp:[{c:"lm",n:"원자폭탄 적재 구덩이",d:"WWII 역사 현장"},{c:"lm",n:"타가 비치",d:"에메랄드 투명 해변"},{c:"lm",n:"타가 스톤 쿼리",d:"차모로 고대 돌기둥"},{c:"fd",n:"현지 식당가",d:"챠모로 전통 요리"},{c:"fd",n:"Dynasty Hotel Restaurant",d:"티니안 레스토랑"}],
+ tip:"티니안은 사이판에서 페리로 이동 가능한 작은 섬. 2차 세계대전 역사 유적이 가득한 드라이브 코스예요."},
+/* ===== 인도양·기타 섬 ===== */
+{rg:"동아시아",flag:"🇮🇳",city:"뉴델리",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","자동차 경적 사용 빈번 — 현지 교통 문화 숙지","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"인도 복잡한 도로 필수"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"아그라 (타지마할)",d:"세계 7대 불가사의 (편도 3h)"},{c:"lm",n:"자이푸르",d:"핑크 시티 (편도 5h)"},{c:"lm",n:"암베르 성",d:"라자스탄 언덕 요새"},{c:"fd",n:"Indian Accent",d:"뉴델리 파인 다이닝"},{c:"fd",n:"Paranthe Wali Gali",d:"구시가지 전통 파라타"}],
+ tip:"인도 운전은 세계 최고 난이도! 교통 체계가 한국과 완전히 달라요. 처음 인도 방문이라면 기사가 포함된 렌터카를 강력 추천해요."},
+{rg:"동아시아",flag:"🇱🇰",city:"콜롬보",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","좌측 통행 주의 ⚠️","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"스리랑카 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"4WD",i:"고원 지대 비포장 도로"}],
+ sp:[{c:"lm",n:"시기리야",d:"사자 바위 요새 (편도 5h)"},{c:"lm",n:"캔디",d:"불치사 & 고원 도시 (편도 3h)"},{c:"lm",n:"갈레",d:"네덜란드 요새 도시 (편도 2h)"},{c:"fd",n:"Ministry of Crab",d:"콜롬보 게 요리"},{c:"fd",n:"Barefoot Garden Cafe",d:"콜롬보 카페"}],
+ tip:"시기리야 바위 요새는 반드시 가봐야 할 스리랑카 최고 명소! 콜롬보에서 당일치기 드라이브로도 가능해요."},
+{rg:"동유럽·발트",flag:"🇪🇪",city:"탈린",
+ cl:["차량 외관 360° 사진·영상 촬영","연료 종류 확인 ⚠️","겨울 스노우타이어 필수 (11~3월) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"에스토니아 겨울 법적 의무"},{n:"GPS 내비게이션",i:"발트 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"라트비아 교대"}],
+ sp:[{c:"lm",n:"라헤마 국립공원",d:"에스토니아 최고 자연 드라이브"},{c:"lm",n:"리가 (라트비아)",d:"발트 최대 도시 (편도 4h)"},{c:"lm",n:"라트비아 해안",d:"유러피안 해변 드라이브"},{c:"fd",n:"Tchaikovsky",d:"탈린 파인 다이닝"},{c:"fd",n:"Viru Market",d:"전통 시장"}],
+ tip:"탈린 구시가지는 중세 그대로의 모습! 차는 구시가지 외곽에 주차하고 걸어서 구경하는 게 제일 좋아요."},
+{rg:"동유럽·발트",flag:"🇬🇪",city:"트빌리시",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","연료 종류 확인 ⚠️","겨울 산악 도로 주의","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"조지아 카프카스 산악 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"카즈베기 교대"},{n:"4WD",i:"카즈베기 방면 산악"}],
+ sp:[{c:"lm",n:"카즈베기 (스텝안츠민다)",d:"카프카스 최고 드라이브 (편도 3h)"},{c:"lm",n:"카헤티 와인 지역",d:"조지아 전통 와이너리"},{c:"lm",n:"바르지아",d:"암굴 수도원 (편도 3h)"},{c:"fd",n:"Barbarestan",d:"트빌리시 파인 다이닝"},{c:"fd",n:"Dezerter Bazaar",d:"전통 시장"}],
+ tip:"카즈베기 드라이브는 세계 최고 산악 드라이브 중 하나! 군사 도로(Georgian Military Highway)를 따라 카프카스 산맥을 달려보세요."},
+{rg:"동유럽·발트",flag:"🇦🇱",city:"티라나",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"알바니아 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"코토르 교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"알바니아 리비에라",d:"유럽 숨은 해안 드라이브"},{c:"lm",n:"베라트",d:"유네스코 천 개의 창 도시"},{c:"lm",n:"지로카스트라",d:"오스만 요새 도시"},{c:"fd",n:"Mullixhiu",d:"티라나 파인 다이닝"},{c:"fd",n:"Pazari I Ri",d:"티라나 현대 시장"}],
+ tip:"알바니아 리비에라 해안 드라이브는 유럽 최고 숨은 보석! 크로아티아보다 훨씬 덜 붐비고 아름다워요."},
+{rg:"동유럽·발트",flag:"🇱🇹",city:"빌뉴스",
+ cl:["차량 외관 360° 사진·영상 촬영","연료 종류 확인 ⚠️","겨울 스노우타이어 필수 (11~3월) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"리투아니아 겨울"},{n:"GPS 내비게이션",i:"발트 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"}],
+ sp:[{c:"lm",n:"트라카이 성",d:"호수 위 중세 성 (편도 30min)"},{c:"lm",n:"쿠로니안 스핏",d:"유네스코 사구 반도"},{c:"lm",n:"힐 오브 크로시스",d:"십자가 언덕 성지"},{c:"fd",n:"Džiaugsmas",d:"빌뉴스 파인 다이닝"},{c:"fd",n:"Halės Market",d:"전통 시장"}],
+ tip:"트라카이 성은 호수 위에 떠 있는 동화 같은 성! 빌뉴스에서 30분 드라이브로 당일치기 가능해요."},
+{rg:"동유럽·발트",flag:"🇲🇪",city:"포드고리차",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"몬테네그로 산악 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"코토르 교대"},{n:"4WD",i:"듀르미토르 산악"}],
+ sp:[{c:"lm",n:"코토르",d:"유네스코 피요르 만 (편도 1h)"},{c:"lm",n:"듀르미토르 국립공원",d:"발칸 최고 산악 드라이브"},{c:"lm",n:"스카다르 호수",d:"유럽 최대 조류 서식 호수"},{c:"fd",n:"Pod Volat",d:"포드고리차 전통 요리"},{c:"fd",n:"Bazar",d:"현지 레스토랑"}],
+ tip:"몬테네그로~알바니아~크로아티아 발칸 드라이브는 유럽 숨은 최고 여행 루트! 포드고리차를 시작점으로 추천해요."},
+{rg:"동유럽·발트",flag:"🇷🇸",city:"베오그라드",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"세르비아 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"겨울 스노우타이어",i:"11~3월 산악 방면"}],
+ sp:[{c:"lm",n:"타라 국립공원",d:"세르비아 최고 자연 드라이브"},{c:"lm",n:"노비사드",d:"도나우강 항구 도시 (편도 1.5h)"},{c:"lm",n:"가믈리그라드",d:"로마 황제 궁전 유적"},{c:"fd",n:"Langouste",d:"베오그라드 파인 다이닝"},{c:"fd",n:"Zeleni Venac Market",d:"전통 시장"}],
+ tip:"세르비아 타라 국립공원 드라이브는 발칸 반도 최고 자연 코스! 협곡과 강이 어우러진 절경을 즐겨보세요."},
+{rg:"동유럽·발트",flag:"🇧🇬",city:"소피아",
+ cl:["차량 외관 360° 사진·영상 촬영","연료 종류 확인 ⚠️","불가리아 비네트 구매 확인 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"불가리아 비네트",i:"고속도로 통행권"},{n:"GPS 내비게이션",i:"불가리아 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"}],
+ sp:[{c:"lm",n:"릴라 수도원",d:"유네스코 정교회 수도원 (편도 2h)"},{c:"lm",n:"반스코",d:"불가리아 최고 스키 리조트"},{c:"lm",n:"벨리코 투르노보",d:"중세 불가리아 수도"},{c:"fd",n:"Made In Home",d:"소피아 파인 다이닝"},{c:"fd",n:"Women's Market",d:"전통 시장"}],
+ tip:"릴라 수도원 드라이브는 불가리아 여행의 하이라이트! 소피아에서 당일치기로 다녀올 수 있어요."},
+{rg:"동유럽·발트",flag:"🇷🇴",city:"부쿠레슈티",
+ cl:["차량 외관 360° 사진·영상 촬영","연료 종류 확인 ⚠️","루마니아 비네트 구매 확인 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"루마니아 비네트",i:"고속도로 통행권"},{n:"GPS 내비게이션",i:"루마니아 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"트란실바니아 교대"}],
+ sp:[{c:"lm",n:"시나이아 성 (펠레쉬)",d:"유럽 최고 성 중 하나 (편도 2h)"},{c:"lm",n:"트란파가라산 도로",d:"유럽 최고 드라이브 (편도 3h)"},{c:"lm",n:"브라쇼프",d:"트란실바니아 중세 도시"},{c:"fd",n:"Caru' cu Bere",d:"부쿠레슈티 역사 레스토랑"},{c:"fd",n:"Obor Market",d:"전통 시장"}],
+ tip:"트란파가라산 도로는 제임스 메이가 '세계 최고 드라이브 도로'로 극찬한 곳! 루마니아 방문 시 절대 놓치지 마세요."},
+{rg:"동유럽·발트",flag:"🇲🇰",city:"스코페",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"북마케도니아 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"오흐리드 교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"오흐리드 호수",d:"발칸의 예루살렘 (편도 3h)"},{c:"lm",n:"마브로보 국립공원",d:"산악 & 스키"},{c:"lm",n:"비톨라",d:"오스만 시대 시장 도시"},{c:"fd",n:"Pelister Restaurant",d:"스코페 파인 다이닝"},{c:"fd",n:"Old Bazaar",d:"전통 바자르"}],
+ tip:"오흐리드 호수는 유네스코 세계유산! 스코페에서 3시간 드라이브로 유럽 가장 아름다운 호수 중 하나를 볼 수 있어요."},
+{rg:"동유럽·발트",flag:"🇸🇮",city:"류블랴나",
+ cl:["차량 외관 360° 사진·영상 촬영","연료 종류 확인 ⚠️","슬로베니아 비네트 구매 확인 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"슬로베니아 비네트",i:"고속도로 통행권 — 없으면 벌금"},{n:"GPS 내비게이션",i:"슬로베니아 산악 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"}],
+ sp:[{c:"lm",n:"블레드 호수",d:"세계 최고 호수 뷰 (편도 1h)"},{c:"lm",n:"포스토이나 동굴",d:"유럽 최대 종유석 동굴"},{c:"lm",n:"트리글라브 국립공원",d:"슬로베니아 알프스 드라이브"},{c:"fd",n:"Strelec Restaurant",d:"류블랴나 파인 다이닝"},{c:"fd",n:"Odprta Kuhna",d:"금요일 야외 푸드마켓"}],
+ tip:"블레드 호수는 슬로베니아 최고 명소! 류블랴나에서 1시간 드라이브로 동화 속 같은 호수 섬과 성을 볼 수 있어요."},
+{rg:"룩셈부르크·키프로스·몰타",flag:"🇱🇺",city:"룩셈부르크",
+ cl:["차량 외관 360° 사진·영상 촬영","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"3국 국경 지역"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"뮐레르탈 트레일",d:"룩셈부르크 소스위스 드라이브"},{c:"lm",n:"비안덴 성",d:"아르덴 언덕 요새"},{c:"lm",n:"트리어 (독일)",d:"로마 유적 도시 (편도 30min)"},{c:"fd",n:"Mosconi",d:"룩셈부르크 미슐랭 레스토랑"},{c:"fd",n:"Hamilius Market",d:"룩셈부르크 전통 시장"}],
+ tip:"룩셈부르크는 세계에서 가장 작은 나라 중 하나! 하루 드라이브로 전국을 돌아볼 수 있어요. 유류비가 이웃 나라보다 저렴해요."},
+{rg:"룩셈부르크·키프로스·몰타",flag:"🇨🇾",city:"라르나카",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 (영국식) ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"키프로스 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"섬 일주 교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"트로도스 산악",d:"키프로스 최고 드라이브"},{c:"lm",n:"파포스",d:"아프로디테 탄생지 유네스코"},{c:"lm",n:"카보 그레코",d:"해안 절벽 뷰포인트"},{c:"fd",n:"Meze",d:"키프로스 전통 메제"},{c:"fd",n:"To Steki tou Giasemi",d:"현지 타베르나"}],
+ tip:"키프로스는 영국식 좌측 통행이에요! 지중해 섬에서 드라이브를 즐기는 최고의 나라 중 하나예요."},
+{rg:"룩셈부르크·키프로스·몰타",flag:"🇲🇹",city:"몰타",
+ cl:["차량 외관 360° 사진·영상 촬영","좌측 통행 주의 (영국식) ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"몰타 복잡한 도로"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"섬 일주"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"고조 섬",d:"페리 이동, 아주르 윈도우 (Blue Lagoon)"},{c:"lm",n:"블루 라군",d:"코미노 섬 투명한 바다"},{c:"lm",n:"발레타",d:"유네스코 바로크 수도"},{c:"fd",n:"Noni",d:"몰타 미슐랭 레스토랑"},{c:"fd",n:"Is-Suq tal-Belt",d:"발레타 전통 시장"}],
+ tip:"몰타는 지중해에서 가장 밀도 높은 역사 유적을 가진 나라! 차를 렌트해서 구석구석 달리면 수천 년 역사를 만날 수 있어요."},
+/* ===== 이집트·북아프리카 ===== */
+{rg:"이집트·북아프리카",flag:"🇪🇬",city:"카이로",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","타이어 및 연료 확인","카이로 교통체증 극심 — 오전 일찍 출발","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"카이로 복잡한 도로 필수"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"교대"},{n:"로드사이드 어시스턴스",i:"긴급 연락"}],
+ sp:[{c:"lm",n:"기자 피라미드",d:"세계 7대 불가사의"},{c:"lm",n:"알렉산드리아",d:"지중해 항구 도시 (편도 2h)"},{c:"lm",n:"파이윰 오아시스",d:"사막 오아시스 드라이브 (편도 2h)"},{c:"fd",n:"Sequoia",d:"나일강 뷰 파인 다이닝"},{c:"fd",n:"Khan El Khalili",d:"이집트 전통 수크"}],
+ tip:"카이로 운전은 세계 최고 카오스 중 하나! 경적이 대화 수단이에요. 기사가 포함된 렌터카를 처음엔 강력 추천해요."},
+{rg:"이집트·북아프리카",city:"마라케시",flag:"🇲🇦",
+ cl:["차량 외관 360° 사진·영상 촬영","국제면허증 소지 확인 ⚠️","연료 종류 확인 ⚠️","도난보험 가입 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"모로코 도로 필수"},{n:"풀커버 보험",i:"도난+사고 면책"},{n:"추가 운전자 등록",i:"사하라 교대"},{n:"4WD",i:"사하라 사막 드라이브"}],
+ sp:[{c:"lm",n:"와르자자트",d:"영화 촬영지 & 사막 관문 (편도 4h)"},{c:"lm",n:"오트 아틀라스",d:"아틀라스 산맥 드라이브"},{c:"lm",n:"에사우이라",d:"해안 파란 마을 (편도 3h)"},{c:"fd",n:"Dar Yacout",d:"마라케시 파인 다이닝"},{c:"fd",n:"Djemaa el-Fna",d:"마라케시 야시장 광장"}],
+ tip:"마라케시~메르주가 사하라 사막 드라이브는 모로코 최고 드라이브 코스! 3박 4일 일정으로 아틀라스 산맥을 넘어 사막까지 달려보세요."}
+];
+/* ── 렌더 헬퍼 ── */
+const REGIONS=[...new Set(DATA.map(d=>d.rg))];
+let activeRg=REGIONS[0];
+let activeCity=DATA[0].city;
+const activeEC={};
+function stepsHTML(arr,ac){
+  return arr.map((s,i)=>{
+    const last=i===arr.length-1;
+    const line=last?'':`<div class="sline" style="background:${ac}25;"></div>`;
+    const note=s.note?`<div class="stnote${s.nt==='w'?' w':s.nt==='d'?' d':''}">${s.note}</div>`:'';
+    return `<div class="srow"><div class="sleft"><div class="snum" style="background:${ac};box-shadow:0 3px 8px ${ac}40;">${s.n}</div>${line}</div>
+      <div class="scont${last?' last':''}"><div class="stname">${s.t}</div><div class="stdesc">${s.d}</div>${note}</div></div>`;
+  }).join('');
+}
+function ecHTML(id){
+  const e=EC[id];let body='';
+  if(e.steps){body=`<div class="slbl">대응 순서</div>${stepsHTML(e.steps,e.ac)}`;}
+  else{body=e.subs.map((sec,si)=>{
+    const div=si<e.subs.length-1?'<div class="sdiv2"></div>':'';
+    return `<div class="ssub" style="background:#fff;color:${e.ac};border:1px solid ${e.ac}44;">${sec.lb}</div>${stepsHTML(sec.steps,e.ac)}${div}`;
+  }).join('');}
+  return `<div class="ccase" style="border-color:${e.ac}33;">
+    <div class="cbadge" style="background:${e.tb};border:1px solid ${e.ac}44;"><span class="cdot" style="background:${e.ac};"></span><span class="cbtxt" style="color:${e.ac};">${e.tag} 케이스</span></div>
+    <div class="ctitle2">${e.title}</div><div class="csub2">${e.sub}</div></div>${body}
+  <div class="cta"><div><div class="cta-t">마이리얼트립 고객센터</div><div class="cta-s">해결이 어렵다면 바로 문의하세요</div></div><button class="cta-b">1:1 문의 →</button></div>`;
+}
+function switchEC(sid,eid){
+  activeEC[sid]=eid;
+  const sec=document.getElementById(sid);
+  sec.querySelectorAll('.etab').forEach(b=>{
+    const bid=b.dataset.id,e=EC[bid];
+    const lb=b.querySelector('.etab-lb'),ind=b.querySelector('.etab-in');
+    if(bid===eid){lb.style.color=e.ac;lb.style.fontWeight='700';ind.style.display='block';}
+    else{lb.style.color='#999';lb.style.fontWeight='500';ind.style.display='none';}
+  });
+  sec.querySelector('.econtent').innerHTML=ecHTML(eid);
+}
+function mkId(city){return 's_'+city.replace(/[^가-힣a-zA-Z0-9]/g,'_');}
+function buildSection(d,isFirst){
+  const id=mkId(d.city);
+  const cl=d.cl.map((item,i)=>`<li><label class="clbl" for="c${id}${i}">
+    <input type="checkbox" id="c${id}${i}" onchange="updPg('${id}',${d.cl.length})">
+    <span class="cbox"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8 10.5,1.5"/></svg></span>
+    <span class="ctxt">${item}</span></label></li>`).join('');
+  const spots=d.sp.map(s=>`<div class="spot"><div class="scat ${s.c}">${s.c==='lm'?'🏛 랜드마크':'🍽 맛집'}</div>
+    <div class="sname">${s.n}</div><div class="sdesc">${s.d}</div></div>`).join('');
+  const utags=d.up.map(u=>`<span class="utag">${u.n}</span>`).join('');
+  const udets=d.up.map(u=>`<p><strong>${u.n}</strong> — ${u.i}</p>`).join('');
+  const etabs=[{id:'acc',ic:'🚨',lb:'사고',c:'#FF3B30'},{id:'ri',ic:'🚗',lb:'대여 이슈',c:'#FF9500'},{id:'dl',ic:'⏰',lb:'픽업 지연',c:'#007AFF'}]
+    .map(t=>`<button class="etab" data-id="${t.id}" onclick="switchEC('${id}','${t.id}')">
+      <span class="etab-ic">${t.ic}</span><span class="etab-lb">${t.lb}</span>
+      <div class="etab-in" style="background:${t.c};"></div></button>`).join('');
+  const tip=d.tip?`<div class="tip-box">💡 <strong>현지 꿀팁:</strong> ${d.tip}</div>`:'';
+  return `<div class="csec${isFirst?' on':''}" id="${id}" data-city="${d.city}" data-rg="${d.rg}">
+    <div class="chead"><h2>${d.flag} ${d.city}</h2><div class="sub">${d.rg} · 인수 당일 가이드</div></div>
+    <div class="sec"><div class="stitle"><span>✅</span> 차량 인수 체크리스트</div>
+      <div class="card"><p style="margin-bottom:12px;font-weight:600;color:var(--dark);">하나라도 빼먹으면 반납 시 억울한 비용이 생길 수 있어요!</p>
+        ${tip}<div class="pgwrap"><div class="pgtop"><span class="pglbl">완료 항목</span><span class="pgcnt" id="pc${id}">0 / ${d.cl.length}</span></div>
+        <div class="pgbg"><div class="pgbar" id="pb${id}" style="width:0%"></div></div></div>
+        <ul class="cl">${cl}</ul>
+        <div class="done-badge" id="db${id}">✅ 모든 항목 완료! 안전한 드라이브 되세요 🚗</div>
+        <div class="co co-w" style="margin-top:10px;"><strong>📸 가장 중요한 한 가지!</strong> 차량 인수 전 반드시 외관 360° 사진/영상을 촬영하세요.</div>
+      </div></div>
+    <div class="sec"><div class="stitle"><span>🛒</span> 현장에서 권유받을 수 있는 옵션들</div>
+      <div class="card"><p style="margin-bottom:10px;color:var(--g6);">인수 시 직원이 아래 옵션을 추가로 권유할 수 있어요.</p>
+        <div class="utags">${utags}</div><div class="udets" style="margin-top:12px;">${udets}</div>
+        <div class="co co-t"><strong>💡 꿀팁:</strong> 풀커버 보험과 GPS는 해외 렌터카에서 거의 필수예요. 가능하면 예약 시 미리 추가하는 게 저렴합니다.</div>
+      </div></div>
+    <div class="sec"><div class="stitle"><span>🗺️</span> ${d.city} 드라이브 스팟 & 맛집</div>
+      <div class="card"><p style="margin-bottom:12px;color:var(--g6);">렌트카로 가기 좋은 핵심 스팟을 골랐어요.</p>
+        <div class="sgrid">${spots}</div></div></div>
+    <div class="divider"></div>
+    <div class="ezone">
+      <div class="ehd"><div class="edot"></div><span class="etxt">긴급 대응 가이드</span></div>
+      <div class="etitle">여행 중 문제가 생겼나요?</div>
+      <div class="esub">아래 케이스를 선택하면 대응 방법을 안내해드려요</div>
+      <div class="etabs">${etabs}</div>
+      <div class="econtent">${ecHTML('acc')}</div>
+      <div class="bpad"></div>
+    </div></div>`;
+}
+/* ── 초기화 ── */
+const rgrow=document.getElementById('rgrow');
+const pills=document.getElementById('pills');
+const content=document.getElementById('content');
+content.innerHTML=DATA.map((d,i)=>buildSection(d,i===0)).join('');
+switchEC(mkId(DATA[0].city),'acc');
+function renderRgBtns(){
+  rgrow.innerHTML=REGIONS.map(rg=>`<button class="rgtag${rg===activeRg?' on':''}" onclick="selectRg('${rg}')">${rg}</button>`).join('');
+}
+function renderPills(rg){
+  const cities=DATA.filter(d=>d.rg===rg);
+  pills.innerHTML=cities.map(d=>`<button class="pill${d.city===activeCity&&d.rg===rg?' on':''}" onclick="showCity('${d.city}')">${d.flag} ${d.city}</button>`).join('');
+}
+function selectRg(rg){
+  activeRg=rg;renderRgBtns();renderPills(rg);
+  const first=DATA.find(d=>d.rg===rg);
+  if(first)showCity(first.city);
+}
+function showCity(city){
+  activeCity=city;
+  document.querySelectorAll('.csec').forEach(s=>s.classList.remove('on'));
+  const id=mkId(city);
+  const sec=document.getElementById(id);
+  if(sec){sec.classList.add('on');if(!activeEC[id])switchEC(id,'acc');}
+  document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('on',p.textContent.includes(city)));
+  document.getElementById('si').value='';
+  document.getElementById('nores').style.display='none';
+}
+function doFilter(v){
+  const q=v.trim().toLowerCase();
+  const nores=document.getElementById('nores');
+  if(!q){nores.style.display='none';renderPills(activeRg);showCity(DATA.find(d=>d.rg===activeRg)?.city||DATA[0].city);return;}
+  const matches=DATA.filter(d=>d.city.toLowerCase().includes(q)||d.rg.toLowerCase().includes(q));
+  nores.style.display=matches.length?'none':'block';
+  pills.innerHTML=matches.map(d=>`<button class="pill" onclick="showCity('${d.city}')">${d.flag} ${d.city}</button>`).join('');
+  if(matches.length)showCity(matches[0].city);
+}
+function updPg(id,total){
+  const sec=document.getElementById(id);if(!sec)return;
+  const checked=sec.querySelectorAll('input[type=checkbox]:checked').length;
+  document.getElementById('pc'+id).textContent=checked+' / '+total;
+  document.getElementById('pb'+id).style.width=Math.round(checked/total*100)+'%';
+  const db=document.getElementById('db'+id);if(db)db.classList.toggle('show',checked===total);
+}
+renderRgBtns();renderPills(activeRg);
+</script>
+</body>
+</html>
