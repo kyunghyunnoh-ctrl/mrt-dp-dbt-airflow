@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>여행 중 가이드 — 일본</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F8FA;--white:#FFF;--dark:#111827;--g8:#1F2937;--g6:#4B5563;--g4:#9CA3AF;--g2:#E5E7EB;--g1:#F3F4F6;--blue:#2563EB;--b50:#EFF6FF;--orange:#EA580C;--red:#DC2626;--r50:#FEF2F2;--green:#059669;--gr50:#ECFDF5;--amber:#D97706;--a50:#FFFBEB;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--g8);line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{width:100%;max-width:960px;margin:0 auto;background:var(--white);min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.08);display:flex;flex-direction:column}
+.hd{background:linear-gradient(135deg,#0F172A,#1E3A5F);padding:36px 24px 24px;color:#fff;position:relative;overflow:hidden}
+.hd::after{content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(37,99,235,.2),transparent 70%);border-radius:50%}
+.hd-in{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:4px 12px;margin-bottom:10px}
+.bdot{width:7px;height:7px;border-radius:50%;background:#FF3B30;animation:pulse 1.5s infinite;flex-shrink:0}
+.blbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.06em}
+.htitle{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:4px}
+.hsub{font-size:13px;color:rgba(255,255,255,.5)}
+.sbar{padding:10px 16px;background:var(--white);border-bottom:1px solid var(--g2);position:sticky;top:0;z-index:200}
+.sinput{width:100%;padding:9px 14px;border:1.5px solid var(--g2);border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border .2s}
+.sinput:focus{border-color:var(--blue)}
+.rgbox{padding:10px 16px;background:#FAFAFA;border-bottom:1px solid var(--g1)}
+.rglbl{font-size:11px;font-weight:700;color:var(--g4);letter-spacing:.05em;margin-bottom:6px}
+.rgrow{display:flex;flex-wrap:wrap;gap:5px}
+.rgtag{padding:4px 11px;border:1.5px solid var(--g2);border-radius:20px;font-size:12px;font-weight:600;color:var(--g6);background:var(--white);cursor:pointer;font-family:inherit;transition:all .15s}
+.rgtag:hover{border-color:var(--blue);color:var(--blue);background:var(--b50)}
+.rgtag.on{border-color:var(--blue);color:#fff;background:var(--blue)}
+.pills{padding:8px 16px;background:#fff;border-bottom:1px solid var(--g1);display:flex;flex-wrap:wrap;gap:5px}
+.pill{padding:4px 11px;border:1.5px solid var(--g2);border-radius:20px;font-size:12px;font-weight:600;color:var(--g6);background:var(--white);cursor:pointer;transition:all .15s;font-family:inherit}
+.pill:hover{border-color:var(--blue);color:var(--blue);background:var(--b50)}
+.pill.on{border-color:var(--blue);color:#fff;background:var(--blue)}
+.content{flex:1}
+.csec{display:none}
+.csec.on{display:block;animation:fu .22s ease}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.chead{padding:22px 24px 0;margin-bottom:18px}
+.chead h2{font-size:21px;font-weight:900;color:var(--dark);letter-spacing:-.03em}
+.chead .sub{font-size:13px;color:var(--g6);margin-top:2px}
+.sec{padding:0 24px;margin-bottom:22px}
+.stitle{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.card{background:var(--white);border-radius:var(--r);padding:18px;border:1px solid var(--g2)}
+.cl{list-style:none;display:flex;flex-direction:column;gap:1px}
+.cl li{padding:0}
+.clbl{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:9px;cursor:pointer;transition:background .15s}
+.clbl:hover{background:var(--g1)}
+.clbl input{display:none}
+.cbox{flex-shrink:0;width:20px;height:20px;margin-top:1px;border:2px solid var(--g2);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cbox svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none;opacity:0;transform:scale(.5);transition:all .18s}
+.clbl input:checked~.cbox{background:var(--blue);border-color:var(--blue)}
+.clbl input:checked~.cbox svg{opacity:1;transform:scale(1)}
+.clbl input:checked~.ctxt{color:var(--g4);text-decoration:line-through}
+.ctxt{font-size:14px;color:var(--g6);line-height:1.6;transition:color .2s}
+.pgwrap{margin-bottom:12px}
+.pgtop{display:flex;justify-content:space-between;margin-bottom:5px}
+.pglbl{font-size:12px;font-weight:600;color:var(--g6)}
+.pgcnt{font-size:12px;font-weight:700;color:var(--blue)}
+.pgbg{height:5px;background:var(--g1);border-radius:99px;overflow:hidden}
+.pgbar{height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.done-badge{display:none;align-items:center;gap:5px;margin-top:8px;padding:9px 13px;background:var(--gr50);border-radius:9px;font-size:13px;font-weight:600;color:var(--green)}
+.done-badge.show{display:flex}
+.co{padding:12px 15px;border-radius:9px;font-size:13px;line-height:1.7;margin-top:10px}
+.co-w{background:var(--r50);border-left:3px solid var(--red);color:#991B1B}
+.co-t{background:var(--a50);border-left:3px solid var(--amber);color:#92400E}
+.co-i{background:var(--b50);border-left:3px solid var(--blue);color:#1E40AF}
+.utags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.utag{padding:4px 11px;background:var(--b50);color:var(--blue);border-radius:7px;font-size:12px;font-weight:600}
+.udets{margin-top:12px}
+.udets p{font-size:13px;color:var(--g6);margin-bottom:3px}
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+@media(min-width:600px){.sgrid{grid-template-columns:repeat(3,1fr)}}
+.spot{background:var(--g1);border-radius:9px;padding:11px 13px}
+.scat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.scat.lm{color:var(--blue)}.scat.fd{color:var(--orange)}
+.sname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:1px}
+.sdesc{font-size:11px;color:var(--g6)}
+.divider{height:8px;background:var(--g1);margin-bottom:22px}
+.ezone{background:#fff;border-top:1px solid var(--g2);padding-bottom:28px}
+.ehd{padding:18px 24px 0;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.edot{width:8px;height:8px;border-radius:50%;background:#FF3B30;animation:pulse 1.5s infinite}
+.etxt{font-size:13px;font-weight:700;color:#FF3B30;letter-spacing:.05em}
+.etitle{font-size:17px;font-weight:800;color:var(--dark);padding:0 24px;margin-bottom:3px;letter-spacing:-.03em}
+.esub{font-size:13px;color:var(--g6);padding:0 24px;margin-bottom:18px}
+.etabs{display:flex;border-bottom:1px solid var(--g2);overflow-x:auto;scrollbar-width:none;margin-bottom:18px}
+.etabs::-webkit-scrollbar{display:none}
+.etab{flex:1;min-width:80px;padding:9px 4px 11px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;font-family:inherit}
+.etab-ic{font-size:19px}
+.etab-lb{font-size:11px;font-weight:500;color:#999;white-space:nowrap;transition:all .2s}
+.etab-in{position:absolute;bottom:0;left:10%;right:10%;height:2.5px;border-radius:2px 2px 0 0;display:none}
+.econtent{padding:0 24px}
+.ccase{border-radius:13px;padding:15px 17px;margin-bottom:14px;border:1.5px solid var(--g2)}
+.cbadge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 9px;margin-bottom:7px}
+.cdot{width:6px;height:6px;border-radius:50%}
+.cbtxt{font-size:11px;font-weight:700;letter-spacing:.03em}
+.ctitle{font-size:15px;font-weight:800;color:var(--dark);letter-spacing:-.03em;margin-bottom:2px}
+.csub2{font-size:13px;color:var(--g6)}
+.slbl{font-size:11px;font-weight:700;color:#999;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;padding-left:1px}
+.ssub{font-size:12px;font-weight:700;border-radius:7px;padding:4px 9px;margin-bottom:10px;display:inline-block}
+.srow{display:flex;gap:13px}
+.sleft{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px}
+.snum{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff}
+.sline{width:2px;flex:1;min-height:16px;border-radius:2px;margin:3px 0}
+.scont{flex:1;padding-bottom:15px}
+.scont.last{padding-bottom:0}
+.stname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;letter-spacing:-.02em}
+.stdesc{font-size:12px;color:#555;line-height:1.6}
+.stnote{margin-top:7px;background:#F0F6FF;border:1px solid #BFD7FF;border-radius:8px;padding:8px 11px;font-size:12px;color:#1D4E9B;font-weight:500;line-height:1.5}
+.stnote.w{background:#FFF8EC;border-color:#FFE0A0;color:#B85C00}
+.stnote.d{background:#FFF1F0;border-color:#FFCCC7;color:#CF1322}
+.sdiv{height:1px;background:#F0F0F0;margin:3px 0 14px}
+.cta{margin-top:18px;background:#F5F5F7;border-radius:13px;padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cta-t{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:1px}
+.cta-s{font-size:12px;color:#888}
+.cta-b{background:var(--dark);color:#fff;border:none;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.cta-b:hover{background:#333}
+.bpad{height:36px}
+.nores{padding:50px 24px;text-align:center;color:var(--g4);font-size:14px;display:none}
+/* Japan-specific tip box */
+.jp-tip{background:#FFF3CD;border:1px solid #FFD966;border-radius:10px;padding:12px 15px;margin-bottom:14px;font-size:13px;color:#664D00;line-height:1.7}
+.jp-tip strong{color:#4D3900}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hd"><div class="hd-in">
+  <div class="badge"><div class="bdot"></div><span class="blbl">여행 중 · 파일 2/4</span></div>
+  <div class="htitle">🚗 차량 인수 & 드라이브 가이드</div>
+  <div class="hsub">일본 🇯🇵 | 체크리스트 · 드라이브 스팟 · 긴급 대응 · 49개 도시</div>
+</div></div>
+<div class="sbar"><input class="sinput" id="si" placeholder="🔍 도시 검색 (예: 삿포로, 오키나와)..." oninput="doFilter(this.value)"></div>
+<!-- 지역 필터 -->
+<div class="rgbox">
+  <div class="rglbl">📍 지역별 필터</div>
+  <div class="rgrow" id="rgrow"></div>
+</div>
+<div class="pills" id="pills"></div>
+<div class="content" id="content"></div>
+<div class="nores" id="nores">검색 결과가 없습니다.</div>
+</div>
+<script>
+/* ── 긴급 대응 ── */
+const EC={
+  acc:{tag:"사고",tc:"#FF3B30",tb:"#FFF1F0",title:"차량 사고 발생",sub:"침착하게, 순서대로 행동하세요",ac:"#FF3B30",
+    steps:[{n:"01",t:"현지 영업소로 즉시 연락",d:"사고 발생 즉시 차량을 인수한 현지 영업소에 연락하세요.",note:"🚫 상대방 운전자와 자체 협의하거나 자체 수리할 경우, 보험 적용을 받을 수 없으며 벌금 부과 또는 차량 이용 불가 처리될 수 있습니다.",nt:"d"},
+      {n:"02",t:"사고 현장 전체 사진 촬영 후 대기",d:"사고 현장 전체와 차량 손상 부위를 빠짐없이 촬영한 후 현장에서 대기하세요.",note:null},
+      {n:"03",t:"렌터카 업체 지시에 따르기",d:"렌터카 업체에서 요청하는 지시대로 규정을 따라주세요.",note:null}]},
+  ri:{tag:"대여 이슈",tc:"#FF9500",tb:"#FFF8EC",title:"차량 대여 이슈 발생",sub:"예약 정보 오기재 또는 차량 재고 부족",ac:"#FF9500",
+    subs:[{lb:"예약 정보 오기재일 경우",steps:[
+      {n:"01",t:"현지 영업소에서 현장 재예약 문의",d:"오기재된 내용을 현지 영업소에 설명하고 현장에서 다시 예약을 문의하세요.",note:null},
+      {n:"02",t:"환불 불가 시 마이리얼트립으로 문의",d:"현지에서 환불이 불가할 경우 마이리얼트립으로 문의해 주세요.",note:"⚠️ 상황에 따라 100% 환불처리가 되지 않을 수도 있습니다.",nt:"w"}]},
+    {lb:"차량 재고 부족으로 인수 불가일 경우",steps:[
+      {n:"01",t:"즉시 마이리얼트립 1:1 문의 요청",d:"현장 재고 이슈로 인수가 불가한 경우, 즉시 마이리얼트립 1:1 문의를 접수해 주세요.",note:"⚠️ 한국시간 새벽 3시 ~ 오전 7시는 응답이 지연될 수 있습니다.",nt:"w"},
+      {n:"02",t:"대기 후 인수 또는 재예약 진행",d:"대기 후 차량 인수 또는 재예약을 통해 인수를 진행하세요.",note:"💡 예약처·렌터카 업체와 소통이 어려울 경우 다른 업체 차량으로 예약이 필요할 수 있으며, 이 경우 기존 업체 확인 후 환불 처리가 진행됩니다.",nt:"i"}]}]},
+  dl:{tag:"픽업 지연",tc:"#007AFF",tb:"#EFF6FF",title:"픽업 지연 이슈 발생",sub:"항공 지연 또는 픽업 차량 미탑승",ac:"#007AFF",
+    subs:[{lb:"항공 지연의 경우",steps:[
+      {n:"01",t:"현지 렌터카 업체에 먼저 연락",d:"항공편명과 지연 관련 사진을 첨부하여 현지 렌터카 업체에 연락하세요.",note:"📸 지연 증거 사진(항공 지연 안내판 등) 첨부 필수",nt:"i"},
+      {n:"02",t:"업체 연결 어려울 경우 마이리얼트립 문의",d:"현지 렌터카 업체와 연결이 어려울 경우 마이리얼트립으로 문의해 주세요.",note:"📸 문의 시 지연 관련 사진 첨부 필수",nt:"i"}]},
+    {lb:"픽업 차량을 놓친 경우",steps:[
+      {n:"01",t:"현지 렌터카 업체에 즉시 연락",d:"픽업 차량을 놓쳤다면 즉시 현지 렌터카 업체에 연락하세요.",note:null},
+      {n:"02",t:"연락 어려울 경우 마이리얼트립 문의",d:"현지 업체 연락이 어려울 경우 마이리얼트립으로 문의해 주세요.",note:null}]}]}
+};
+/* 공통 일본 체크리스트 */
+const JP_CL_BASE=["차량 외관 흠집 사진 촬영 — 스태프와 함께 확인!","ETC 카드 장착 및 정상 인식 확인","내비게이션 한국어 설정 확인","면책보상제도(NOC) 가입 여부 최종 확인","연료 종류 및 잔량 확인"];
+const JP_UP_BASE=[{n:"ETC 카드 대여",i:"고속도로 최대 30% 할인 — 꼭 빌리세요"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제, 강력 추천"},{n:"카시트(チャイルドシート)",i:"6세 미만 의무"},{n:"스노우타이어",i:"해당 도시/계절에 따라 확인"}];
+/* ── 도시 데이터 ── */
+const DATA=[
+/* ===== 홋카이도 ===== */
+{rg:"홋카이도",city:"삿포로",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 여부 필수 확인 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"4WD 업그레이드",i:"겨울 결빙 도로에서 안전성 UP"},{n:"스노우타이어",i:"겨울(11~3월) 필수"},{n:"ETC 카드 대여",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"}],
+ sp:[{c:"lm",n:"오타루 운하",d:"레트로 항구 도시 (편도 45min)"},{c:"lm",n:"후라노·비에이",d:"라벤더 밭 + 패치워크 언덕 (편도 2h)"},{c:"lm",n:"노보리베츠 온천",d:"지옥계곡 유황 온천 (편도 1.5h)"},{c:"fd",n:"스프카레",d:"홋카이도 명물, 향신료 카레"},{c:"fd",n:"오타루 스시 거리",d:"신선 해산물 스시 맛집 골목"}],
+ tip:"삿포로는 11~3월 스노우타이어가 사실상 필수입니다. 4WD 차량을 선택하면 결빙 도로에서 안전성이 크게 높아져요."},
+{rg:"홋카이도",city:"하코다테",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 여부 확인 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"겨울 필수"},{n:"4WD",i:"겨울 산악 도로"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"하코다테산 야경",d:"세계 3대 야경 중 하나"},{c:"lm",n:"고료카쿠",d:"별 모양 서양식 성곽"},{c:"lm",n:"오누마 국정공원",d:"화산 & 호수 드라이브"},{c:"fd",n:"하코다테 아침 시장",d:"신선 해산물 & 이쿠라동"},{c:"fd",n:"럭키 피에로",d:"하코다테 명물 햄버거 체인"}],
+ tip:"하코다테산 야경은 저녁 드라이브 코스로 인기! 정상까지 드라이브로 올라갈 수 있어요."},
+/* ===== 도호쿠 ===== */
+{rg:"도호쿠",city:"아오모리",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"동북 최대 적설 지역"},{n:"4WD",i:"겨울 산악 도로"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"핫코다산",d:"수빙 설경 드라이브 (편도 1h)"},{c:"lm",n:"오이라세 계곡",d:"단풍 & 폭포 트레킹"},{c:"lm",n:"시라카미 산지",d:"세계자연유산 너도밤나무 숲"},{c:"fd",n:"아오모리 사과",d:"일본 최고 사과 산지"},{c:"fd",n:"노산바 해삼",d:"무쓰만 신선 해삼 요리"}],
+ tip:"아오모리 적설량은 동북 최고 수준. 겨울 방문 시 스노우타이어 + 4WD 강력 권장."},
+{rg:"도호쿠",city:"아키타",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"아키타 폭설 지역"},{n:"4WD",i:"겨울 도로"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"다자와 호수",d:"일본 최심 호수 & 설경"},{c:"lm",n:"뉴토 온천향",d:"깊은 산 비경 온천"},{c:"lm",n:"가쿠노다테",d:"무사 저택 벚꽃 거리"},{c:"fd",n:"키리탄포 나베",d:"아키타 명물 쌀봉 전골"},{c:"fd",n:"이나니와 우동",d:"아키타 평면 세면 우동"}],
+ tip:"뉴토 온천향은 산간 오지라 겨울 4WD가 거의 필수입니다."},
+{rg:"도호쿠",city:"야마가타",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"야마가타 적설 많음"},{n:"4WD",i:"자오 온천 방면"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"자오 온천",d:"수빙(나무 빙설) 명소 스키장"},{c:"lm",n:"긴잔 온천",d:"다이쇼 시대 레트로 온천 마을"},{c:"lm",n:"야마데라",d:"1015계단 암벽 사원"},{c:"fd",n:"야마가타 소고기",d:"야마가타 와규"},{c:"fd",n:"이모니",d:"야마가타 전통 토란 전골"}],
+ tip:"자오 수빙(juhyo)은 세계적으로 드문 풍경. 겨울 드라이브 시 스노우타이어 필수."},
+{rg:"도호쿠",city:"이와테",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"이와테 폭설 지역"},{n:"4WD",i:"하야친 방면 산악"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"하야친",d:"이와테 최고봉 트레킹"},{c:"lm",n:"게이비케이",d:"기요스미 협곡 뱃놀이"},{c:"lm",n:"히라이즈미",d:"유네스코 중존사 황금당"},{c:"fd",n:"완코 소바",d:"이와테 전통 소량 메밀국수"},{c:"fd",n:"이와테 단체리",d:"이와테 사과주"}],
+ tip:"히라이즈미는 유네스코 세계문화유산. 봄~가을 드라이브 추천."},
+{rg:"도호쿠",city:"미야기",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 확인 (겨울)",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"겨울 산악 방면"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"}],
+ sp:[{c:"lm",n:"마쓰시마",d:"일본 3경 섬 드라이브"},{c:"lm",n:"자오 산맥",d:"스키 & 수빙"},{c:"lm",n:"긴케이잔",d:"센다이 뒷산 단풍"},{c:"fd",n:"규탄 (소 혀)",d:"센다이 명물 소 혀 구이"},{c:"fd",n:"하라코메시",d:"연어알 & 연어 밥"}],
+ tip:"마쓰시마는 일본 3경 중 하나! 만 전체가 소나무 섬으로 뒤덮인 절경이에요."},
+{rg:"도호쿠",city:"후쿠시마",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 확인 (겨울)",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"반다이산 방면 필수"},{n:"4WD",i:"겨울 산악"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"우라반다이",d:"오색 늪 자연 드라이브"},{c:"lm",n:"아이즈와카마쓰",d:"성 & 사무라이 문화"},{c:"lm",n:"쓰루가죠",d:"흰 성벽 아름다운 성"},{c:"fd",n:"키타카타 라멘",d:"후쿠시마 명물 숙성 라멘"},{c:"fd",n:"아카베코",d:"후쿠시마 전통 빨간 소 기념품"}],
+ tip:"우라반다이 오색 늪(고시키누마)은 가을 단풍과 함께 최고의 드라이브 코스!"},
+/* ===== 간토 ===== */
+{rg:"간토",city:"도쿄",
+ cl:[...JP_CL_BASE.slice(0,1),...JP_CL_BASE.slice(1),"초보자 마크(와카바 마크 🔰) 부착 여부 확인"],
+ up:[{n:"ETC 카드 대여",i:"고속도로 최대 30% 할인"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 하코네 방면 필요"}],
+ sp:[{c:"lm",n:"하코네",d:"온천 + 후지산 뷰 (편도 1.5h)"},{c:"lm",n:"가마쿠라",d:"대불 + 에노시마 해변 (편도 1h)"},{c:"lm",n:"카와고에",d:"'소에도' 복고풍 거리 (편도 1h)"},{c:"fd",n:"이치란 라멘",d:"1인 칸막이석 돈코츠 라멘"},{c:"fd",n:"츠키지 장외시장",d:"해산물·타마고야키 먹방"}],
+ tip:"도쿄 시내는 주차비가 매우 비싸고 복잡해요. 렌터카는 주로 근교 이동(하코네·닛코·가마쿠라)에 활용하는 것이 효율적입니다."},
+{rg:"간토",city:"가나가와",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"수도권 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 하코네 방면"}],
+ sp:[{c:"lm",n:"하코네 아시 호수",d:"후지산 반영 뷰"},{c:"lm",n:"에노시마",d:"해변 + 동굴 산책"},{c:"lm",n:"요코하마 차이나타운",d:"일본 최대 차이나타운"},{c:"fd",n:"시우마이",d:"요코하마 명물 새우 만두"},{c:"fd",n:"하코네 유모토 온천",d:"온천 카페 & 만주"}],
+ tip:"요코하마에서 하코네까지 드라이브 루트는 경치가 좋아 드라이브 코스로 인기!"},
+{rg:"간토",city:"사이타마",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"수도권 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 치치부 방면"}],
+ sp:[{c:"lm",n:"치치부",d:"야경 & 류진 협곡 드라이브"},{c:"lm",n:"카와고에",d:"작은 에도 복고풍 거리"},{c:"lm",n:"나가토로",d:"아라카와 래프팅 & 절벽"},{c:"fd",n:"치치부 와인",d:"사이타마 와이너리"},{c:"fd",n:"미소 포테이토",d:"나가토로 명물 감자 꼬치"}],
+ tip:"카와고에는 도쿄 근교 당일치기 드라이브 코스로 인기 최고!"},
+{rg:"간토",city:"이바라키",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"수도권 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 쓰쿠바 방면"}],
+ sp:[{c:"lm",n:"네모필라 공원",d:"봄 네모필라 꽃밭 절경"},{c:"lm",n:"쓰쿠바산",d:"간토 평야 전망 케이블카"},{c:"lm",n:"카시마 신궁",d:"일본 3대 신궁"},{c:"fd",n:"렌콘 요리",d:"이바라키 연근 특산 요리"},{c:"fd",n:"나토",d:"미토 낫토 원산지"}],
+ tip:"히타치 해변의 네모필라(4~5월)와 코키아(10월) 드라이브는 일본 인생 사진 스팟!"},
+{rg:"간토",city:"치바",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"수도권 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"아쿠아라인 통행료",i:"도쿄만 해저 터널 약 ¥3,000"}],
+ sp:[{c:"lm",n:"보소 반도",d:"해안 드라이브 절경"},{c:"lm",n:"나리타산 신쇼지",d:"웅장한 나리타 사원"},{c:"lm",n:"마리호야 해안",d:"치바 남단 투명 바다"},{c:"fd",n:"낙화생 두부",d:"치바 땅콩 두부 특산"},{c:"fd",n:"아지 (전어) 초밥",d:"치바 신선 생선 초밥"}],
+ tip:"아쿠아라인을 이용하면 도쿄에서 치바 보소 반도까지 빠르게 이동 가능. 통행료는 ETC 사용 시 할인돼요."},
+{rg:"간토",city:"야마나시",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 확인 (겨울 후지산 방면) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"겨울 후지 5합목 방면"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"}],
+ sp:[{c:"lm",n:"후지 5호",d:"후지산 5합목 드라이브"},{c:"lm",n:"가와구치코",d:"후지산 반영 호수"},{c:"lm",n:"시라이토 폭포",d:"후지산 절경 폭포"},{c:"fd",n:"호토",d:"야마나시 명물 넓은 면 된장 전골"},{c:"fd",n:"야마나시 와인",d:"일본 최고 와이너리 지역"}],
+ tip:"가와구치코에서 바라보는 후지산은 최고의 드라이브 뷰포인트! 새벽 일출 드라이브를 추천합니다."},
+/* ===== 주부·호쿠리쿠 ===== */
+{rg:"주부·호쿠리쿠",city:"시즈오카",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 확인 (겨울 후지산 방면)",...JP_CL_BASE.slice(1)],
+ up:[{n:"ETC 카드",i:"도메이 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 후지산 5합목 방면"}],
+ sp:[{c:"lm",n:"후지산 고고메",d:"5합목 드라이브 (편도 2h)"},{c:"lm",n:"이즈 반도",d:"온천 & 해안 드라이브"},{c:"lm",n:"미시마 스카이워크",d:"일본 최장 현수 보도교"},{c:"fd",n:"시즈오카 오뎅",d:"흑색 어묵 현지 명물"},{c:"fd",n:"사쿠라 에비 가키아게",d:"벚꽃 새우 튀김"}],
+ tip:"후지산 5합목 드라이브는 여름(7~8월)에만 가능. 봄·가을엔 이즈 반도 해안 드라이브 추천!"},
+{rg:"주부·호쿠리쿠",city:"나고야",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 확인 (겨울 시라카와고 방면)",...JP_CL_BASE.slice(1)],
+ up:[{n:"ETC 카드 대여",i:"도카이도 고속도로 할인"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 시라카와고 방면"}],
+ sp:[{c:"lm",n:"시라카와고",d:"유네스코 갓쇼즈쿠리 마을 (편도 2h)"},{c:"lm",n:"이누야마성",d:"일본 최고(最古) 현존 천수 (편도 45min)"},{c:"lm",n:"이세신궁",d:"일본 최고 신사 (편도 2h)"},{c:"fd",n:"야바톤 미소카츠",d:"나고야 명물 된장 돈카츠"},{c:"fd",n:"코메다 커피",d:"나고야 발 모닝 세트"}],
+ tip:"시라카와고 야간 라이트업(겨울) 드라이브는 예약 필수! 사전에 꼭 확인하세요."},
+{rg:"주부·호쿠리쿠",city:"기후",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (겨울 히다 지방) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"겨울 히다 지방 필수"},{n:"4WD",i:"다카야마·시라카와고 산악 도로"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"시라카와고",d:"유네스코 갓쇼즈쿠리 설경"},{c:"lm",n:"다카야마 구시가지",d:"에도 시대 상인 거리"},{c:"lm",n:"오쿠히다 온천향",d:"히다 알프스 온천"},{c:"fd",n:"히다 소고기 스테이크",d:"히다규 A5 와규"},{c:"fd",n:"미타라시당고",d:"기후 명물 경단"}],
+ tip:"다카야마 구시가지는 주차 공간이 협소해요. 유료 주차장을 사전에 확인하고 출발하세요."},
+{rg:"주부·호쿠리쿠",city:"나가노",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (산악) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"나가노 산악 지역 필수"},{n:"4WD",i:"겨울 스키 리조트"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"지고쿠다니 온천",d:"원숭이 온천 (편도 1h)"},{c:"lm",n:"마쓰모토성",d:"국보 검은 성"},{c:"lm",n:"가미코치",d:"북알프스 절경 (편도 2h)"},{c:"fd",n:"소바 테우치",d:"나가노 메밀국수"},{c:"fd",n:"오야키",d:"채소 속 찐빵 나가노 명물"}],
+ tip:"가미코치는 마이카 규제 구간. 사와도 주차장에 주차 후 셔틀버스로 이동해야 해요."},
+{rg:"주부·호쿠리쿠",city:"니가타",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (일본 최대 적설) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"일본 최다 적설 필수"},{n:"4WD",i:"겨울 도로"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"사도가시마",d:"황금 광산 섬 (페리 이동)"},{c:"lm",n:"에치고유자와 스키장",d:"세계 최고 파우더 스노"},{c:"lm",n:"묘코산",d:"비경 트레킹 & 온천"},{c:"fd",n:"헤기소바",d:"니가타 독자 메밀국수"},{c:"fd",n:"노도쿠로",d:"니가타 특산 생선 구이"}],
+ tip:"니가타 적설량은 일본 최고 수준. 겨울 드라이브는 반드시 스노우타이어 + 4WD 조합을 추천!"},
+{rg:"주부·호쿠리쿠",city:"도야마",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 장착 필수 (겨울) ⚠️",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"홋코쿠 지방 폭설"},{n:"4WD",i:"다테야마 방면"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"}],
+ sp:[{c:"lm",n:"다테야마 구로베 알펜 루트",d:"설벽 드라이브 (봄 한정)"},{c:"lm",n:"고카야마",d:"유네스코 갓쇼즈쿠리 (편도 1h)"},{c:"lm",n:"구로베 댐",d:"일본 최대 아치댐"},{c:"fd",n:"도야마 블랙 라멘",d:"진한 간장 소스 라멘"},{c:"fd",n:"호타루이카",d:"도야마 반딧불 오징어"}],
+ tip:"다테야마 알펜 루트 설벽(유키노오타니)은 4~6월만 개방. 마이카 규제 구간이라 주차 후 버스 이용 필수!"},
+{rg:"주부·호쿠리쿠",city:"이시카와",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 확인 (겨울)",...JP_CL_BASE.slice(1)],
+ up:[{n:"스노우타이어",i:"겨울 가나자와 방면"},{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"}],
+ sp:[{c:"lm",n:"겐로쿠엔",d:"일본 3대 정원"},{c:"lm",n:"히가시 차야가이",d:"에도 시대 게이샤 거리"},{c:"lm",n:"노토 반도",d:"절경 드라이브 (편도 2h)"},{c:"fd",n:"카니 (게)",d:"이시카와 특산 게 요리"},{c:"fd",n:"가나자와 카레",d:"이시카와 독자 카레"}],
+ tip:"노토 반도 드라이브는 일본 최고 숨은 절경 코스 중 하나. 하루 여유를 두고 방문 추천!"},
+/* ===== 긴키 ===== */
+{rg:"긴키",city:"오사카",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드 대여",i:"간사이 고속도로 할인 패스와 연계"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"Kansai Expressway Pass",i:"간사이 지역 고속도로 정액 패스"}],
+ sp:[{c:"lm",n:"교토 아라시야마",d:"대나무숲 산책 (편도 1h)"},{c:"lm",n:"나라공원",d:"사슴과 교감 + 대불 (편도 50min)"},{c:"lm",n:"시라하마 (와카야마)",d:"해변 온천 리조트 (편도 2h)"},{c:"fd",n:"도톤보리 타코야키",d:"쿠쿠루·아이다야에서 갓 구운 타코야키"},{c:"fd",n:"쿠로몬시장",d:"오사카의 부엌, 신선 해산물"}],
+ tip:"오사카 시내 주차비가 매우 비쌉니다. 숙소 인근 월정 주차장이나 타임스를 사전에 예약하세요."},
+{rg:"긴키",city:"교토",
+ cl:[...JP_CL_BASE.slice(0,1),...JP_CL_BASE.slice(1),"교토 시내 주차 사전 예약 권장 ⚠️"],
+ up:[{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 기부네·쿠라마 방면"}],
+ sp:[{c:"lm",n:"기부네·쿠라마",d:"산간 온천마을 (편도 1h)"},{c:"lm",n:"비와코",d:"일본 최대 호수 드라이브"},{c:"lm",n:"아메노하시다테",d:"일본 3경 (편도 2h)"},{c:"fd",n:"기온 사사키",d:"교토 카이세키 요리"},{c:"fd",n:"니시키 시장",d:"교토의 부엌, 다채로운 식재료"}],
+ tip:"교토 시내 일부 도로는 관광 시즌에 차량 진입이 통제돼요. 렌터카는 교토 근교 드라이브 위주로 활용 추천!"},
+{rg:"긴키",city:"고베",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"한신 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 롯코산 방면"}],
+ sp:[{c:"lm",n:"롯코산",d:"야경 & 영국 정원 (편도 30min)"},{c:"lm",n:"아리마 온천",d:"일본 최고 온천 (편도 1h)"},{c:"lm",n:"히메지성",d:"유네스코 일본 최고 성 (편도 1h)"},{c:"fd",n:"고베 규카츠",d:"고베식 비프 카츠"},{c:"fd",n:"기타노 이진칸",d:"서양식 카페"}],
+ tip:"롯코산 드라이브는 밤 야경이 특히 환상적. 저녁 드라이브 코스로 강력 추천!"},
+{rg:"긴키",city:"나라",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 요시노 방면"}],
+ sp:[{c:"lm",n:"요시노산",d:"벚꽃 명소 (편도 1.5h)"},{c:"lm",n:"구마노 고도",d:"세계유산 순례길"},{c:"lm",n:"아스카",d:"고대 일본 유적지"},{c:"fd",n:"카키노하 스시",d:"나라 전통 감잎 스시"},{c:"fd",n:"차가유",d:"나라 전통 찻죽"}],
+ tip:"나라공원 주변은 사슴이 도로에 자주 출몰하니 천천히 주행하세요 🦌"},
+{rg:"긴키",city:"와카야마",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"간사이 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"추가 운전자 등록",i:"구마노 장거리 교대"}],
+ sp:[{c:"lm",n:"구마노 나치 대사",d:"일본 최대 낙차 폭포 & 신사"},{c:"lm",n:"시라하마 해변",d:"하얀 모래 온천 리조트"},{c:"lm",n:"코야산",d:"진언종 총본산 영지 마을"},{c:"fd",n:"마구로 (참치)",d:"나치카츠우라 신선 참치"},{c:"fd",n:"미카 (귤)",d:"와카야마 미카 직판장"}],
+ tip:"구마노 고도 드라이브는 산악 좁은 길이 많아요. 작은 차량을 선택하는 게 이동하기 편합니다."},
+{rg:"긴키",city:"미에",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"추가 운전자 등록",i:"이세 장거리"}],
+ sp:[{c:"lm",n:"이세신궁",d:"일본 최고 신사, 외궁·내궁"},{c:"lm",n:"토바 수족관",d:"듀공 & 바다코끼리"},{c:"lm",n:"시마 반도",d:"진주 & 해안 드라이브"},{c:"fd",n:"이세 우동",d:"이세 특유의 부드러운 우동"},{c:"fd",n:"테코네 스시",d:"가다랑어 절임 초밥"}],
+ tip:"이세신궁 주변은 주차공간이 매우 붐벼요. 이른 아침 방문을 강력 추천!"},
+/* ===== 주고쿠·시코쿠 ===== */
+{rg:"주고쿠·시코쿠",city:"히로시마",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"산요 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"페리 연계",i:"미야지마 방면"}],
+ sp:[{c:"lm",n:"미야지마·이쓰쿠시마",d:"물 위의 도리이 (페리 이동)"},{c:"lm",n:"오노미치",d:"언덕 & 사이클 도로"},{c:"lm",n:"산인 카이간 해안",d:"절경 드라이브"},{c:"fd",n:"히로시마 풍 오코노미야키",d:"면+달걀 층층이 구이"},{c:"fd",n:"카키 도토 나베",d:"히로시마 굴 냄비"}],
+ tip:"미야지마는 페리로 이동. 차는 미야지마구치 주차장에 두고 페리로 건너가세요."},
+{rg:"주고쿠·시코쿠",city:"오카야마",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"산요 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"세토 내해 페리 연계",i:"시코쿠 방면"}],
+ sp:[{c:"lm",n:"고라쿠엔",d:"일본 3대 정원"},{c:"lm",n:"쿠라시키 미관지구",d:"에도 운하 거리"},{c:"lm",n:"나오시마",d:"현대 미술 섬 (페리 이동)"},{c:"fd",n:"키비단고",d:"오카야마 명물 경단"},{c:"fd",n:"마마카리 초밥",d:"비와 정어리 식초절임 초밥"}],
+ tip:"나오시마 현대 미술 섬은 차 반입이 제한돼요. 페리로 이동 후 자전거 대여 추천!"},
+{rg:"주고쿠·시코쿠",city:"돗토리",
+ cl:[...JP_CL_BASE.slice(0,1),"스노우타이어 확인 (겨울 산인 지방)",...JP_CL_BASE.slice(1)],
+ up:[{n:"ETC 카드",i:"산인 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"스노우타이어",i:"겨울 산인 지방"}],
+ sp:[{c:"lm",n:"돗토리 사구",d:"일본 유일 사막 사구"},{c:"lm",n:"산베 온천",d:"산인 고원 온천"},{c:"lm",n:"우라도메 해안",d:"서산인 해안 국립공원"},{c:"fd",n:"마쓰바 게",d:"돗토리 명물 게 요리"},{c:"fd",n:"나시",d:"돗토리 서양배"}],
+ tip:"돗토리 사구는 일본 유일의 사막 지형! 드라이브 후 낙타 타기 체험도 가능해요."},
+{rg:"주고쿠·시코쿠",city:"야마구치",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"주코쿠 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"페리 연계",i:"규슈 방면"}],
+ sp:[{c:"lm",n:"아키요시 동굴",d:"일본 최대 종유석 동굴"},{c:"lm",n:"모토노스미 이나리 신사",d:"123개 도리이 절벽 신사"},{c:"lm",n:"간몬 해협",d:"혼슈~규슈 연결 해협 뷰"},{c:"fd",n:"후구 요리",d:"야마구치 복어 전골"},{c:"fd",n:"하기 도자기",d:"하기 전통 다기 체험"}],
+ tip:"모토노스미 신사는 TV에서 자주 소개된 숨은 명소. 좁은 도로라 소형 차량 권장!"},
+{rg:"주고쿠·시코쿠",city:"다카마쓰",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"세토 대교 할인 연계"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"시코쿠 드라이브 패스",i:"시코쿠 순환 시 유용"}],
+ sp:[{c:"lm",n:"리쓰린 공원",d:"일본 최고 회유식 정원"},{c:"lm",n:"나오시마",d:"현대 미술 섬 (페리 이동)"},{c:"lm",n:"고토히라구",d:"785계단 신사"},{c:"fd",n:"사누키 우동",d:"다카마쓰 발상 수타 우동"},{c:"fd",n:"오시마 스시",d:"세토 내해 생선 스시"}],
+ tip:"사누키 우동의 고향! 우동 가게 순례 드라이브도 인기 코스예요."},
+{rg:"주고쿠·시코쿠",city:"마쓰야마",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"시코쿠 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"시코쿠 드라이브 패스",i:"시코쿠 순환"}],
+ sp:[{c:"lm",n:"도고 온천",d:"일본 최고(最古) 온천"},{c:"lm",n:"마쓰야마성",d:"현존 12개 천수 중 하나"},{c:"lm",n:"우치코",d:"에도 시대 상인 거리"},{c:"fd",n:"자코텐",d:"마쓰야마 어묵 튀김"},{c:"fd",n:"봇짱 당고",d:"마쓰야마 명물 3색 경단"}],
+ tip:"도고 온천은 일본 최고(最古) 온천. 나쓰메 소세키의 「봇짱」 배경지로도 유명해요!"},
+/* ===== 규슈 ===== */
+{rg:"규슈",city:"후쿠오카",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드 대여",i:"규슈 고속도로 할인 패스 연계"},{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 할인 패스",i:"규슈 종단 드라이브 시 필수"}],
+ sp:[{c:"lm",n:"유후인",d:"온천 마을 산책 (편도 1.5h)"},{c:"lm",n:"아소산",d:"활화산 드라이브, 초원 절경 (편도 2h)"},{c:"lm",n:"다자이후 텐만구",d:"학문의 신 참배 (편도 30min)"},{c:"fd",n:"이치란 라멘 본점",d:"돈코츠 라멘의 원조"},{c:"fd",n:"나카스 야타이",d:"강변 노천 포장마차 거리"}],
+ tip:"후쿠오카는 한국에서 가장 가까운 일본 도시! 규슈 종단 드라이브 시작점으로 최고예요."},
+{rg:"규슈",city:"나가사키",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"규슈 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 패스",i:"하우스텐보스 방면"}],
+ sp:[{c:"lm",n:"하우스텐보스",d:"네덜란드풍 테마파크 (편도 1.5h)"},{c:"lm",n:"운젠 온천",d:"유황 지옥 & 온천 (편도 2h)"},{c:"lm",n:"히라도",d:"포르투갈·네덜란드 무역 역사지"},{c:"fd",name:"짬뽕",d:"나가사키 원조 짬뽕"},{c:"fd",n:"카스텔라",d:"후쿠사야 나가사키 카스텔라"}],
+ tip:"나가사키 짬뽕은 한국 짬뽕의 원형! 나가사키에 왔다면 꼭 현지 짬뽕을 맛보세요."},
+{rg:"규슈",city:"구마모토",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"규슈 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 패스",i:"아소 드라이브 필수"}],
+ sp:[{c:"lm",n:"아소산",d:"활화산 & 초원 드라이브 (편도 1h)"},{c:"lm",n:"구마모토성",d:"일본 3대 명성 재건 중"},{c:"lm",n:"미나마타",d:"자연 회복 환경 도시"},{c:"fd",n:"구마모토 라멘",d:"돼지뼈 기반 마일드 라멘"},{c:"fd",n:"이키나리 단고",d:"구마모토 명물 고구마 만두"}],
+ tip:"아소산은 분화 활동에 따라 진입 제한이 생길 수 있어요. 출발 전 최신 화산 정보를 반드시 확인!"},
+{rg:"규슈",city:"오이타",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"규슈 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 패스",i:"드라이브 할인"}],
+ sp:[{c:"lm",n:"벳푸 온천",d:"일본 최대 용출량 지옥 순례"},{c:"lm",n:"유후인",d:"온천 마을 산책 (편도 1h)"},{c:"lm",n:"쿠주 고원",d:"하이킹 & 야생화"},{c:"fd",n:"도리텐",d:"오이타 명물 닭튀김"},{c:"fd",n:"지고쿠 무시 요리",d:"온천 증기로 찐 요리"}],
+ tip:"벳푸 지옥 순례 드라이브! 7개 지옥(색깔 다른 온천)을 차로 돌아보는 코스예요."},
+{rg:"규슈",city:"가고시마",
+ cl:[...JP_CL_BASE.slice(0,1),...JP_CL_BASE.slice(1),"화산재 낙하 시 창문 닫기 ⚠️"],
+ up:[{n:"ETC 카드",i:"규슈 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 패스",i:"규슈 종단 추천"}],
+ sp:[{c:"lm",n:"사쿠라지마",d:"활화산 섬 페리 이동 & 드라이브"},{c:"lm",n:"이부스키 사무지옥",d:"모래 온천 (편도 1h)"},{c:"lm",n:"야쿠시마",d:"세계자연유산 삼나무 (페리 2h)"},{c:"fd",n:"쿠로부타 샤부샤부",d:"흑돼지 전골"},{c:"fd",n:"가고시마 라멘",d:"돈코츠 계열 로컬 라멘"}],
+ tip:"사쿠라지마 화산재가 날리는 날이 있어요. 차 창문을 닫고 와이퍼를 자주 사용하세요!"},
+{rg:"규슈",city:"미야자키",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"규슈 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 패스",i:"드라이브 할인"}],
+ sp:[{c:"lm",n:"다카치호 협곡",d:"신화 협곡 보트 (편도 2h)"},{c:"lm",n:"아오시마",d:"도깨비 세탁판 해안"},{c:"lm",n:"에비노 고원",d:"화산 칼데라 트레킹"},{c:"fd",n:"미야자키 치킨 난반",d:"달콤한 타르타르 소스 닭튀김"},{c:"fd",n:"히무카 쇠고기",d:"미야자키 와규"}],
+ tip:"다카치호 협곡 보트는 오전 일찍 방문이 필수. 낮에는 줄이 매우 길어요!"},
+{rg:"규슈",city:"사가",
+ cl:[...JP_CL_BASE],
+ up:[{n:"ETC 카드",i:"규슈 고속도로 할인"},{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"규슈 ETC 패스",i:"드라이브 할인"}],
+ sp:[{c:"lm",n:"아리타 도자기 마을",d:"일본 도자기 발상지"},{c:"lm",n:"요시노가리 역사공원",d:"야요이 시대 유적"},{c:"lm",n:"유메우타가",d:"무나카타 오시마 세계유산 관련지"},{c:"fd",n:"무쓰 고기 전골",d:"사가 와규"},{c:"fd",n:"사가 카레",d:"사가 독자 카레 라이스"}],
+ tip:"아리타 도자기 마을 봄 대도예 축제 기간에는 도로가 혼잡하니 조기 방문 추천!"},
+/* ===== 오키나와·섬 ===== */
+{rg:"오키나와·섬",city:"오키나와",
+ cl:[...JP_CL_BASE.slice(0,1),...JP_CL_BASE.slice(1),"ETC 카드 확인 (오키나와 고속도로 짧아 없어도 무방)"],
+ up:[{n:"면책보상제도(NOC)",i:"사고 시 영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"오픈카/지프 업그레이드",i:"오키나와 해안 드라이브에 제격"},{n:"스노클링 장비 탑재 차량",i:"해변 액티비티 편의"}],
+ sp:[{c:"lm",n:"츄라우미 수족관",d:"거대 수조, 고래상어 (나하에서 2h)"},{c:"lm",n:"만좌모",d:"코끼리 바위 해안절벽, 포토스팟"},{c:"lm",n:"아메리칸 빌리지",d:"쇼핑 + 선셋 맛집 거리"},{c:"fd",n:"소키소바",d:"오키나와 전통 돼지뼈 소바"},{c:"fd",n:"스테이크하우스 88",d:"미군 문화에서 온 오키나와 스테이크"}],
+ tip:"오키나와 국제거리 주변은 주차가 극도로 붐벼요. 공영 주차장을 미리 파악해두세요!"},
+{rg:"오키나와·섬",city:"대마도",
+ cl:[...JP_CL_BASE.slice(0,1),"페리 이동 확인 (대마도는 섬)",...JP_CL_BASE.slice(1),"섬 내 주유소 위치 사전 확인 ⚠️"],
+ up:[{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"카시트",i:"6세 미만 의무"},{n:"로드사이드 어시스턴스",i:"섬 내 서비스 제한적"},{n:"오프라인 지도",i:"산악 구간 신호 약함"}],
+ sp:[{c:"lm",n:"에보시다케 전망대",d:"대마도 최고 절경"},{c:"lm",n:"미우다 해수욕장",d:"에메랄드 투명 바다"},{c:"lm",n:"와타즈미 신사",d:"바다 위 도리이"},{c:"fd",n:"대마도 아나고",d:"장어 덮밥 현지 명물"},{c:"fd",n:"이카 요리",d:"대마도 오징어 요리"}],
+ tip:"대마도는 주유소가 매우 적어요. 절반 이하로 연료가 줄면 바로 주유하는 습관을 들이세요!"},
+{rg:"오키나와·섬",city:"야쿠시마",
+ cl:[...JP_CL_BASE.slice(0,1),"페리/비행기 이동 확인 (야쿠시마는 섬)",...JP_CL_BASE.slice(1),"강우 대비 (연간 강수량 매우 높음) ⚠️"],
+ up:[{n:"면책보상제도(NOC)",i:"영업손실금 면제"},{n:"4WD",i:"비포장 임도 구간"},{n:"카시트",i:"6세 미만 의무"},{n:"로드사이드 어시스턴스",i:"섬 내 서비스 제한"}],
+ sp:[{c:"lm",n:"죠몬스기",d:"수령 7000년 추정 삼나무"},{c:"lm",n:"시라타니운수이쿄",d:"모노노케 숲 모델 계곡"},{c:"lm",n:"나고 폭포",d:"야쿠시마 최대 폭포"},{c:"fd",n:"도비우오",d:"날치 요리 현지 특산"},{c:"fd",n:"야쿠시마 사슴 요리",d:"섬 특산 사슴 정식"}],
+ tip:"야쿠시마는 연간 강수량이 세계 최고 수준. 우의와 방수 용품을 꼭 준비하세요!"},
+{rg:"오키나와·섬",city:"로타",
+ cl:[...JP_CL_BASE.slice(0,1),"국제면허증 소지 확인 (미국령 자치구)","연료 및 타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"오프라인 지도 권장"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"섬 내 제한적"},{n:"추가 운전자",i:"교대 운전"}],
+ sp:[{c:"lm",n:"송송 마을",d:"절벽 위 원주민 마을 뷰"},{c:"lm",n:"테티토 비치",d:"WWII 침몰선 다이빙"},{c:"lm",n:"버드 아일랜드 뷰포인트",d:"에메랄드 해 전망"},{c:"fd",n:"Pacific Islands Club",d:"리조트 뷔페"},{c:"fd",n:"로타 현지 식당",d:"챠모로 전통 요리"}],
+ tip:"로타는 일본 영토이지만 미국 자치령. 국제면허증이 필요하고 통행은 우측이에요!"}
+];
+/* ── 렌더 헬퍼 ── */
+const REGIONS=[...new Set(DATA.map(d=>d.rg))];
+let activeRg=REGIONS[0];
+let activeCity=DATA[0].city;
+const activeEC={};
+function stepsHTML(arr,ac){
+  return arr.map((s,i)=>{
+    const last=i===arr.length-1;
+    const line=last?'':`<div class="sline" style="background:${ac}25;"></div>`;
+    const note=s.note?`<div class="stnote${s.nt==='w'?' w':s.nt==='d'?' d':''}">${s.note}</div>`:'';
+    return `<div class="srow">
+      <div class="sleft"><div class="snum" style="background:${ac};box-shadow:0 3px 8px ${ac}40;">${s.n}</div>${line}</div>
+      <div class="scont${last?' last':''}"><div class="stname">${s.t}</div><div class="stdesc">${s.d}</div>${note}</div>
+    </div>`;
+  }).join('');
+}
+function ecHTML(id){
+  const e=EC[id];
+  let body='';
+  if(e.steps){body=`<div class="slbl">대응 순서</div>${stepsHTML(e.steps,e.ac)}`;}
+  else{body=e.subs.map((sec,si)=>{
+    const div=si<e.subs.length-1?'<div class="sdiv"></div>':'';
+    return `<div class="ssub" style="background:#fff;color:${e.ac};border:1px solid ${e.ac}44;">${sec.lb}</div>${stepsHTML(sec.steps,e.ac)}${div}`;
+  }).join('');}
+  return `<div class="ccase" style="border-color:${e.ac}33;">
+    <div class="cbadge" style="background:${e.tb};border:1px solid ${e.ac}44;">
+      <span class="cdot" style="background:${e.ac};"></span>
+      <span class="cbtxt" style="color:${e.ac};">${e.tag} 케이스</span>
+    </div>
+    <div class="ctitle">${e.title}</div><div class="csub2">${e.sub}</div>
+  </div>${body}
+  <div class="cta"><div><div class="cta-t">마이리얼트립 고객센터</div><div class="cta-s">해결이 어렵다면 바로 문의하세요</div></div>
+    <button class="cta-b">1:1 문의 →</button></div>`;
+}
+function switchEC(sid,eid){
+  activeEC[sid]=eid;
+  const sec=document.getElementById(sid);
+  sec.querySelectorAll('.etab').forEach(b=>{
+    const bid=b.dataset.id,e=EC[bid];
+    const lb=b.querySelector('.etab-lb'),ind=b.querySelector('.etab-in');
+    if(bid===eid){lb.style.color=e.ac;lb.style.fontWeight='700';ind.style.display='block';}
+    else{lb.style.color='#999';lb.style.fontWeight='500';ind.style.display='none';}
+  });
+  sec.querySelector('.econtent').innerHTML=ecHTML(eid);
+}
+function sid(city){return 's_'+city.replace(/[^가-힣a-zA-Z0-9]/g,'_');}
+function buildSection(d,isFirst){
+  const id=sid(d.city);
+  const cl=d.cl.map((item,i)=>`<li><label class="clbl" for="c${id}${i}">
+    <input type="checkbox" id="c${id}${i}" onchange="updPg('${id}',${d.cl.length})">
+    <span class="cbox"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8 10.5,1.5"/></svg></span>
+    <span class="ctxt">${item}</span></label></li>`).join('');
+  const spots=d.sp.map(s=>`<div class="spot">
+    <div class="scat ${s.c}">${s.c==='lm'?'🏛 랜드마크':'🍽 맛집'}</div>
+    <div class="sname">${s.n||s.name||''}</div><div class="sdesc">${s.d}</div></div>`).join('');
+  const utags=d.up.map(u=>`<span class="utag">${u.n}</span>`).join('');
+  const udets=d.up.map(u=>`<p><strong>${u.n}</strong> — ${u.i}</p>`).join('');
+  const etabs=[{id:'acc',ic:'🚨',lb:'사고',c:'#FF3B30'},{id:'ri',ic:'🚗',lb:'대여 이슈',c:'#FF9500'},{id:'dl',ic:'⏰',lb:'픽업 지연',c:'#007AFF'}]
+    .map(t=>`<button class="etab" data-id="${t.id}" onclick="switchEC('${id}','${t.id}')">
+      <span class="etab-ic">${t.ic}</span><span class="etab-lb">${t.lb}</span>
+      <div class="etab-in" style="background:${t.c};"></div></button>`).join('');
+  const tip=d.tip?`<div class="jp-tip">💡 <strong>현지 꿀팁:</strong> ${d.tip}</div>`:'';
+  return `<div class="csec${isFirst?' on':''}" id="${id}" data-city="${d.city}" data-rg="${d.rg}">
+    <div class="chead"><h2>🇯🇵 ${d.city}</h2><div class="sub">일본 · ${d.rg} · 인수 당일 가이드</div></div>
+    <div class="sec"><div class="stitle"><span>✅</span> 차량 인수 체크리스트</div>
+      <div class="card">
+        <p style="margin-bottom:12px;font-weight:600;color:var(--dark);">하나라도 빼먹으면 반납 시 억울한 비용이 생길 수 있어요!</p>
+        ${tip}
+        <div class="pgwrap">
+          <div class="pgtop"><span class="pglbl">완료 항목</span><span class="pgcnt" id="pc${id}">0 / ${d.cl.length}</span></div>
+          <div class="pgbg"><div class="pgbar" id="pb${id}" style="width:0%"></div></div>
+        </div>
+        <ul class="cl">${cl}</ul>
+        <div class="done-badge" id="db${id}">✅ 모든 항목 완료! 안전한 드라이브 되세요 🚗</div>
+        <div class="co co-w" style="margin-top:10px;"><strong>📸 가장 중요한 한 가지!</strong> 인수 전 반드시 외관 360° 사진/영상을 스태프와 함께 확인하며 촬영하세요.</div>
+      </div>
+    </div>
+    <div class="sec"><div class="stitle"><span>🛒</span> 현장에서 권유받을 수 있는 옵션들</div>
+      <div class="card">
+        <p style="margin-bottom:10px;color:var(--g6);">인수 시 직원이 아래 옵션을 추가로 권유할 수 있어요.</p>
+        <div class="utags">${utags}</div>
+        <div class="udets" style="margin-top:12px;">${udets}</div>
+        <div class="co co-t"><strong>💡 꿀팁:</strong> ETC 카드와 NOC(면책보상제도)는 일본 렌터카에서 특히 중요해요. 현장보다 예약 시 미리 추가하는 게 저렴합니다.</div>
+      </div>
+    </div>
+    <div class="sec"><div class="stitle"><span>🗺️</span> ${d.city} 드라이브 스팟 & 맛집</div>
+      <div class="card">
+        <p style="margin-bottom:12px;color:var(--g6);">렌트카로 가기 좋은 핵심 스팟을 골랐어요.</p>
+        <div class="sgrid">${spots}</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="ezone">
+      <div class="ehd"><div class="edot"></div><span class="etxt">긴급 대응 가이드</span></div>
+      <div class="etitle">여행 중 문제가 생겼나요?</div>
+      <div class="esub">아래 케이스를 선택하면 대응 방법을 안내해드려요</div>
+      <div class="etabs">${etabs}</div>
+      <div class="econtent">${ecHTML('acc')}</div>
+      <div class="bpad"></div>
+    </div>
+  </div>`;
+}
+/* ── 초기화 ── */
+const rgrow=document.getElementById('rgrow');
+const pills=document.getElementById('pills');
+const content=document.getElementById('content');
+content.innerHTML=DATA.map((d,i)=>buildSection(d,i===0)).join('');
+switchEC(sid(DATA[0].city),'acc');
+function renderRegionBtns(){
+  rgrow.innerHTML=REGIONS.map(rg=>`<button class="rgtag${rg===activeRg?' on':''}" onclick="selectRg('${rg}')">${rg}</button>`).join('');
+}
+function renderPills(rg){
+  const cities=DATA.filter(d=>d.rg===rg);
+  pills.innerHTML=cities.map((d,i)=>`<button class="pill${i===0&&d.rg===rg?' on':''}" onclick="showCity('${d.city}')">${d.city}</button>`).join('');
+}
+function selectRg(rg){
+  activeRg=rg;
+  renderRegionBtns();
+  renderPills(rg);
+  const first=DATA.find(d=>d.rg===rg);
+  if(first) showCity(first.city);
+}
+function showCity(city){
+  activeCity=city;
+  document.querySelectorAll('.csec').forEach(s=>s.classList.remove('on'));
+  const id=sid(city);
+  const sec=document.getElementById(id);
+  if(sec){sec.classList.add('on');if(!activeEC[id])switchEC(id,'acc');}
+  document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('on',p.textContent===city));
+  document.getElementById('si').value='';
+  document.getElementById('nores').style.display='none';
+}
+function doFilter(v){
+  const q=v.trim().toLowerCase();
+  const nores=document.getElementById('nores');
+  if(!q){nores.style.display='none';renderPills(activeRg);showCity(DATA.find(d=>d.rg===activeRg)?.city||DATA[0].city);return;}
+  const matches=DATA.filter(d=>d.city.toLowerCase().includes(q)||d.rg.toLowerCase().includes(q));
+  nores.style.display=matches.length?'none':'block';
+  pills.innerHTML=matches.map(d=>`<button class="pill" onclick="showCity('${d.city}')">${d.city} (${d.rg})</button>`).join('');
+  if(matches.length) showCity(matches[0].city);
+}
+function updPg(id,total){
+  const sec=document.getElementById(id);
+  if(!sec)return;
+  const checked=sec.querySelectorAll('input[type=checkbox]:checked').length;
+  document.getElementById('pc'+id).textContent=checked+' / '+total;
+  document.getElementById('pb'+id).style.width=Math.round(checked/total*100)+'%';
+  const db=document.getElementById('db'+id);
+  if(db)db.classList.toggle('show',checked===total);
+}
+renderRegionBtns();
+renderPills(activeRg);
+</script>
+</body>
+</html>

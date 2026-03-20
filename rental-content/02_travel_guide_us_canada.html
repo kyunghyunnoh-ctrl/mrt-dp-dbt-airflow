@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>여행 중 가이드 — 미국·캐나다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F8FA;--white:#FFF;--dark:#111827;--g8:#1F2937;--g6:#4B5563;--g4:#9CA3AF;--g2:#E5E7EB;--g1:#F3F4F6;--blue:#2563EB;--b50:#EFF6FF;--orange:#EA580C;--red:#DC2626;--r50:#FEF2F2;--green:#059669;--gr50:#ECFDF5;--amber:#D97706;--a50:#FFFBEB;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--g8);line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{width:100%;max-width:960px;margin:0 auto;background:var(--white);min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.08);display:flex;flex-direction:column}
+/* Header */
+.hd{background:linear-gradient(135deg,#0F172A,#1E3A5F);padding:36px 24px 24px;color:#fff;position:relative;overflow:hidden}
+.hd::after{content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(37,99,235,.2),transparent 70%);border-radius:50%}
+.hd-in{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:4px 12px;margin-bottom:10px}
+.bdot{width:7px;height:7px;border-radius:50%;background:#FF3B30;animation:pulse 1.5s infinite;flex-shrink:0}
+.blbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.06em}
+.htitle{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:4px}
+.hsub{font-size:13px;color:rgba(255,255,255,.5)}
+/* Search */
+.sbar{padding:10px 16px;background:var(--white);border-bottom:1px solid var(--g2);position:sticky;top:0;z-index:200}
+.sinput{width:100%;padding:9px 14px;border:1.5px solid var(--g2);border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border .2s}
+.sinput:focus{border-color:var(--blue)}
+/* Country tabs */
+.ctabs{background:var(--white);border-bottom:1px solid var(--g2);position:sticky;top:53px;z-index:150;display:flex;overflow-x:auto;scrollbar-width:none}
+.ctabs::-webkit-scrollbar{display:none}
+.ctab{padding:10px 16px;font-size:13px;font-weight:500;color:var(--g4);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all .2s}
+.ctab.on{color:var(--blue);border-bottom-color:var(--blue);font-weight:700}
+/* City pills */
+.pills{padding:10px 16px;background:#FAFAFA;border-bottom:1px solid var(--g1);display:flex;flex-wrap:wrap;gap:5px}
+.pill{padding:4px 11px;border:1.5px solid var(--g2);border-radius:20px;font-size:12px;font-weight:600;color:var(--g6);background:var(--white);cursor:pointer;transition:all .15s;font-family:inherit}
+.pill:hover{border-color:var(--blue);color:var(--blue);background:var(--b50)}
+.pill.on{border-color:var(--blue);color:#fff;background:var(--blue)}
+/* Content */
+.content{flex:1}
+.csec{display:none}
+.csec.on{display:block;animation:fu .22s ease}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+/* City head */
+.chead{padding:22px 24px 0;margin-bottom:18px}
+.chead h2{font-size:21px;font-weight:900;color:var(--dark);letter-spacing:-.03em}
+.chead .sub{font-size:13px;color:var(--g6);margin-top:2px}
+/* Section */
+.sec{padding:0 24px;margin-bottom:22px}
+.stitle{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.card{background:var(--white);border-radius:var(--r);padding:18px;border:1px solid var(--g2)}
+/* Checklist */
+.cl{list-style:none;display:flex;flex-direction:column;gap:1px}
+.cl li{padding:0}
+.clbl{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:9px;cursor:pointer;transition:background .15s}
+.clbl:hover{background:var(--g1)}
+.clbl input{display:none}
+.cbox{flex-shrink:0;width:20px;height:20px;margin-top:1px;border:2px solid var(--g2);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cbox svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none;opacity:0;transform:scale(.5);transition:all .18s}
+.clbl input:checked~.cbox{background:var(--blue);border-color:var(--blue)}
+.clbl input:checked~.cbox svg{opacity:1;transform:scale(1)}
+.clbl input:checked~.ctxt{color:var(--g4);text-decoration:line-through}
+.ctxt{font-size:14px;color:var(--g6);line-height:1.6;transition:color .2s}
+/* Progress */
+.pgwrap{margin-bottom:12px}
+.pgtop{display:flex;justify-content:space-between;margin-bottom:5px}
+.pglbl{font-size:12px;font-weight:600;color:var(--g6)}
+.pgcnt{font-size:12px;font-weight:700;color:var(--blue)}
+.pgbg{height:5px;background:var(--g1);border-radius:99px;overflow:hidden}
+.pgbar{height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.done-badge{display:none;align-items:center;gap:5px;margin-top:8px;padding:9px 13px;background:var(--gr50);border-radius:9px;font-size:13px;font-weight:600;color:var(--green)}
+.done-badge.show{display:flex}
+/* Callout */
+.co{padding:12px 15px;border-radius:9px;font-size:13px;line-height:1.7;margin-top:10px}
+.co-w{background:var(--r50);border-left:3px solid var(--red);color:#991B1B}
+.co-t{background:var(--a50);border-left:3px solid var(--amber);color:#92400E}
+.co-i{background:var(--b50);border-left:3px solid var(--blue);color:#1E40AF}
+/* Upsell */
+.utags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.utag{padding:4px 11px;background:var(--b50);color:var(--blue);border-radius:7px;font-size:12px;font-weight:600}
+.udets{margin-top:12px}
+.udets p{font-size:13px;color:var(--g6);margin-bottom:3px}
+/* Spots */
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+@media(min-width:600px){.sgrid{grid-template-columns:repeat(3,1fr)}}
+.spot{background:var(--g1);border-radius:9px;padding:11px 13px}
+.scat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.scat.lm{color:var(--blue)}.scat.fd{color:var(--orange)}
+.sname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:1px}
+.sdesc{font-size:11px;color:var(--g6)}
+/* Divider */
+.divider{height:8px;background:var(--g1);margin-bottom:22px}
+/* Emergency */
+.ezone{background:#fff;border-top:1px solid var(--g2);padding-bottom:28px}
+.ehd{padding:18px 24px 0;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.edot{width:8px;height:8px;border-radius:50%;background:#FF3B30;animation:pulse 1.5s infinite}
+.etxt{font-size:13px;font-weight:700;color:#FF3B30;letter-spacing:.05em}
+.etitle{font-size:17px;font-weight:800;color:var(--dark);padding:0 24px;margin-bottom:3px;letter-spacing:-.03em}
+.esub{font-size:13px;color:var(--g6);padding:0 24px;margin-bottom:18px}
+.etabs{display:flex;border-bottom:1px solid var(--g2);overflow-x:auto;scrollbar-width:none;margin-bottom:18px}
+.etabs::-webkit-scrollbar{display:none}
+.etab{flex:1;min-width:80px;padding:9px 4px 11px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;font-family:inherit}
+.etab-ic{font-size:19px}
+.etab-lb{font-size:11px;font-weight:500;color:#999;white-space:nowrap;transition:all .2s}
+.etab-in{position:absolute;bottom:0;left:10%;right:10%;height:2.5px;border-radius:2px 2px 0 0;display:none}
+.econtent{padding:0 24px}
+.ccase{border-radius:13px;padding:15px 17px;margin-bottom:14px;border:1.5px solid var(--g2)}
+.cbadge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 9px;margin-bottom:7px}
+.cdot{width:6px;height:6px;border-radius:50%}
+.cbtxt{font-size:11px;font-weight:700;letter-spacing:.03em}
+.ctitle{font-size:15px;font-weight:800;color:var(--dark);letter-spacing:-.03em;margin-bottom:2px}
+.csub2{font-size:13px;color:var(--g6)}
+.slbl{font-size:11px;font-weight:700;color:#999;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;padding-left:1px}
+.ssub{font-size:12px;font-weight:700;border-radius:7px;padding:4px 9px;margin-bottom:10px;display:inline-block}
+.srow{display:flex;gap:13px}
+.sleft{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px}
+.snum{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff}
+.sline{width:2px;flex:1;min-height:16px;border-radius:2px;margin:3px 0}
+.scont{flex:1;padding-bottom:15px}
+.scont.last{padding-bottom:0}
+.stname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;letter-spacing:-.02em}
+.stdesc{font-size:12px;color:#555;line-height:1.6}
+.stnote{margin-top:7px;background:#F0F6FF;border:1px solid #BFD7FF;border-radius:8px;padding:8px 11px;font-size:12px;color:#1D4E9B;font-weight:500;line-height:1.5}
+.stnote.w{background:#FFF8EC;border-color:#FFE0A0;color:#B85C00}
+.stnote.d{background:#FFF1F0;border-color:#FFCCC7;color:#CF1322}
+.sdiv{height:1px;background:#F0F0F0;margin:3px 0 14px}
+.cta{margin-top:18px;background:#F5F5F7;border-radius:13px;padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cta-t{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:1px}
+.cta-s{font-size:12px;color:#888}
+.cta-b{background:var(--dark);color:#fff;border:none;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.cta-b:hover{background:#333}
+.bpad{height:36px}
+.nores{padding:50px 24px;text-align:center;color:var(--g4);font-size:14px;display:none}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hd"><div class="hd-in">
+  <div class="badge"><div class="bdot"></div><span class="blbl">여행 중 · 파일 1/4</span></div>
+  <div class="htitle">🚗 차량 인수 & 드라이브 가이드</div>
+  <div class="hsub">미국 · 캐나다 | 체크리스트 · 드라이브 스팟 · 긴급 대응</div>
+</div></div>
+<div class="sbar"><input class="sinput" id="si" placeholder="🔍 도시 검색..." oninput="filter(this.value)"></div>
+<div class="ctabs" id="ctabs"></div>
+<div class="pills" id="pills"></div>
+<div class="content" id="content"></div>
+<div class="nores" id="nores">검색 결과가 없습니다.</div>
+</div>
+<script>
+/* ── 긴급 대응 ── */
+const EC={
+  acc:{tag:"사고",tc:"#FF3B30",tb:"#FFF1F0",title:"차량 사고 발생",sub:"침착하게, 순서대로 행동하세요",ac:"#FF3B30",
+    steps:[{n:"01",t:"현지 영업소로 즉시 연락",d:"사고 발생 즉시 차량을 인수한 현지 영업소에 연락하세요.",note:"🚫 상대방 운전자와 자체 협의하거나 자체 수리할 경우, 보험 적용을 받을 수 없으며 벌금 부과 또는 차량 이용 불가 처리될 수 있습니다.",nt:"d"},
+      {n:"02",t:"사고 현장 전체 사진 촬영 후 대기",d:"사고 현장 전체와 차량 손상 부위를 빠짐없이 촬영한 후 현장에서 대기하세요.",note:null},
+      {n:"03",t:"렌터카 업체 지시에 따르기",d:"렌터카 업체에서 요청하는 지시대로 규정을 따라주세요.",note:null}]},
+  ri:{tag:"대여 이슈",tc:"#FF9500",tb:"#FFF8EC",title:"차량 대여 이슈 발생",sub:"예약 정보 오기재 또는 차량 재고 부족",ac:"#FF9500",
+    subs:[{lb:"예약 정보 오기재일 경우",steps:[
+      {n:"01",t:"현지 영업소에서 현장 재예약 문의",d:"오기재된 내용을 현지 영업소에 설명하고 현장에서 다시 예약을 문의하세요.",note:null},
+      {n:"02",t:"환불 불가 시 마이리얼트립으로 문의",d:"현지에서 환불이 불가할 경우 마이리얼트립으로 문의해 주세요.",note:"⚠️ 상황에 따라 100% 환불처리가 되지 않을 수도 있습니다.",nt:"w"}]},
+    {lb:"차량 재고 부족으로 인수 불가일 경우",steps:[
+      {n:"01",t:"즉시 마이리얼트립 1:1 문의 요청",d:"현장 재고 이슈로 인수가 불가한 경우, 즉시 마이리얼트립 1:1 문의를 접수해 주세요.",note:"⚠️ 한국시간 새벽 3시 ~ 오전 7시는 응답이 지연될 수 있습니다.",nt:"w"},
+      {n:"02",t:"대기 후 인수 또는 재예약 진행",d:"대기 후 차량 인수 또는 재예약을 통해 인수를 진행하세요.",note:"💡 예약처·렌터카 업체와 소통이 어려울 경우 다른 업체 차량으로 예약이 필요할 수 있으며, 이 경우 기존 업체 확인 후 환불 처리가 진행됩니다.",nt:"i"}]}]},
+  dl:{tag:"픽업 지연",tc:"#007AFF",tb:"#EFF6FF",title:"픽업 지연 이슈 발생",sub:"항공 지연 또는 픽업 차량 미탑승",ac:"#007AFF",
+    subs:[{lb:"항공 지연의 경우",steps:[
+      {n:"01",t:"현지 렌터카 업체에 먼저 연락",d:"항공편명과 지연 관련 사진을 첨부하여 현지 렌터카 업체에 연락하세요.",note:"📸 지연 증거 사진(항공 지연 안내판 등) 첨부 필수",nt:"i"},
+      {n:"02",t:"업체 연결 어려울 경우 마이리얼트립 문의",d:"현지 렌터카 업체와 연결이 어려울 경우 마이리얼트립으로 문의해 주세요.",note:"📸 문의 시 지연 관련 사진 첨부 필수",nt:"i"}]},
+    {lb:"픽업 차량을 놓친 경우",steps:[
+      {n:"01",t:"현지 렌터카 업체에 즉시 연락",d:"픽업 차량을 놓쳤다면 즉시 현지 렌터카 업체에 연락하세요.",note:null},
+      {n:"02",t:"연락 어려울 경우 마이리얼트립 문의",d:"현지 업체 연락이 어려울 경우 마이리얼트립으로 문의해 주세요.",note:null}]}]}
+};
+/* ── 도시 데이터 ── */
+const DATA=[
+/* === 미국 === */
+{co:"미국",flag:"🇺🇸",city:"괌",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 상태 및 연료 게이지 확인","GPS 정상 작동 확인","비상연락처 저장","에어컨 정상 작동 확인","카시트 장착 확인 (아이 동반 시)"],
+ up:[{n:"GPS 내비게이션",i:"구글맵 오프라인 다운 권장"},{n:"카시트",i:"아이 동반 시 법적 의무"},{n:"추가 운전자 등록",i:"하루 $10~15"},{n:"로드사이드 어시스턴스",i:"소규모 섬, 연락망 제한적"}],
+ sp:[{c:"lm",n:"투몬 비치",d:"괌 최대 해변, 스노클링"},{c:"lm",n:"차모로 빌리지",d:"수요일 야시장, 전통공예"},{c:"lm",n:"리티디안 포인트",d:"북쪽 절경 해변"},{c:"fd",n:"Jeff's Pirates Cove",d:"괌 대표 씨푸드"},{c:"fd",n:"차모로 BBQ",d:"현지식 바비큐"}]},
+{co:"미국",flag:"🇺🇸",city:"사이판",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장","에어컨 정상 작동 확인"],
+ up:[{n:"GPS 내비게이션",i:"오프라인 지도 권장"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"교대 운전 시"},{n:"로드사이드 어시스턴스",i:"섬 특성상 긴급출동 제한적"}],
+ sp:[{c:"lm",n:"마나가하 섬",d:"배편 이동, 스노클링 천국"},{c:"lm",n:"버드 아일랜드",d:"절벽 뷰 포인트"},{c:"lm",n:"라데란 바나데로",d:"사이판 북단 절경"},{c:"fd",n:"퍼시픽 아일랜드 클럽",d:"뷔페 & 리조트 다이닝"},{c:"fd",n:"Winchell's",d:"현지인 즐겨 찾는 도넛"}]},
+{co:"미국",flag:"🇺🇸",city:"로스앤젤레스",
+ cl:["차량 외관 360° 사진·영상 촬영 (흠집·찌그러짐 모두 기록)","타이어 상태(마모·공기압) 및 연료 게이지 확인","GPS 내비게이션 정상 작동 확인","카시트/부스터 장착 확인 (아이 동반 시)","비상연락처 & 로드사이드 어시스턴스 번호 저장","에어컨·히터 정상 작동 확인"],
+ up:[{n:"GPS 내비게이션",i:"하루 $10~15, 구글맵 대체 가능"},{n:"추가 운전자 등록",i:"하루 $10~15, 교대 시 필수"},{n:"카시트/부스터",i:"아이 동반 시 법적 의무"},{n:"Wi-Fi 핫스팟",i:"데이터 무제한 사용 시 불필요"}],
+ sp:[{c:"lm",n:"산타모니카 비치",d:"해안도로 드라이브 + 피어 산책"},{c:"lm",n:"그리피스 천문대",d:"LA 전경 + 할리우드 사인 뷰"},{c:"lm",n:"더 그로브",d:"야외 쇼핑몰"},{c:"fd",n:"In-N-Out Burger",d:"캘리포니아 대표 버거"},{c:"fd",n:"Grand Central Market",d:"다국적 로컬 푸드마켓"}]},
+{co:"미국",flag:"🇺🇸",city:"하와이 호놀룰루",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 상태 및 연료 게이지 확인","GPS 정상 작동 확인 (오지 신호 끊김 주의)","서프보드 랙 장착 확인 (필요 시)","비상연락처 저장"],
+ up:[{n:"지프/SUV 업그레이드",i:"비포장 도로 주행 시 유리"},{n:"서프보드 랙",i:"서핑 계획 시"},{n:"카시트/부스터",i:"아이 동반 시 법적 의무"},{n:"GPS 내비게이션",i:"오지에서 데이터 끊길 수 있음"}],
+ sp:[{c:"lm",n:"노스쇼어",d:"서핑 해변, 겨울 대파도"},{c:"lm",n:"다이아몬드 헤드",d:"와이키키 뷰 하이킹"},{c:"lm",n:"하나우마 베이",d:"스노클링 명소"},{c:"fd",n:"Giovanni's Shrimp Truck",d:"갈릭 쉬림프 푸드트럭"},{c:"fd",n:"Rainbow Drive-In",d:"로코모코 맛집"}]},
+{co:"미국",flag:"🇺🇸",city:"하와이 마우이",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인 (하나 로드 신호 약함)","4WD 여부 확인 (비포장 구간)","비상연락처 저장"],
+ up:[{n:"지프/4WD 업그레이드",i:"하나 로드 일부 비포장 구간"},{n:"카시트",i:"아이 동반 시 법적 의무"},{n:"GPS 내비게이션",i:"하나 로드 신호 약함"},{n:"추가 운전자 등록",i:"하나 로드 장거리 교대 권장"}],
+ sp:[{c:"lm",n:"하나 로드",d:"세계적 해안 드라이브, 600개+ 커브"},{c:"lm",n:"할레아칼라 국립공원",d:"화산 분화구 일출"},{c:"lm",n:"이아오 밸리",d:"푸른 계곡 트레킹"},{c:"fd",n:"Mama's Fish House",d:"마우이 대표 씨푸드"},{c:"fd",n:"Tin Roof",d:"현지 인기 플레이트 런치"}]},
+{co:"미국",flag:"🇺🇸",city:"하와이 빅아일랜드",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","용암지대 도로 주행 주의","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"험로 대비"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"외진 도로 대비"},{n:"추가 운전자 등록",i:"섬 일주 장거리"}],
+ sp:[{c:"lm",n:"하와이 화산 국립공원",d:"활화산 용암 관찰"},{c:"lm",n:"푸날루우 블랙샌드 비치",d:"검은 모래 해변, 거북이"},{c:"lm",n:"마우나케아 천문대",d:"세계 최고 별관측 명소"},{c:"fd",n:"Island Lava Java",d:"코나 커피 & 브런치"},{c:"fd",n:"Cane & Canoe",d:"마우나라니 리조트 레스토랑"}]},
+{co:"미국",flag:"🇺🇸",city:"하와이 카우아이",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인 (나팔리 코스트 신호 약함)","4WD 여부 확인","비상연락처 저장"],
+ up:[{n:"4WD/지프",i:"폴리할레 비치 비포장 필수"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"북부 오지 신호 약함"},{n:"추가 운전자 등록",i:"섬 일주 교대"}],
+ sp:[{c:"lm",n:"와이메아 캐니언",d:"태평양의 그랜드캐니언"},{c:"lm",n:"나팔리 코스트",d:"절벽 해안 보트 투어"},{c:"lm",n:"하나레이 베이",d:"한적한 서핑 해변"},{c:"fd",n:"The Spot",d:"현지 인기 플레이트 런치"},{c:"fd",n:"Kauai Juice Co",d:"신선 스무디 & 아사이볼"}]},
+{co:"미국",flag:"🇺🇸",city:"샌프란시스코",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 상태 및 연료 게이지 확인","FasTrak 톨패스 장착 여부 확인 (금문교 전자톨 필수!) ⚠️","GPS / 내비 정상 작동 확인","비상연락처 & 로드사이드 어시스턴스 번호 저장"],
+ up:[{n:"FasTrak 톨패스",i:"금문교 통행 필수 — 없으면 벌금"},{n:"추가 운전자 등록",i:"언덕 운전 교대 시 유용"},{n:"카시트/부스터",i:"아이 동반 시 법적 의무"},{n:"GPS 내비게이션",i:"오프라인 구글맵으로 대체 가능"}],
+ sp:[{c:"lm",n:"금문교",d:"드라이브 필수 코스, 비스타포인트 사진"},{c:"lm",n:"피셔맨스 워프",d:"해산물·바다사자, Pier 39"},{c:"lm",n:"롬바드 스트리트",d:"세계에서 가장 꼬불꼬불한 길"},{c:"fd",n:"Boudin Bakery",d:"사워도우 빵 클램차우더"},{c:"fd",n:"Swan Oyster Depot",d:"현지인 줄서는 굴·해산물 바"}]},
+{co:"미국",flag:"🇺🇸",city:"산호세",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","FasTrak 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"FasTrak",i:"베이 에리어 고속도로 필수"},{n:"추가 운전자 등록",i:"실리콘밸리 장거리"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"실리콘밸리 복잡한 도로"}],
+ sp:[{c:"lm",n:"피나클스 국립공원",d:"바위 트레킹 (편도 1.5h)"},{c:"lm",n:"산타크루즈 비치보드워크",d:"해변 놀이공원"},{c:"lm",n:"스탠포드 대학 캠퍼스",d:"실리콘밸리 상징"},{c:"fd",n:"Philz Coffee",d:"실리콘밸리 대표 커피"},{c:"fd",n:"San Pedro Square Market",d:"로컬 푸드마켓"}]},
+{co:"미국",flag:"🇺🇸",city:"샌디에고",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","국경 근처 운전 주의 사항 숙지","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"티화나 국경 방면 필수"},{n:"추가 운전자 등록",i:"교대 운전"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"국경 방면 장거리"}],
+ sp:[{c:"lm",n:"발보아 파크",d:"박물관·정원 단지"},{c:"lm",n:"라호야 코브",d:"바다사자 서식 해변"},{c:"lm",n:"코로나도 비치",d:"아름다운 흰 모래 해변"},{c:"fd",n:"Phil's BBQ",d:"샌디에고 대표 바비큐"},{c:"fd",n:"Oscar's Mexican Seafood",d:"타코 & 씨푸드"}]},
+{co:"미국",flag:"🇺🇸",city:"온타리오",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","LA 방면 고속도로 혼잡 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"LA 광역권 교통 복잡"},{n:"추가 운전자 등록",i:"장거리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"고속도로 이용 시"}],
+ sp:[{c:"lm",n:"빅 베어 레이크",d:"호수 드라이브 (편도 1.5h)"},{c:"lm",n:"온타리오 밀스 아울렛",d:"대형 쇼핑 아울렛"},{c:"lm",n:"레이크 엘시노어",d:"핫에어 벌룬 & 레이크 뷰"},{c:"fd",n:"Lazy Dog Restaurant",d:"미국식 컴포트 푸드"},{c:"fd",n:"Cucina Italiana",d:"이탈리안 레스토랑"}]},
+{co:"미국",flag:"🇺🇸",city:"새크라멘토",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"구글맵 대체 가능"},{n:"추가 운전자 등록",i:"나파밸리 장거리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"베이 방면 고속도로"}],
+ sp:[{c:"lm",n:"나파밸리",d:"와인 드라이브 (편도 1h)"},{c:"lm",n:"레이크 타호",d:"고산 호수 절경 (편도 2h)"},{c:"lm",n:"올드 새크라멘토",d:"골드러시 시대 역사 거리"},{c:"fd",n:"The Kitchen",d:"새크라멘토 파인 다이닝"},{c:"fd",n:"Ginger Elizabeth Chocolates",d:"현지 초콜릿 카페"}]},
+{co:"미국",flag:"🇺🇸",city:"샌타크루즈",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","주차 요금 사전 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"해안 도로 대비"},{n:"추가 운전자 등록",i:"교대 운전"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"SF 방면 고속도로"}],
+ sp:[{c:"lm",n:"산타크루즈 비치보드워크",d:"해변 유원지, 롤러코스터"},{c:"lm",n:"빅 바신 레드우즈",d:"거대 삼나무 트레킹"},{c:"lm",n:"내추럴 브리지 비치",d:"천연 아치 해안절경"},{c:"fd",n:"Penny Ice Creamery",d:"수제 아이스크림"},{c:"fd",n:"Kianti's Pizza",d:"현지 유명 피자"}]},
+{co:"미국",flag:"🇺🇸",city:"애너하임",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","디즈니랜드 주차 요금 사전 확인 ($30~35/일)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"LA 광역권 교통 복잡"},{n:"추가 운전자 등록",i:"교대 운전"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"고속도로 이용 시"}],
+ sp:[{c:"lm",n:"디즈니랜드",d:"테마파크 주차 $30~35/일"},{c:"lm",n:"디즈니 캘리포니아 어드벤처",d:"어른용 어트랙션 특화"},{c:"lm",n:"유니버설 스튜디오 헐리우드",d:"편도 40분"},{c:"fd",n:"Downtown Disney",d:"디즈니 쇼핑·다이닝 단지"},{c:"fd",n:"Café Tu Tu Tango",d:"애너하임 타파스 바"}]},
+{co:"미국",flag:"🇺🇸",city:"산타모니카",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","해안가 주차 요금 사전 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"LA 교통 복잡"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"고속도로 이용 시"}],
+ sp:[{c:"lm",n:"산타모니카 피어",d:"관람차·해산물 식당"},{c:"lm",n:"베니스 비치",d:"스케이트·길거리 공연"},{c:"lm",n:"3번가 프로머나드",d:"야외 쇼핑·공연거리"},{c:"fd",n:"Gjusta Bakery",d:"LA 최고 베이커리"},{c:"fd",n:"Rustic Canyon",d:"로컬 팜투테이블"}]},
+{co:"미국",flag:"🇺🇸",city:"베이커즈필드",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","사막 기후 대비 냉각수 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"로드사이드 어시스턴스",i:"사막 구간 필수"},{n:"GPS 내비게이션",i:"외진 도로 대비"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"요세미티 장거리"}],
+ sp:[{c:"lm",n:"세쿼이아 국립공원",d:"거대 세쿼이아 숲 (편도 2h)"},{c:"lm",n:"킹스 캐니언",d:"깊은 협곡 트레킹"},{c:"lm",n:"테혼 패스",d:"LA로 이어지는 산악 드라이브"},{c:"fd",n:"Wool Growers Restaurant",d:"바스크 스타일 양고기 요리"},{c:"fd",n:"Dewar's Candy Shop",d:"1909년 개업 로컬 아이스크림"}]},
+{co:"미국",flag:"🇺🇸",city:"산타 마리아",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"해안 도로 대비"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"피즈모 비치",d:"조개채취·캠핑 해변"},{c:"lm",n:"솔뱅",d:"덴마크풍 마을 (편도 30min)"},{c:"lm",n:"산타 이네스 와이너리",d:"산타 바바라 와인 지역"},{c:"fd",n:"Far Western Tavern",d:"웨스턴 스타일 스테이크"},{c:"fd",n:"Santa Maria BBQ",d:"로컬 삼겹살 스타일 BBQ"}]},
+{co:"미국",flag:"🇺🇸",city:"프레즈노",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","여름 폭염 대비 냉각수 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"로드사이드 어시스턴스",i:"여름 사막 구간"},{n:"GPS 내비게이션",i:"요세미티 방면 필수"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"요세미티 장거리"}],
+ sp:[{c:"lm",n:"요세미티 국립공원",d:"엘 캐피탄 & 요세미티 폭포 (편도 1.5h)"},{c:"lm",n:"킹스 캐니언 국립공원",d:"편도 1h"},{c:"lm",n:"세쿼이아 국립공원",d:"거대 삼나무 숲"},{c:"fd",n:"Westside Bakery Café",d:"현지 인기 브런치"},{c:"fd",n:"Veni Vidi Vici",d:"이탈리안 파인 다이닝"}]},
+{co:"미국",flag:"🇺🇸",city:"몬터레이",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","17마일 드라이브 입장료 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"해안 드라이브 대비"},{n:"추가 운전자 등록",i:"빅서 장거리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"SF 방면 고속도로"}],
+ sp:[{c:"lm",n:"17마일 드라이브",d:"퍼시픽 그로브 절경 해안"},{c:"lm",n:"빅서",d:"캘리포니아 최고 해안 드라이브"},{c:"lm",n:"카멜 바이 더 씨",d:"동화마을 & 갤러리"},{c:"fd",n:"Passionfish",d:"지속가능 씨푸드"},{c:"fd",n:"Hula's Island Grill",d:"하와이안 퓨전"}]},
+{co:"미국",flag:"🇺🇸",city:"어바인",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"오렌지카운티 도로 복잡"},{n:"추가 운전자 등록",i:"LA 방면 교대"},{n:"카시트",i:"아이 동반 시"},{n:"FasTrak",i:"고속도로 톨"}],
+ sp:[{c:"lm",n:"라구나 비치",d:"예술가 마을 & 해변"},{c:"lm",n:"크리스탈 코브 비치",d:"조개껍질 해변, 스노클링"},{c:"lm",n:"어바인 스펙트럼",d:"대형 쇼핑 & 놀이 단지"},{c:"fd",n:"Moulin",d:"프렌치 브런치 카페"},{c:"fd",n:"The Ranch Restaurant",d:"파인 다이닝 & 와인"}]},
+{co:"미국",flag:"🇺🇸",city:"팜스프링스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","에어컨 필수 점검 ⚠️","냉각수 및 음료 차내 비치","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"로드사이드 어시스턴스",i:"사막 고립 시 필수"},{n:"GPS 내비게이션",i:"사막 구간 대비"},{n:"카시트",i:"아이 동반 시"},{n:"컨버터블",i:"사막 드라이브 분위기 UP"}],
+ sp:[{c:"lm",n:"팜스프링스 에어리얼 트램웨이",d:"사막~산 케이블카"},{c:"lm",n:"조슈아 트리 국립공원",d:"선인장 사막 (편도 1h)"},{c:"lm",n:"안자 보레고 사막",d:"봄 야생화 군락"},{c:"fd",n:"Workshop Kitchen + Bar",d:"팜스프링스 현대 다이닝"},{c:"fd",n:"Cheeky's",d:"주말 브런치 명소"}]},
+{co:"미국",flag:"🇺🇸",city:"올랜도",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","SunPass/E-PASS 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"SunPass 톨패스",i:"플로리다 고속도로 필수"},{n:"GPS 내비게이션",i:"테마파크 주변 복잡"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"테마파크 장시간 교대"}],
+ sp:[{c:"lm",n:"월트 디즈니 월드",d:"세계 최대 디즈니 파크"},{c:"lm",n:"유니버설 올랜도",d:"해리포터 & 슈퍼 닌텐도"},{c:"lm",n:"케네디 우주 센터",d:"NASA 탐방 (편도 1h)"},{c:"fd",n:"Seasons 52",d:"파인 다이닝, 계절 메뉴"},{c:"fd",n:"Bosphorous Turkish Cuisine",d:"올랜도 터키 음식"}]},
+{co:"미국",flag:"🇺🇸",city:"마이애미",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","SunPass 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"SunPass 톨패스",i:"플로리다 고속도로 필수"},{n:"GPS 내비게이션",i:"복잡한 마이애미 도로"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"키웨스트 장거리 교대"}],
+ sp:[{c:"lm",n:"사우스 비치",d:"아르데코 건물 & 해변"},{c:"lm",n:"에버글레이즈 국립공원",d:"악어 에어보트 (편도 1h)"},{c:"lm",n:"키웨스트",d:"편도 4h 해안 드라이브"},{c:"fd",n:"Joe's Stone Crab",d:"마이애미 대표 게 요리"},{c:"fd",n:"Versailles Restaurant",d:"쿠반 음식 명소"}]},
+{co:"미국",flag:"🇺🇸",city:"탬파",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","SunPass 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"SunPass",i:"플로리다 고속도로"},{n:"GPS 내비게이션",i:"복잡한 교통 대비"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"교대 운전"}],
+ sp:[{c:"lm",n:"클리어워터 비치",d:"미국 1위 해변 (편도 30min)"},{c:"lm",n:"부시 가든스",d:"동물원 + 롤러코스터"},{c:"lm",n:"이보 시티",d:"역사적 쿠반 문화 지구"},{c:"fd",n:"Ulele",d:"플로리다 네이티브 요리"},{c:"fd",n:"Columbia Restaurant",d:"이보 시티 쿠반 레스토랑"}]},
+{co:"미국",flag:"🇺🇸",city:"라스베이거스",
+ cl:["차량 외관 360° 사진·영상 촬영","에어컨 정상 작동 필수 확인 ⚠️","냉각수·타이어 상태 확인","비상 식수·선크림 차량 내 비치","GPS / 내비 정상 작동 확인","비상연락처 & 로드사이드 번호 저장"],
+ up:[{n:"로드사이드 어시스턴스",i:"사막 고립 시 필수 — 가입 추천"},{n:"선루프/컨버터블",i:"사막 드라이브 분위기 UP"},{n:"추가 운전자 등록",i:"장거리 국립공원 여행 시 교대"},{n:"GPS 내비게이션",i:"오프라인 지도 필수"}],
+ sp:[{c:"lm",n:"그랜드캐니언",d:"편도 4.5h, 1박 여행 추천"},{c:"lm",n:"밸리 오브 파이어",d:"편도 1h, 붉은 사막 절경"},{c:"lm",n:"후버댐",d:"편도 45분, 거대 댐 건축물"},{c:"fd",n:"Bacchanal Buffet",d:"시저스팰리스 내 대형 뷔페"},{c:"fd",n:"Gordon Ramsay Steak",d:"스트립 고급 스테이크"}]},
+{co:"미국",flag:"🇺🇸",city:"뉴욕",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 상태 및 연료 게이지 확인","E-ZPass 톨태그 장착 여부 확인","GPS / 내비 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass 톨패스",i:"뉴욕·뉴저지 톨게이트 필수"},{n:"추가 운전자 등록",i:"장거리 근교 여행 시 교대"},{n:"겨울철 스노우체인",i:"11~3월 업스테이트 여행 시"},{n:"GPS 내비게이션",i:"근교 여행 시 유용"}],
+ sp:[{c:"lm",n:"우드버리 프리미엄 아울렛",d:"편도 1h, 할인 쇼핑 천국"},{c:"lm",n:"허드슨밸리",d:"가을 단풍 드라이브 최고 코스"},{c:"lm",n:"햄튼스",d:"여름 해변 드라이브"},{c:"fd",n:"Shake Shack",d:"뉴욕 대표 버거"},{c:"fd",n:"Di Fara Pizza",d:"브루클린 전설의 피자"}]},
+{co:"미국",flag:"🇺🇸",city:"보스턴",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","E-ZPass 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass",i:"매사추세츠 고속도로"},{n:"추가 운전자 등록",i:"케이프 코드 교대"},{n:"카시트",i:"아이 동반 시"},{n:"겨울 스노우타이어",i:"11~3월 뉴잉글랜드"}],
+ sp:[{c:"lm",n:"케이프 코드",d:"반도 해안 드라이브 (편도 1.5h)"},{c:"lm",n:"아카디아 국립공원",d:"절벽 해안 (편도 4h)"},{c:"lm",n:"세일럼",d:"마녀재판 역사 도시"},{c:"fd",n:"Legal Sea Foods",d:"뉴잉글랜드 클램차우더"},{c:"fd",n:"Mike's Pastry",d:"노스엔드 카놀리"}]},
+{co:"미국",flag:"🇺🇸",city:"시애틀",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","굿 투 고 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"굿 투 고 톨패스",i:"SR-99 터널·다리 필수"},{n:"추가 운전자 등록",i:"레이니어 장거리"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"복잡한 시애틀 도로"}],
+ sp:[{c:"lm",n:"레이니어 국립공원",d:"빙하 화산 (편도 2h)"},{c:"lm",n:"올림픽 국립공원",d:"온대우림 & 해안"},{c:"lm",n:"스노콸미 폭포",d:"트윈픽스 촬영지"},{c:"fd",n:"Pike Place Chowder",d:"수상 경력 클램차우더"},{c:"fd",n:"Canlis",d:"레이크 뷰 파인 다이닝"}]},
+{co:"미국",flag:"🇺🇸",city:"시카고",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","I-PASS 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"I-PASS 톨패스",i:"일리노이 고속도로 필수"},{n:"추가 운전자 등록",i:"장거리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"겨울 스노우타이어",i:"11~3월"}],
+ sp:[{c:"lm",n:"밀워키",d:"편도 1.5h, 브루어리 투어"},{c:"lm",n:"갤레나",d:"일리노이 역사 마을 (편도 3h)"},{c:"lm",n:"인디애나 샌드듄스",d:"호수 모래언덕 (편도 1.5h)"},{c:"fd",n:"Lou Malnati's",d:"시카고 딥디쉬 피자"},{c:"fd",n:"Portillo's",d:"시카고 핫도그"}]},
+{co:"미국",flag:"🇺🇸",city:"애틀랜타",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","Peach Pass 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"Peach Pass",i:"조지아 고속도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"복잡한 애틀랜타 교통"}],
+ sp:[{c:"lm",n:"채터누가",d:"아쿠아리움 & 폭포 (편도 2h)"},{c:"lm",n:"서배너",d:"남부 역사 도시 (편도 4h)"},{c:"lm",n:"스톤 마운틴",d:"화강암 산 레이저쇼"},{c:"fd",n:"Mary Mac's Tea Room",d:"남부 전통 요리"},{c:"fd",n:"The Optimist",d:"씨푸드 레스토랑"}]},
+{co:"미국",flag:"🇺🇸",city:"애틀랜틱시티",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","E-ZPass 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass",i:"뉴저지 고속도로"},{n:"추가 운전자 등록",i:"뉴욕·필라델피아 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"해안 도로 대비"}],
+ sp:[{c:"lm",n:"케이프 메이",d:"빅토리아풍 마을 해변"},{c:"lm",n:"오션시티",d:"보드워크 & 놀이공원"},{c:"lm",n:"파인배런스",d:"NJ 오지 자연보호구역"},{c:"fd",n:"White House Sub Shop",d:"아틀란틱시티 대표 서브"},{c:"fd",n:"Irish Pub",d:"현지인 즐겨 찾는 펍"}]},
+{co:"미국",flag:"🇺🇸",city:"오렌지카운티",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","FasTrak 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"FasTrak",i:"91 익스프레스 레인"},{n:"추가 운전자 등록",i:"LA·샌디에고 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"OC 복잡한 도로"}],
+ sp:[{c:"lm",n:"라구나 비치",d:"아트 갤러리 & 해변"},{c:"lm",n:"디즈니랜드",d:"애너하임 (편도 20min)"},{c:"lm",n:"뉴포트 비치",d:"요트 & 해변 산책"},{c:"fd",n:"Bear Flag Fish Co.",d:"뉴포트 씨푸드"},{c:"fd",n:"Mastro's Ocean Club",d:"럭셔리 씨푸드 스테이크"}]},
+{co:"미국",flag:"🇺🇸",city:"워싱턴 DC",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","E-ZPass 확인","주차 규정 사전 숙지 (DC 주차 매우 복잡) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass",i:"I-66, 495 고속도로"},{n:"추가 운전자 등록",i:"셰낸도어 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"DC 일방통행 많음"}],
+ sp:[{c:"lm",n:"셰낸도어 국립공원",d:"단풍 드라이브 (편도 1.5h)"},{c:"lm",n:"블루리지 파크웨이",d:"버지니아 산악 드라이브"},{c:"lm",n:"아나폴리스",d:"메릴랜드 항구 도시"},{c:"fd",n:"Ben's Chili Bowl",d:"DC 대표 칠리 도그"},{c:"fd",n:"José Andrés 레스토랑",d:"스페니시 타파스"}]},
+{co:"미국",flag:"🇺🇸",city:"파나마 시티",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","SunPass 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"SunPass",i:"플로리다 고속도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"만 지역 복잡"}],
+ sp:[{c:"lm",n:"세인트 앤드루스 주립공원",d:"에메랄드 해변"},{c:"lm",n:"피어 파크",d:"쇼핑·다이닝·롤러코스터"},{c:"lm",n:"로자리오 비치",d:"멕시코만 투명한 바다"},{c:"fd",n:"Schooner's",d:"해변 바 & 씨푸드"},{c:"fd",n:"Hunt's Oyster Bar",d:"현지 굴 맛집"}]},
+{co:"미국",flag:"🇺🇸",city:"팜 비치",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","SunPass 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"SunPass",i:"플로리다 고속도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"복잡한 팜 비치 교통"}],
+ sp:[{c:"lm",n:"워스 애비뉴",d:"럭셔리 쇼핑 거리"},{c:"lm",n:"모리캄프 파크",d:"일본식 정원"},{c:"lm",n:"플래글러 뮤지엄",d:"길금시대 저택 박물관"},{c:"fd",n:"Café Boulud",d:"파인 다이닝"},{c:"fd",n:"HMF at The Breakers",d:"럭셔리 호텔 바"}]},
+{co:"미국",flag:"🇺🇸",city:"휴스턴",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","EZ TAG 톨패스 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"EZ TAG",i:"휴스턴 고속도로"},{n:"추가 운전자 등록",i:"갤버스턴 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"복잡한 고속도로 대비"}],
+ sp:[{c:"lm",n:"갤버스턴",d:"멕시코만 섬 도시 (편도 1h)"},{c:"lm",n:"나사 존슨 우주 센터",d:"우주 탐방"},{c:"lm",n:"텍사스 주립공원",d:"자연 드라이브"},{c:"fd",n:"Killen's Barbecue",d:"텍사스 BBQ 명소"},{c:"fd",n:"Ninfa's on Navigation",d:"텍스멕스 원조"}]},
+{co:"미국",flag:"🇺🇸",city:"댈러스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","TollTag 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"TollTag",i:"댈러스 고속도로 많음"},{n:"추가 운전자 등록",i:"장거리 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"DFW 광역권 복잡"}],
+ sp:[{c:"lm",n:"포트워스 스톡야드",d:"웨스턴 카우보이 문화"},{c:"lm",n:"플레이노",d:"미국 최대 한인타운 중 하나"},{c:"lm",n:"워코 (마그놀리아)",d:"HGTV 피사 아울렛"},{c:"fd",n:"Pecan Lodge BBQ",d:"댈러스 최고 바비큐"},{c:"fd",n:"Mirador",d:"멕시칸 파인 다이닝"}]},
+{co:"미국",flag:"🇺🇸",city:"덴버",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어/체인 확인 (로키 방면) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD/AWD 업그레이드",i:"로키 산악 도로 안전"},{n:"스노우체인",i:"겨울 필수"},{n:"추가 운전자 등록",i:"로키 장거리"},{n:"GPS 내비게이션",i:"산악 오프라인 지도 필수"}],
+ sp:[{c:"lm",n:"로키 마운틴 국립공원",d:"Trail Ridge Road 드라이브"},{c:"lm",n:"베일 스키장",d:"세계적 스키 리조트 (편도 2h)"},{c:"lm",n:"에스테스 파크",d:"로키 입구 마을"},{c:"fd",n:"Denver Biscuit Co",d:"남부식 비스킷"},{c:"fd",n:"Elway's",d:"덴버 스테이크하우스"}]},
+{co:"미국",flag:"🇺🇸",city:"디트로이트",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"11~3월 필수"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"미시간 호수 방면"}],
+ sp:[{c:"lm",n:"맥키낙 아일랜드",d:"자동차 금지 섬, 자전거 투어"},{c:"lm",n:"그랜드 래피즈",d:"미시간 아트 도시"},{c:"lm",n:"피어 마켓 워터프론트",d:"디트로이트강 뷰"},{c:"fd",n:"Slows Bar BQ",d:"디트로이트 대표 BBQ"},{c:"fd",n:"Buddy's Pizza",d:"디트로이트 스타일 피자"}]},
+{co:"미국",flag:"🇺🇸",city:"뉴올리언스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","침수 구역 주의 (우기 시) ⚠️","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"좁은 프렌치 쿼터 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"우기 침수 대비"}],
+ sp:[{c:"lm",n:"바이유 드라이브",d:"루이지애나 수변 지역"},{c:"lm",n:"세인트 프랜시스빌",d:"앤테벨럼 저택 (편도 1.5h)"},{c:"lm",n:"해먼드",d:"탱기파호아 파리쉬 자연"},{c:"fd",n:"Dooky Chase's",d:"크레올 소울 푸드 전설"},{c:"fd",n:"Café Du Monde",d:"베냐 & 커피 명소"}]},
+{co:"미국",flag:"🇺🇸",city:"샌안토니오",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"텍사스 광활한 도로"},{n:"추가 운전자 등록",i:"오스틴 교대"},{n:"카시트",i:"아이 동반 시"},{n:"EZ TAG",i:"고속도로"}],
+ sp:[{c:"lm",n:"알라모",d:"텍사스 독립 역사 현장"},{c:"lm",n:"리버워크",d:"산안토니오강 보행자 거리"},{c:"lm",n:"내추럴 브리지 동굴",d:"지하 동굴 탐험"},{c:"fd",n:"Mi Tierra Café",d:"24시간 멕시칸 레스토랑"},{c:"fd",n:"The County Line BBQ",d:"텍사스 BBQ"}]},
+{co:"미국",flag:"🇺🇸",city:"오스틴",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"오스틴 급성장 교통"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"EZ TAG",i:"고속도로"}],
+ sp:[{c:"lm",n:"레이니 스트리트",d:"컨테이너 바 & 푸드트럭"},{c:"lm",n:"그루네",d:"텍사스 오지 빈티지 타운 (편도 1h)"},{c:"lm",n:"힐 컨트리",d:"드라이브 & 와이너리"},{c:"fd",n:"Franklin Barbecue",d:"미국 최고 BBQ (줄서기 필수)"},{c:"fd",n:"Torchy's Tacos",d:"오스틴 타코 명소"}]},
+{co:"미국",flag:"🇺🇸",city:"포틀랜드",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"복잡한 포틀랜드 시내"},{n:"추가 운전자 등록",i:"오리건 해안 교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"산악 지역"}],
+ sp:[{c:"lm",n:"컬럼비아 리버 협곡",d:"멀트노마 폭포 (편도 30min)"},{c:"lm",n:"크레이터 레이크",d:"미국 최고 화산 호수 (편도 4h)"},{c:"lm",n:"오리건 해안",d:"태평양 해안 드라이브"},{c:"fd",n:"Voodoo Doughnut",d:"포틀랜드 명물 도넛"},{c:"fd",n:"Pok Pok",d:"태국 요리 명소"}]},
+{co:"미국",flag:"🇺🇸",city:"솔트레이크시티",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 4WD/스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"스키 리조트 산악 도로"},{n:"스노우타이어",i:"겨울 필수"},{n:"추가 운전자 등록",i:"국립공원 장거리"},{n:"GPS 내비게이션",i:"오지 오프라인 필수"}],
+ sp:[{c:"lm",n:"자이언 국립공원",d:"앤젤스 랜딩 트레킹 (편도 4h)"},{c:"lm",n:"아치스 국립공원",d:"사암 아치 (편도 4h)"},{c:"lm",n:"브라이스 캐니언",d:"후두 암석 (편도 3.5h)"},{c:"fd",n:"Red Iguana",d:"유타 최고 멕시칸"},{c:"fd",n:"The Copper Onion",d:"SLC 파인 다이닝"}]},
+{co:"미국",flag:"🇺🇸",city:"뉴어크",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","E-ZPass 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass",i:"뉴저지 고속도로"},{n:"추가 운전자 등록",i:"뉴욕 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"뉴저지 복잡"}],
+ sp:[{c:"lm",n:"아틀란틱시티",d:"카지노 & 해변 (편도 1.5h)"},{c:"lm",n:"케이프 메이",d:"빅토리아풍 해변 도시"},{c:"lm",n:"파인배런스",d:"자연보호구역 드라이브"},{c:"fd",n:"Hobby's Deli",d:"뉴어크 대표 델리"},{c:"fd",n:"Seabra's Marisqueira",d:"포르투갈 씨푸드"}]},
+{co:"미국",flag:"🇺🇸",city:"버팔로",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인 (적설 많음) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"버팔로 적설 세계적"},{n:"4WD",i:"겨울 산악 도로"},{n:"추가 운전자 등록",i:"나이아가라 교대"},{n:"E-ZPass",i:"뉴욕주 고속도로"}],
+ sp:[{c:"lm",n:"나이아가라 폭포",d:"미국+캐나다 측 (편도 30min)"},{c:"lm",n:"니아가라 온 더 레이크",d:"캐나다 와인 마을"},{c:"lm",n:"올리안",d:"알레게니 주립공원"},{c:"fd",n:"Anchor Bar",d:"버팔로 윙 원조"},{c:"fd",n:"Ted's Hot Dogs",d:"버팔로 명물 핫도그"}]},
+{co:"미국",flag:"🇺🇸",city:"피닉스",
+ cl:["차량 외관 360° 사진·영상 촬영","에어컨 필수 점검 ⚠️","냉각수·타이어 상태 확인","비상 식수 차내 비치","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"로드사이드 어시스턴스",i:"사막 고립 대비"},{n:"GPS 내비게이션",i:"오프라인 사막 지도"},{n:"카시트",i:"아이 동반 시"},{n:"컨버터블",i:"사막 드라이브 분위기"}],
+ sp:[{c:"lm",n:"세도나",d:"붉은 암석 드라이브 (편도 2h)"},{c:"lm",n:"그랜드캐니언 사우스림",d:"편도 3.5h"},{c:"lm",n:"스코츠데일 올드타운",d:"갤러리 & 야외 다이닝"},{c:"fd",n:"Different Pointe of View",d:"산 정상 파인 다이닝"},{c:"fd",n:"Pizzeria Bianco",d:"미국 최고 피자 중 하나"}]},
+{co:"미국",flag:"🇺🇸",city:"내슈빌",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"내슈빌 교통 복잡"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"테네시 산악"}],
+ sp:[{c:"lm",n:"그레이트 스모키 마운틴",d:"국립공원 (편도 4h)"},{c:"lm",n:"애쉬빌",d:"아트 도시 & 브루어리"},{c:"lm",n:"컴벌랜드 갭",d:"역사 드라이브"},{c:"fd",n:"Prince's Hot Chicken",d:"내슈빌 핫치킨 원조"},{c:"fd",n:"The Catbird Seat",d:"파인 다이닝"}]},
+{co:"미국",flag:"🇺🇸",city:"필라델피아",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","E-ZPass 확인","주차 규정 숙지","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass",i:"PA 터크파이크 필수"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"필라 복잡한 도로"}],
+ sp:[{c:"lm",n:"게티즈버그",d:"남북전쟁 전적지 (편도 2h)"},{c:"lm",n:"케이프 메이",d:"해변 드라이브 (편도 2h)"},{c:"lm",n:"리딩 터미널 마켓",d:"필라 전통 시장"},{c:"fd",n:"Reading Terminal Market",d:"필라 전통 시장"},{c:"fd",n:"Geno's Steaks",d:"필리 치즈 스테이크"}]},
+{co:"미국",flag:"🇺🇸",city:"미니애폴리스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"미네소타 혹독한 겨울"},{n:"4WD",i:"겨울 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"GPS 내비게이션",i:"호수 지역"}],
+ sp:[{c:"lm",n:"바운더리 워터스",d:"카누 & 자연 (편도 3h)"},{c:"lm",n:"덜루스",d:"슈피리어 호 항구 도시 (편도 2.5h)"},{c:"lm",n:"아이타스카 주립공원",d:"미시시피강 발원지"},{c:"fd",n:"Surly Brewing Co",d:"미네소타 대표 브루어리"},{c:"fd",n:"Nighthawks",d:"올나잇 다이너"}]},
+{co:"미국",flag:"🇺🇸",city:"잭슨",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 4WD 확인 (옐로스톤 방면) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"산악 도로"},{n:"스노우타이어",i:"겨울 필수"},{n:"추가 운전자 등록",i:"옐로스톤 장거리"},{n:"GPS 내비게이션",i:"오프라인 필수"}],
+ sp:[{c:"lm",n:"옐로스톤 국립공원",d:"간헐천 & 야생동물 (편도 1.5h)"},{c:"lm",n:"그랜드 티튼",d:"록키 절경 (편도 30min)"},{c:"lm",n:"잭슨 홀 스키장",d:"세계적 스키 리조트"},{c:"fd",n:"Snake River Grill",d:"잭슨 파인 다이닝"},{c:"fd",n:"Persephone Bakery",d:"현지 베이커리"}]},
+{co:"미국",flag:"🇺🇸",city:"샬럿",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"캐롤라이나 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"산악"}],
+ sp:[{c:"lm",n:"블루리지 파크웨이",d:"산악 드라이브 (편도 1h)"},{c:"lm",n:"애쉬빌",d:"아트 도시 & 브루어리"},{c:"lm",n:"피네다 스테이트 파크",d:"캐롤라이나 호수"},{c:"fd",n:"Vivace",d:"샬럿 이탈리안"},{c:"fd",n:"Midwood Smokehouse",d:"캐롤라이나 BBQ"}]},
+{co:"미국",flag:"🇺🇸",city:"나이아가라 폴스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","국경 통과 서류 준비 (캐나다 측 방문 시)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"E-ZPass",i:"뉴욕주 고속도로"},{n:"추가 운전자 등록",i:"버팔로 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"국경 방면"}],
+ sp:[{c:"lm",n:"나이아가라 폭포 미국 측",d:"브라이들 베일 폭포"},{c:"lm",n:"나이아가라 폭포 캐나다 측",d:"호스슈 폭포 최고 뷰"},{c:"lm",n:"니아가라 온 더 레이크",d:"캐나다 와인 마을"},{c:"fd",n:"Rainforest Cafe Niagara",d:"테마 레스토랑"},{c:"fd",n:"Carpaccio",d:"나이아가라 이탈리안"}]},
+{co:"미국",flag:"🇺🇸",city:"슈리브포트",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"루이지애나 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"캐도 레이크",d:"스페인 이끼 낀 신비 호수"},{c:"lm",n:"바클레이빌",d:"루이지애나 주립공원"},{c:"lm",n:"슈리브포트 보세르 시티",d:"카지노 엔터테인먼트"},{c:"fd",n:"Superior's Steakhouse",d:"슈리브포트 스테이크"},{c:"fd",n:"Herby-K's",d:"슈리브포트 씨푸드"}]},
+{co:"미국",flag:"🇺🇸",city:"클리블랜드",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"오하이오 겨울"},{n:"E-ZPass",i:"오하이오 턴파이크"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"쿠야호가 밸리 국립공원",d:"오하이오 자연 (편도 30min)"},{c:"lm",n:"에리 호수",d:"그레이트 레이크 해변"},{c:"lm",n:"메도우브룩",d:"와이너리 & 포도밭"},{c:"fd",n:"Lola Bistro",d:"클리블랜드 파인 다이닝"},{c:"fd",n:"West Side Market",d:"전통 시장"}]},
+{co:"미국",flag:"🇺🇸",city:"잭슨빌",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","SunPass 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"SunPass",i:"플로리다 고속도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"플로리다 넓은 도로"}],
+ sp:[{c:"lm",n:"세인트 오거스틴",d:"미국 최고(最古) 도시 (편도 45min)"},{c:"lm",n:"아멜리아 아일랜드",d:"플로리다 북부 해변"},{c:"lm",n:"오카라 국립숲",d:"자연 드라이브"},{c:"fd",n:"bb's",d:"잭슨빌 파인 다이닝"},{c:"fd",n:"The Bearded Pig",d:"잭슨빌 BBQ"}]},
+{co:"미국",flag:"🇺🇸",city:"콜럼버스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"오하이오 겨울"},{n:"E-ZPass",i:"오하이오 고속도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"홀리 크로스 수도원",d:"오하이오 자연 드라이브"},{c:"lm",n:"호킹 힐스",d:"동굴 & 폭포 트레킹"},{c:"lm",n:"올드 맨스 케이브",d:"사암 협곡"},{c:"fd",n:"The Refectory",d:"콜럼버스 파인 다이닝"},{c:"fd",n:"Schmidt's Sausage Haus",d:"독일식 소시지"}]},
+{co:"미국",flag:"🇺🇸",city:"찰스턴",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"사우스 캐롤라이나 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"헌팅턴 비치",d:"남부 해변"},{c:"lm",n:"매그놀리아 플랜테이션",d:"남북전쟁 역사 저택"},{c:"lm",n:"폴리 비치",d:"찰스턴 근교 해변"},{c:"fd",n:"Husk",d:"찰스턴 파인 다이닝"},{c:"fd",n:"FIG",d:"팜투테이블 레스토랑"}]},
+{co:"미국",flag:"🇺🇸",city:"게인즈빌",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"플로리다 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"SunPass",i:"고속도로"}],
+ sp:[{c:"lm",n:"아이히투카 주립공원",d:"플로리다 샘물 스노클링"},{c:"lm",n:"실버 스프링스",d:"유리 바닥 보트 투어"},{c:"lm",n:"페인스 프레리",d:"야생마 & 악어 서식지"},{c:"fd",n:"Embers Wood Grill",d:"게인즈빌 파인 다이닝"},{c:"fd",n:"The Top",d:"현지 버거 & 카페"}]},
+{co:"미국",flag:"🇺🇸",city:"사바나",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"GPS 내비게이션",i:"조지아 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"투비 섬",d:"사바나 근교 해변"},{c:"lm",n:"부나벤처 묘지",d:"미드나잇 인 더 가든 배경지"},{c:"lm",n:"힐튼 헤드 아일랜드",d:"SC 리조트 섬"},{c:"fd",n:"The Olde Pink House",d:"사바나 역사적 레스토랑"},{c:"fd",n:"Mrs. Wilkes' Dining Room",d:"남부 홈 쿠킹"}]},
+{co:"미국",flag:"🇺🇸",city:"피츠버그",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"펜실베이니아 겨울"},{n:"E-ZPass",i:"PA 턴파이크"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"}],
+ sp:[{c:"lm",n:"폴링워터",d:"프랭크 로이드 라이트 건축 (편도 1.5h)"},{c:"lm",n:"로렐 하이랜드",d:"폭포 & 스키"},{c:"lm",n:"오하이오파일 주립공원",d:"폭포 하이킹"},{c:"fd",n:"Primanti Brothers",d:"피츠버그 샌드위치 원조"},{c:"fd",n:"BRGR",d:"피츠버그 버거"}]},
+{co:"미국",flag:"🇺🇸",city:"앨버커키",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","에어컨 필수 점검 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"로드사이드 어시스턴스",i:"사막 구간"},{n:"GPS 내비게이션",i:"뉴멕시코 사막 도로"},{n:"카시트",i:"아이 동반 시"},{n:"추가 운전자 등록",i:"산타페 교대"}],
+ sp:[{c:"lm",n:"산타페",d:"예술의 도시 (편도 1h)"},{c:"lm",n:"화이트 샌즈 국립공원",d:"하얀 모래 사막 (편도 3h)"},{c:"lm",n:"매그달레나",d:"뉴멕시코 오지 드라이브"},{c:"fd",n:"Duran's Pharmacy",d:"뉴멕시코 정통 뉴멕시칸"},{c:"fd",n:"El Pinto Restaurant",d:"그린 칠레 요리"}]},
+/* === 캐나다 === */
+{co:"캐나다",flag:"🇨🇦",city:"토론토",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인 (11~3월)","407 ETR 전자톨 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"407 ETR 톨패스",i:"고속도로 정체 시 유용"},{n:"스노우타이어",i:"겨울 필수"},{n:"추가 운전자 등록",i:"나이아가라 교대"},{n:"GPS 내비게이션",i:"GTA 복잡한 도로"}],
+ sp:[{c:"lm",n:"나이아가라 폭포",d:"캐나다 측 최고 뷰 (편도 1.5h)"},{c:"lm",n:"블루 마운틴",d:"스키 리조트 (편도 2h)"},{c:"lm",n:"킹스턴",d:"역사 도시 & 천도 제도"},{c:"fd",n:"Canoe",d:"토론토 파인 다이닝"},{c:"fd",n:"St. Lawrence Market",d:"전통 시장"}]},
+{co:"캐나다",flag:"🇨🇦",city:"밴쿠버",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"휘슬러 방면 필수 (겨울)"},{n:"4WD",i:"스키 리조트 방면"},{n:"추가 운전자 등록",i:"씨투스카이 교대"},{n:"GPS 내비게이션",i:"복잡한 밴쿠버 도로"}],
+ sp:[{c:"lm",n:"씨투스카이 하이웨이",d:"밴쿠버~휘슬러 절경 드라이브"},{c:"lm",n:"휘슬러",d:"세계적 스키 리조트 (편도 2h)"},{c:"lm",n:"선샤인 코스트",d:"페리 이용 해안 드라이브"},{c:"fd",n:"Hawksworth",d:"밴쿠버 파인 다이닝"},{c:"fd",n:"Granville Island Market",d:"수제 식품 & 커피"}]},
+{co:"캐나다",flag:"🇨🇦",city:"캘거리",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 4WD·스노우타이어 확인 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"로키 산악"},{n:"스노우타이어",i:"겨울 필수"},{n:"추가 운전자 등록",i:"밴프 장거리"},{n:"GPS 내비게이션",i:"오프라인 필수"}],
+ sp:[{c:"lm",n:"밴프 국립공원",d:"캐나다 로키 보석 (편도 1.5h)"},{c:"lm",n:"아이스필즈 파크웨이",d:"세계 최고 경관 도로"},{c:"lm",n:"레이크 루이스",d:"에메랄드 빙하 호수"},{c:"fd",n:"River Café",d:"팜투테이블"},{c:"fd",n:"Bison Restaurant",d:"밴프 바이슨 스테이크"}]},
+{co:"캐나다",flag:"🇨🇦",city:"에드먼턴",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"앨버타 혹독한 겨울"},{n:"4WD",i:"황야 드라이브"},{n:"추가 운전자 등록",i:"재스퍼 장거리"},{n:"GPS 내비게이션",i:"오프라인 필수"}],
+ sp:[{c:"lm",n:"재스퍼 국립공원",d:"로키 산악 (편도 4h)"},{c:"lm",n:"드럼헬러",d:"캐나다 배드랜즈 공룡 (편도 1.5h)"},{c:"lm",n:"엘크 아일랜드 국립공원",d:"들소 서식지"},{c:"fd",n:"Duchess Bake Shop",d:"에드먼턴 파티스리"},{c:"fd",n:"MEAT",d:"로컬 버거"}]},
+{co:"캐나다",flag:"🇨🇦",city:"핼리팩스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"노바스코샤 겨울"},{n:"추가 운전자 등록",i:"케이프브레튼 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"케이프브레튼 산악"}],
+ sp:[{c:"lm",n:"케이프브레튼 하이랜드",d:"단풍 드라이브 (편도 3h)"},{c:"lm",n:"페기스 코브",d:"캐나다 가장 유명한 등대"},{c:"lm",n:"루넨버그",d:"유네스코 항구 도시"},{c:"fd",n:"Five Fishermen",d:"핼리팩스 씨푸드"},{c:"fd",n:"Bicycle Thief",d:"현지 이탈리안"}]},
+{co:"캐나다",flag:"🇨🇦",city:"멍크턴",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"뉴브런즈윅 겨울"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"외진 구간"}],
+ sp:[{c:"lm",n:"호프웰 록스",d:"세계 최대 조수 & 꽃병 암석"},{c:"lm",n:"파크스빌 비치",d:"펀디만 조수"},{c:"lm",n:"보르던",d:"PEI 컨페더레이션 브릿지"},{c:"fd",n:"Tide & Boar",d:"멍크턴 파인 다이닝"},{c:"fd",n:"Winnie's Fish & Chips",d:"대서양 스타일 피시앤칩스"}]},
+{co:"캐나다",flag:"🇨🇦",city:"몬트리올",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 필수 (11~4월) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"퀘벡 법적 의무 (12~3월)"},{n:"추가 운전자 등록",i:"퀘벡시티 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"복잡한 몬트리올"}],
+ sp:[{c:"lm",n:"퀘벡시티",d:"북미 유일 성벽 도시 (편도 2.5h)"},{c:"lm",n:"마운트 트렘블랑",d:"스키 & 단풍 리조트"},{c:"lm",n:"몬트레비용 국립공원",d:"로랑시안 고원"},{c:"fd",n:"Joe Beef",d:"몬트리올 최고 비스트로"},{c:"fd",n:"Schwartz's Deli",d:"훈제 고기 샌드위치 전설"}]},
+{co:"캐나다",flag:"🇨🇦",city:"오타와",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"온타리오 겨울"},{n:"추가 운전자 등록",i:"몬트리올 교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"국경 지역"}],
+ sp:[{c:"lm",n:"가티노 파크",d:"국립공원 가을 단풍"},{c:"lm",n:"킹스턴",d:"역사 도시"},{c:"lm",n:"퀸즈턴 하이츠",d:"나이아가라 방면 드라이브"},{c:"fd",n:"Riviera",d:"오타와 컨템포러리 다이닝"},{c:"fd",n:"ByWard Market",d:"전통 시장 & 비버테일"}]},
+{co:"캐나다",flag:"🇨🇦",city:"세인트존스",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 필수 ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"뉴펀들랜드 혹독한 겨울"},{n:"4WD",i:"해안 비포장 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"로드사이드 어시스턴스",i:"외진 구간 필수"}],
+ sp:[{c:"lm",n:"시그널 힐",d:"마르코니 전파 역사 현장"},{c:"lm",n:"케이프 세인트메리스",d:"바다새 번식지"},{c:"lm",n:"위스트 케이프 고속도로",d:"해안 절벽 드라이브"},{c:"fd",n:"The Merchant Tavern",d:"뉴펀들랜드 파인 다이닝"},{c:"fd",n:"Ches's Fish & Chips",d:"전통 피시앤칩스"}]},
+{co:"캐나다",flag:"🇨🇦",city:"위니펙",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 필수 ⚠️ (최저 -40°C 가능)","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"캐나다 최한도시 중 하나"},{n:"4WD",i:"겨울 도로"},{n:"추가 운전자 등록",i:"교대"},{n:"로드사이드 어시스턴스",i:"혹한 대비"}],
+ sp:[{c:"lm",n:"라이딩 마운틴 국립공원",d:"야생동물 (편도 3h)"},{c:"lm",n:"로어 포트 게리",d:"허드슨베이 역사 요새"},{c:"lm",n:"크루커드 레이크",d:"핑크 소금 호수"},{c:"fd",n:"Thermëa",d:"북유럽식 스파 & 다이닝"},{c:"fd",n:"Vera Pizzeria",d:"현지 인기 피자"}]},
+{co:"캐나다",flag:"🇨🇦",city:"퀘벡",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 필수 (법적 의무) ⚠️","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"퀘벡 법적 의무 12~3월"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"GPS 내비게이션",i:"올드 퀘벡 좁은 길"}],
+ sp:[{c:"lm",n:"올드 퀘벡",d:"북미 유일 성벽 도시 유네스코"},{c:"lm",n:"모르팽시 폭포",d:"나이아가라보다 높은 폭포"},{c:"lm",n:"샤를부아",d:"세인트로렌스강 해안 드라이브"},{c:"fd",n:"Le Saint-Amour",d:"퀘벡시티 파인 다이닝"},{c:"fd",n:"La Buche",d:"퀘벡 전통 요리"}]},
+{co:"캐나다",flag:"🇨🇦",city:"밴프",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 4WD·스노우타이어 필수 ⚠️","GPS 정상 작동 확인","국립공원 입장권 사전 구매","비상연락처 저장"],
+ up:[{n:"4WD 업그레이드",i:"산악 도로 필수"},{n:"스노우타이어",i:"연중 필요 (고지대)"},{n:"추가 운전자 등록",i:"아이스필즈 파크웨이 교대"},{n:"GPS 내비게이션",i:"오프라인 필수"}],
+ sp:[{c:"lm",n:"아이스필즈 파크웨이",d:"세계 최고 경관 도로"},{c:"lm",n:"레이크 루이스",d:"에메랄드 빙하 호수"},{c:"lm",n:"모레인 레이크",d:"10달러 지폐 배경"},{c:"fd",n:"Bison Restaurant",d:"바이슨 스테이크"},{c:"fd",n:"The Grizzly House",d:"퐁뒤 전문 레스토랑"}]},
+{co:"캐나다",flag:"🇨🇦",city:"리자이나",
+ cl:["차량 외관 360° 사진·영상 촬영","타이어 및 연료 확인","겨울 스노우타이어 확인","GPS 정상 작동 확인","비상연락처 저장"],
+ up:[{n:"스노우타이어",i:"서스캐처원 겨울"},{n:"추가 운전자 등록",i:"교대"},{n:"카시트",i:"아이 동반 시"},{n:"로드사이드 어시스턴스",i:"평원 지대 외진 구간"}],
+ sp:[{c:"lm",n:"위스칸 국립공원",d:"배드랜즈 & 화석 (편도 2h)"},{c:"lm",n:"사스카툰",d:"리버파크 (편도 2.5h)"},{c:"lm",n:"크루커드 레이크",d:"핑크 소금 호수"},{c:"fd",n:"The Willow on Wascana",d:"리자이나 파인 다이닝"},{c:"fd",n:"Creek in Cathedral",d:"현지 카페"}]}
+];
+/* ── 렌더 헬퍼 ── */
+let activeEC={};
+function steps(arr,ac){
+  return arr.map((s,i)=>{
+    const last=i===arr.length-1;
+    const line=last?'':`<div class="sline" style="background:${ac}25;"></div>`;
+    const note=s.note?`<div class="stnote${s.nt==='w'?' w':s.nt==='d'?' d':''}">${s.note}</div>`:'';
+    return `<div class="srow">
+      <div class="sleft"><div class="snum" style="background:${ac};box-shadow:0 3px 8px ${ac}40;">${s.n}</div>${line}</div>
+      <div class="scont${last?' last':''}"><div class="stname">${s.t}</div><div class="stdesc">${s.d}</div>${note}</div>
+    </div>`;
+  }).join('');
+}
+function ecHTML(id){
+  const e=EC[id];
+  let body='';
+  if(e.steps){
+    body=`<div class="slbl">대응 순서</div>${steps(e.steps,e.ac)}`;
+  } else {
+    body=e.subs.map((sec,si)=>{
+      const div=si<e.subs.length-1?'<div class="sdiv"></div>':'';
+      return `<div class="ssub" style="background:#fff;color:${e.ac};border:1px solid ${e.ac}44;">${sec.lb}</div>${steps(sec.steps,e.ac)}${div}`;
+    }).join('');
+  }
+  return `<div class="ccase" style="border-color:${e.ac}33;">
+    <div class="cbadge" style="background:${e.tb};border:1px solid ${e.ac}44;">
+      <span class="cdot" style="background:${e.ac};"></span>
+      <span class="cbtxt" style="color:${e.ac};">${e.tag} 케이스</span>
+    </div>
+    <div class="ctitle">${e.title}</div>
+    <div class="csub2">${e.sub}</div>
+  </div>${body}
+  <div class="cta"><div><div class="cta-t">마이리얼트립 고객센터</div><div class="cta-s">해결이 어렵다면 바로 문의하세요</div></div>
+    <button class="cta-b">1:1 문의 →</button></div>`;
+}
+function switchEC(secId, eid){
+  activeEC[secId]=eid;
+  const sec=document.getElementById(secId);
+  sec.querySelectorAll('.etab').forEach(b=>{
+    const bid=b.dataset.id, e=EC[bid];
+    const lb=b.querySelector('.etab-lb'), ind=b.querySelector('.etab-in');
+    if(bid===eid){lb.style.color=e.ac;lb.style.fontWeight='700';ind.style.display='block';}
+    else{lb.style.color='#999';lb.style.fontWeight='500';ind.style.display='none';}
+  });
+  sec.querySelector('.econtent').innerHTML=ecHTML(eid);
+}
+function buildSection(d, isFirst){
+  const id='s_'+d.city.replace(/[^가-힣a-zA-Z0-9]/g,'_');
+  const cl=d.cl.map((item,i)=>`<li><label class="clbl" for="c${id}${i}">
+    <input type="checkbox" id="c${id}${i}" onchange="updPg('${id}',${d.cl.length})">
+    <span class="cbox"><svg viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8 10.5,1.5"/></svg></span>
+    <span class="ctxt">${item}</span></label></li>`).join('');
+  const spots=d.sp.map(s=>`<div class="spot">
+    <div class="scat ${s.c}">${s.c==='lm'?'🏛 랜드마크':'🍽 맛집'}</div>
+    <div class="sname">${s.n}</div><div class="sdesc">${s.d}</div></div>`).join('');
+  const utags=d.up.map(u=>`<span class="utag">${u.n}</span>`).join('');
+  const udets=d.up.map(u=>`<p><strong>${u.n}</strong> — ${u.i}</p>`).join('');
+  const etabs=[{id:'acc',ic:'🚨',lb:'사고',c:'#FF3B30'},{id:'ri',ic:'🚗',lb:'대여 이슈',c:'#FF9500'},{id:'dl',ic:'⏰',lb:'픽업 지연',c:'#007AFF'}]
+    .map(t=>`<button class="etab" data-id="${t.id}" onclick="switchEC('${id}','${t.id}')">
+      <span class="etab-ic">${t.ic}</span><span class="etab-lb">${t.lb}</span>
+      <div class="etab-in" style="background:${t.c};"></div></button>`).join('');
+  return `<div class="csec${isFirst?' on':''}" id="${id}" data-city="${d.city}" data-country="${d.co}">
+    <div class="chead"><h2>${d.flag} ${d.city}</h2><div class="sub">${d.co} · 인수 당일 가이드</div></div>
+    <div class="sec"><div class="stitle"><span>✅</span> 차량 인수 체크리스트</div>
+      <div class="card">
+        <p style="margin-bottom:12px;font-weight:600;color:var(--dark);">하나라도 빼먹으면 반납 시 억울한 비용이 생길 수 있어요!</p>
+        <div class="pgwrap">
+          <div class="pgtop"><span class="pglbl">완료 항목</span><span class="pgcnt" id="pc${id}">0 / ${d.cl.length}</span></div>
+          <div class="pgbg"><div class="pgbar" id="pb${id}" style="width:0%"></div></div>
+        </div>
+        <ul class="cl">${cl}</ul>
+        <div class="done-badge" id="db${id}">✅ 모든 항목 완료! 안전한 드라이브 되세요 🚗</div>
+        <div class="co co-w" style="margin-top:10px;"><strong>📸 가장 중요한 한 가지!</strong> 차량 인수 전 반드시 외관 360° 사진/영상을 촬영하세요. 기존 흠집을 기록해두지 않으면 반납 시 본인 책임으로 돌아올 수 있어요.</div>
+      </div>
+    </div>
+    <div class="sec"><div class="stitle"><span>🛒</span> 현장에서 권유받을 수 있는 옵션들</div>
+      <div class="card">
+        <p style="margin-bottom:10px;color:var(--g6);">인수 시 직원이 아래 옵션을 추가로 권유할 수 있어요. 필요한 것만 골라서 가입하세요.</p>
+        <div class="utags">${utags}</div>
+        <div class="udets" style="margin-top:12px;">${udets}</div>
+        <div class="co co-t" style="margin-top:10px;"><strong>💡 꿀팁:</strong> 보험·옵션은 현장 가격이 온라인보다 비싼 경우가 많아요. 가능하면 예약 시 미리 추가하는 게 유리합니다.</div>
+      </div>
+    </div>
+    <div class="sec"><div class="stitle"><span>🗺️</span> ${d.city} 드라이브 스팟 & 맛집</div>
+      <div class="card">
+        <p style="margin-bottom:12px;color:var(--g6);">렌트카로 가기 좋은 핵심 스팟을 골랐어요.</p>
+        <div class="sgrid">${spots}</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="ezone">
+      <div class="ehd"><div class="edot"></div><span class="etxt">긴급 대응 가이드</span></div>
+      <div class="etitle">여행 중 문제가 생겼나요?</div>
+      <div class="esub">아래 케이스를 선택하면 대응 방법을 안내해드려요</div>
+      <div class="etabs">${etabs}</div>
+      <div class="econtent">${ecHTML('acc')}</div>
+      <div class="bpad"></div>
+    </div>
+  </div>`;
+}
+/* ── 초기화 ── */
+const countries=[...new Set(DATA.map(d=>d.flag+' '+d.co))];
+const ctabs=document.getElementById('ctabs');
+const pills=document.getElementById('pills');
+const content=document.getElementById('content');
+let activeCo=DATA[0].co;
+let activeCity=DATA[0].city;
+function renderPills(co){
+  const cities=DATA.filter(d=>d.co===co);
+  pills.innerHTML=cities.map((d,i)=>`<button class="pill${i===0&&activeCo===co?' on':''}" onclick="showCity('${d.city}')">${d.city}</button>`).join('');
+}
+countries.forEach((label,i)=>{
+  const co=label.replace(/^.+\s/,'');
+  const btn=document.createElement('button');
+  btn.className='ctab'+(i===0?' on':'');
+  btn.textContent=label;
+  btn.onclick=()=>{
+    document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    activeCo=co;
+    renderPills(co);
+    const first=DATA.find(d=>d.co===co);
+    if(first) showCity(first.city);
+  };
+  ctabs.appendChild(btn);
+});
+// Build all sections
+content.innerHTML=DATA.map((d,i)=>buildSection(d,i===0)).join('');
+// Init first pills
+renderPills(DATA[0].co);
+// Init first EC tabs
+const firstId='s_'+DATA[0].city.replace(/[^가-힣a-zA-Z0-9]/g,'_');
+switchEC(firstId,'acc');
+function showCity(city){
+  activeCity=city;
+  document.querySelectorAll('.csec').forEach(s=>s.classList.remove('on'));
+  const id='s_'+city.replace(/[^가-힣a-zA-Z0-9]/g,'_');
+  const sec=document.getElementById(id);
+  if(sec){
+    sec.classList.add('on');
+    if(!activeEC[id]) switchEC(id,'acc');
+  }
+  document.querySelectorAll('.pill').forEach(p=>{
+    p.classList.toggle('on',p.textContent===city);
+  });
+}
+function filter(v){
+  const q=v.trim().toLowerCase();
+  const nores=document.getElementById('nores');
+  if(!q){
+    nores.style.display='none';
+    // restore current country view
+    renderPills(activeCo);
+    showCity(DATA.find(d=>d.co===activeCo)?.city||DATA[0].city);
+    return;
+  }
+  const matches=DATA.filter(d=>d.city.toLowerCase().includes(q)||d.co.toLowerCase().includes(q));
+  nores.style.display=matches.length?'none':'block';
+  pills.innerHTML=matches.map(d=>`<button class="pill" onclick="showCity('${d.city}')">${d.flag} ${d.city}</button>`).join('');
+  if(matches.length) showCity(matches[0].city);
+}
+function updPg(id,total){
+  const cl=document.getElementById('s_'+id.replace('s_',''))?.querySelector('.cl')||document.querySelectorAll(`#${id} .cl`)[0];
+  const sec=document.getElementById(id);
+  if(!sec) return;
+  const checked=sec.querySelectorAll('input[type=checkbox]:checked').length;
+  const pct=Math.round(checked/total*100);
+  document.getElementById('pc'+id).textContent=checked+' / '+total;
+  document.getElementById('pb'+id).style.width=pct+'%';
+  const db=document.getElementById('db'+id);
+  if(db) db.classList.toggle('show',checked===total);
+}
+</script>
+</body>
+</html>
